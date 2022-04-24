@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   
   
-  <title>android签名详解 | </title>
+  <title>android签名详解 | 行成于思</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Android 支持以下三种应用签名方案 v1 方案：基于 JAR 签名。 v2 方案：APK 签名方案 v2（在 Android 7.0 中引入），Android 11 强制要求开启 v2 签名。 v3 方案：APK 签名方案 v3（在 Android 9.0 中引入）。  APK 签名验证过程  v1 签名机制v1 签名过程  android apk 本质上是一个 zip 文件，解压缩 apk">
+  <meta name="description" content="Android 支持以下三种应用签名方案  v1 方案：基于 JAR 签名。 v2 方案：APK 签名方案 v2（在 Android 7.0 中引入），Android 11 强制要求开启 v2 签名。 v3 方案：APK 签名方案 v3（在 Android 9.0 中引入）。  APK 签名验证过程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="android签名详解">
 <meta property="og:url" content="https://barryxc.github.io/barry.github.io/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/index.html">
-<meta property="og:site_name">
-<meta property="og:description" content="Android 支持以下三种应用签名方案 v1 方案：基于 JAR 签名。 v2 方案：APK 签名方案 v2（在 Android 7.0 中引入），Android 11 强制要求开启 v2 签名。 v3 方案：APK 签名方案 v3（在 Android 9.0 中引入）。  APK 签名验证过程  v1 签名机制v1 签名过程  android apk 本质上是一个 zip 文件，解压缩 apk">
+<meta property="og:site_name" content="行成于思">
+<meta property="og:description" content="Android 支持以下三种应用签名方案  v1 方案：基于 JAR 签名。 v2 方案：APK 签名方案 v2（在 Android 7.0 中引入），Android 11 强制要求开启 v2 签名。 v3 方案：APK 签名方案 v3（在 Android 9.0 中引入）。  APK 签名验证过程">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637240247957-902343f6-793b-467d-88da-39cb6b79b65b.png">
 <meta property="og:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637241119998-710e5f21-ceb5-427d-9737-732fc517d842.png">
@@ -27,13 +27,13 @@
 <meta property="og:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637311968516-9c9164d9-03ed-48bd-a28c-f88e4a421df0.png">
 <meta property="og:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637312149010-e182b936-62dd-468d-bc15-24cc1afd8fdf.png">
 <meta property="article:published_time" content="2022-04-24T04:36:49.000Z">
-<meta property="article:modified_time" content="2022-04-24T04:44:16.860Z">
+<meta property="article:modified_time" content="2022-04-24T08:54:40.876Z">
 <meta property="article:author" content="barry">
 <meta property="article:tag" content="android">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637240247957-902343f6-793b-467d-88da-39cb6b79b65b.png">
   
-    <link rel="alternate" href="/barry.github.io/atom.xml" title="null" type="application/atom+xml">
+    <link rel="alternate" href="/barry.github.io/" title="行成于思" >
   
   
     <link rel="shortcut icon" href="/barry.github.io/favicon.png">
@@ -61,12 +61,8 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/barry.github.io/" id="logo"></a>
+        <a href="/barry.github.io/" id="logo">行成于思</a>
       </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/barry.github.io/" id="subtitle">行成于思毁于随</a>
-        </h2>
       
     </div>
     <div id="header-inner" class="inner">
@@ -80,12 +76,12 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/barry.github.io/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/barry.github.io/" title="RSS 订阅"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://barryxc.github.io/barry.github.io"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://barryxc.github.io/barry.github.io"></form>
       </div>
     </div>
   </div>
@@ -114,12 +110,16 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="Android-支持以下三种应用签名方案"><a href="#Android-支持以下三种应用签名方案" class="headerlink" title="Android 支持以下三种应用签名方案"></a>Android 支持以下三种应用签名方案</h1><ul>
+        <p><strong>Android 支持以下三种应用签名方案</strong></p>
+<ul>
 <li>v1 方案：基于 JAR 签名。</li>
 <li>v2 方案：<a target="_blank" rel="noopener" href="https://source.android.com/security/apksigning/v2?hl=zh-cn">APK 签名方案 v2</a>（在 Android 7.0 中引入），Android 11 强制要求开启 v2 签名。</li>
 <li>v3 方案：<a target="_blank" rel="noopener" href="https://source.android.com/security/apksigning/v3?hl=zh-cn">APK 签名方案 v3</a>（在 Android 9.0 中引入）。</li>
 </ul>
 <p><strong>APK 签名验证过程</strong></p>
+<span id="more"></span>
+
+
 <p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637240247957-902343f6-793b-467d-88da-39cb6b79b65b.png" alt="img"></p>
 <h2 id="v1-签名机制"><a href="#v1-签名机制" class="headerlink" title="v1 签名机制"></a>v1 签名机制</h2><p><strong>v1 签名过程</strong></p>
 <p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637241119998-710e5f21-ceb5-427d-9737-732fc517d842.png" alt="img"></p>
@@ -314,7 +314,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://barryxc.github.io/barry.github.io/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/" data-id="cl2cxvybv0001ig6x8ixkgb47" data-title="android签名详解" class="article-share-link">Teilen</a>
+      <a data-url="https://barryxc.github.io/barry.github.io/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/" data-id="cl2d27jsd0000bn6x5pp0dg1w" data-title="android签名详解" class="article-share-link">分享</a>
       
       
       
@@ -327,9 +327,9 @@
 <nav id="article-nav">
   
   
-    <a href="/barry.github.io/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
-      <div class="article-nav-title">我的铃铛</div>
+    <a href="/barry.github.io/2022/04/23/%E6%88%91%E7%9A%84%E8%99%8E%E5%A6%9E/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">虎妞</div>
     </a>
   
 </nav>
@@ -347,9 +347,9 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/barry.github.io/tags/android/" rel="tag">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/barry.github.io/tags/%E5%AE%A0%E7%89%A9/" rel="tag">宠物</a></li><li class="tag-list-item"><a class="tag-list-link" href="/barry.github.io/tags/%E6%97%A5%E8%AE%B0/" rel="tag">日记</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/barry.github.io/tags/android/" rel="tag">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/barry.github.io/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/barry.github.io/tags/%E5%AE%A0%E7%89%A9/" rel="tag">宠物</a></li></ul>
     </div>
   </div>
 
@@ -357,16 +357,16 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/barry.github.io/tags/android/" style="font-size: 10px;">android</a> <a href="/barry.github.io/tags/%E5%AE%A0%E7%89%A9/" style="font-size: 10px;">宠物</a> <a href="/barry.github.io/tags/%E6%97%A5%E8%AE%B0/" style="font-size: 10px;">日记</a>
+      <a href="/barry.github.io/tags/android/" style="font-size: 10px;">android</a> <a href="/barry.github.io/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/barry.github.io/tags/%E5%AE%A0%E7%89%A9/" style="font-size: 20px;">宠物</a>
     </div>
   </div>
 
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">归档</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/barry.github.io/archives/2022/04/">四月 2022</a></li></ul>
     </div>
@@ -376,7 +376,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
         
@@ -385,15 +385,15 @@
           </li>
         
           <li>
-            <a href="/barry.github.io/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/">我的铃铛</a>
+            <a href="/barry.github.io/2022/04/23/%E6%88%91%E7%9A%84%E8%99%8E%E5%A6%9E/">虎妞</a>
           </li>
         
           <li>
-            <a href="/barry.github.io/2022/04/23/my-first-diary/">日记</a>
+            <a href="/barry.github.io/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/">铃铛</a>
           </li>
         
           <li>
-            <a href="/barry.github.io/2022/04/23/hello-world/">Hello World</a>
+            <a href="/barry.github.io/2022/04/23/hello-world/">hexo doc</a>
           </li>
         
       </ul>

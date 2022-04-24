@@ -1,32 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Hello World</title>
-    <url>/barry.github.io/2022/04/23/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>android签名详解</title>
     <url>/barry.github.io/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/</url>
-    <content><![CDATA[<h1 id="Android-支持以下三种应用签名方案"><a href="#Android-支持以下三种应用签名方案" class="headerlink" title="Android 支持以下三种应用签名方案"></a>Android 支持以下三种应用签名方案</h1><ul>
+    <content><![CDATA[<p><strong>Android 支持以下三种应用签名方案</strong></p>
+<ul>
 <li>v1 方案：基于 JAR 签名。</li>
 <li>v2 方案：<a href="https://source.android.com/security/apksigning/v2?hl=zh-cn">APK 签名方案 v2</a>（在 Android 7.0 中引入），Android 11 强制要求开启 v2 签名。</li>
 <li>v3 方案：<a href="https://source.android.com/security/apksigning/v3?hl=zh-cn">APK 签名方案 v3</a>（在 Android 9.0 中引入）。</li>
 </ul>
 <p><strong>APK 签名验证过程</strong></p>
+<span id="more"></span>
+
+
 <p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637240247957-902343f6-793b-467d-88da-39cb6b79b65b.png" alt="img"></p>
 <h2 id="v1-签名机制"><a href="#v1-签名机制" class="headerlink" title="v1 签名机制"></a>v1 签名机制</h2><p><strong>v1 签名过程</strong></p>
 <p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637241119998-710e5f21-ceb5-427d-9737-732fc517d842.png" alt="img"></p>
@@ -223,20 +209,50 @@
       </tags>
   </entry>
   <entry>
-    <title>日记</title>
-    <url>/barry.github.io/2022/04/23/my-first-diary/</url>
-    <content><![CDATA[<h2 id="2022-04-23"><a href="#2022-04-23" class="headerlink" title="2022 04 23"></a>2022 04 23</h2><p>第一篇日记，用于测试内容</p>
+    <title>hexo doc</title>
+    <url>/barry.github.io/2022/04/23/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><span id="more"></span>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
       <tags>
-        <tag>日记</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
-    <title>我的铃铛</title>
+    <title>虎妞</title>
+    <url>/barry.github.io/2022/04/23/%E6%88%91%E7%9A%84%E8%99%8E%E5%A6%9E/</url>
+    <content><![CDATA[<p>小铃铛的妈妈，经常带小铃铛干坏事。当然也教会了小铃铛很多生存技能</p>
+<span id="more"></span>
+
+<p><strong>她在看我的手</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/barryxc/pictures@main/uPic/IMG_3141.jpg" alt="IMG_3141"></p>
+]]></content>
+      <tags>
+        <tag>宠物</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>铃铛</title>
     <url>/barry.github.io/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/</url>
-    <content><![CDATA[<p><img src="https://cdn.jsdelivr.net/gh/barryxc/pictures@main/uPic/IMG_3190.jpeg" alt="IMG_3190"></p>
-<p>每天小猫都很怂，出门的时候就不敢下来。</p>
+    <content><![CDATA[<p>小铃铛每天出门都很怂，出门的时候就不敢下来。</p>
 <p>回到家的时候，就是它的主场，每天白天不起，晚上床头蹦迪。</p>
+<span id="more"></span>
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/barryxc/pictures@main/uPic/IMG_3190.jpeg" alt="IMG_3190"></p>
 ]]></content>
       <tags>
         <tag>宠物</tag>
