@@ -1,261 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>android签名详解</title>
-    <url>/barry.github.io/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/</url>
-    <content><![CDATA[<p><strong>Android 支持以下三种应用签名方案</strong></p>
-<ul>
-<li>v1 方案：基于 JAR 签名。</li>
-<li>v2 方案：<a href="https://source.android.com/security/apksigning/v2?hl=zh-cn">APK 签名方案 v2</a>（在 Android 7.0 中引入），Android 11 强制要求开启 v2 签名。</li>
-<li>v3 方案：<a href="https://source.android.com/security/apksigning/v3?hl=zh-cn">APK 签名方案 v3</a>（在 Android 9.0 中引入）。</li>
-</ul>
-<p><strong>APK 签名验证过程</strong></p>
-<span id="more"></span>
-
-
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637240247957-902343f6-793b-467d-88da-39cb6b79b65b.png" alt="img"></p>
-<h2 id="v1-签名机制"><a href="#v1-签名机制" class="headerlink" title="v1 签名机制"></a>v1 签名机制</h2><p><strong>v1 签名过程</strong></p>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637241119998-710e5f21-ceb5-427d-9737-732fc517d842.png" alt="img"></p>
-<p>android apk 本质上是一个 zip 文件，解压缩 apk 之后，在 META-INF 文件下下面有个 3 个文件。这 3 个文件在签名时创建，在验证时使用。</p>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637241932281-ff71b895-3437-4847-b94e-e1343a28a22b.png" alt="img"></p>
-<ol>
-<li>MANIFEST.MF 文件</li>
-</ol>
-<p>文件内容：前面几行记录的是基础信息，后面的 key-value 对，记录 apk 中每一个文件对应的摘要信息，防止某个文件被篡改。</p>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637241496036-ae9f77f3-de63-498b-84de-c73bd76dbbe5.png" alt="img"></p>
-<ol>
-<li>CERT.SF 文件</li>
-</ol>
-<p>文件的内容：<strong>SHA-256-Digest-Manifest</strong> 记录的是 <strong>MANIFEST.MF</strong> 的信息摘要，以及 <strong>MANIFEST.MF</strong> 中，每个数据块的摘要。防止 <strong>MANIFEST.MF</strong> 被篡改。</p>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637241675582-ba01a2ff-a958-4c1b-a1a8-8ffb83b7e12d.png" alt="img"></p>
-<ol>
-<li>CERT.RSA 文件</li>
-</ol>
-<p>文件内容：存储了签名和公钥证书以及 SF 文件的摘要信息。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">openssl pkcs7 -inform DER -in CERT.RSA -noout -print_certs -text</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637289563483-c9d98b18-0e99-4a10-94b8-67a7a89aca25.png" alt="img"></p>
-<p><strong>v1 签名存在的问题</strong></p>
-<ol>
-<li><strong>校验速度慢：</strong>需要对 apk 中的每个文件都计算摘要并验证，如果文件很多，校验时间会很长。</li>
-<li><strong>完整性不够：</strong>V1 签名只会校验 Zip 文件中的部分文件，例如 <strong>META-INFO</strong> 文件夹就不会参与校验。</li>
-</ol>
-<h2 id="V2-签名机制"><a href="#V2-签名机制" class="headerlink" title="V2 签名机制"></a>V2 签名机制</h2><p>了解 zip 压缩包格式和 APK 签名之后的数据格式</p>
-<p>为了保护 APK 内容，APK 包含以下 4 个部分：</p>
-<ul>
-<li>ZIP 条目的内容（从偏移量 0 处开始一直到“APK 签名分块”的起始位置）</li>
-<li>APK 签名分块</li>
-<li>ZIP 中央目录</li>
-<li>ZIP 中央目录结尾</li>
-</ul>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637291796732-139b2e40-e3ee-4fcc-a390-1f522c09d08c.png" alt="img"></p>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637291614626-4631c226-7cf7-462c-83f2-231beb6cd268.png" alt="img"></p>
-<p><strong>zip 压缩包的解析过程</strong></p>
-<ol>
-<li>先从文件尾部查找 0x06054b50，确定 End Of Central Directory Record 区域的起始位置；</li>
-<li>解析 EoCDR 区域，并获得中央目录的起始位置；</li>
-<li>根据起始位置，逐个解析文件。</li>
-</ol>
-<p><strong>V2 签名数据块的格式</strong></p>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637292066946-cb513fd0-a6d9-4877-97a4-a11f6cc69c5a.png" alt="img"></p>
-<p>该分块包含多个“ID-值”对，所采用的封装方式有助于更轻松地在 APK 中找到该分块。APK 的 v2 签名会存储为一个“ID-值”对，其中 ID 为 0x7109871a 保存 apk 的签名信息。</p>
-<p>签名块的末尾是一个魔数，也就是‘APK Sig Block 42’的 ASCII 码。</p>
-<p><strong>签名信息的具体结构</strong></p>
-<p>“APK 签名方案 v2 分块”存储在“APK 签名分块”内，ID 为 0x7109871a。</p>
-<p>“APK 签名方案 v2 分块”的格式如下（所有数字值均采用小端字节序，所有带长度前缀的字段均使用 uint32 值表示长度）：</p>
-<ul>
-<li><p>带长度前缀的 signer（带长度前缀）序列：</p>
-</li>
-<li><ul>
-<li>带长度前缀的 signed data：</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li>带长度前缀的 digests（带长度前缀）序列：</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li><ul>
-<li>signature algorithm ID (uint32)</li>
-<li>（带长度前缀）digest - 请参阅<a href="https://source.android.google.cn/security/apksigning/v2?hl=zh-cn#integrity-protected-contents">受完整性保护的内容</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li>带长度前缀的 X.509 certificates 序列：</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li><ul>
-<li>带长度前缀的 X.509 certificate（ASN.1 DER 格式）</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li>带长度前缀的 additional attributes（带长度前缀）序列：</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li><ul>
-<li>ID (uint32)</li>
-<li>value（可变长度：附加属性的长度 - 4 个字节）</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li>带长度前缀的 signatures（带长度前缀）序列：</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li>signature algorithm ID (uint32)</li>
-<li>signed data 上带长度前缀的 signature</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li>带长度前缀的 public key（SubjectPublicKeyInfo，ASN.1 DER 形式）</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637292251949-a290643a-011e-4cc8-a7d6-69b58760a5de.png" alt="img"></p>
-<p><strong>V2 摘要计算方式</strong></p>
-<p>第 1、3 和 4 部分的摘要采用以下计算方式，类似于两级 <a href="https://en.wikipedia.org/wiki/Merkle_tree">Merkle 树</a>。每个部分都会被拆分成多个大小为 1MB（220 个字节）的连续块。每个部分的最后一个块可能会短一些。每个块的摘要均通过字节 0xa5 的串联、块的长度（采用小端字节序的 uint32 值，以字节数计）和块的内容进行计算。顶级摘要通过字节 0x5a 的串联、块数（采用小端字节序的 uint32 值）以及块的摘要的连接（按照块在 APK 中显示的顺序）进行计算。摘要以分块方式计算，以便通过并行处理来加快计算速度。</p>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637303311648-f1c266b7-fba4-4349-b4d6-7c1c35111f21.png" alt="img"></p>
-<p><strong>防回滚保护</strong></p>
-<p>攻击者可能会试图在支持对带 v2 签名的 APK 进行验证的 Android 平台上将带 v2 签名的 APK 作为带 v1 签名的 APK 进行验证。为了防范此类攻击，带 v2 签名的 APK 如果还带 v1 签名，其 META-INF&#x2F;<em>.SF 文件的主要部分中必须包含 X-Android-APK-Signed 属性。该属性的值是一组以英文逗号分隔的 APK 签名方案 ID（v2 方案的 ID 为 2）。在验证 v1 签名时，对于此组中验证程序首选的 APK 签名方案（例如，v2 方案），如果 APK 没有相应的签名，APK 验证程序必须要拒绝这些 APK。此项保护依赖于内容 META-INF&#x2F;</em>.SF 文件受 v1 签名保护这一事实。请参阅 JAR 已签名的 APK 的验证部分。</p>
-<p>攻击者可能会试图从“APK 签名方案 v2 分块”中删除安全系数较高的签名。为了防范此类攻击，对 APK 进行签名时使用的签名算法 ID 的列表会存储在通过各个签名保护的 signed data 分块中。</p>
-<p><strong>签名验证</strong></p>
-<p>对“APK 签名方案 v2 分块”中的每个 signer 执行以下操作：</p>
-<ol>
-<li>从 signatures 中选择安全系数最高的受支持 signature algorithm ID。安全系数排序取决于各个实现&#x2F;平台版本。</li>
-<li>使用 public key 并对照 signed data 验证 signatures 中对应的 signature。（现在可以安全地解析 signed data 了。）</li>
-<li>验证 digests 和 signatures 中的签名算法 ID 列表（有序列表）是否相同。（这是为了防止删除&#x2F;添加签名。）</li>
-<li>使用签名算法所用的同一种摘要算法<a href="https://source.android.google.cn/security/apksigning/v2?hl=zh-cn#integrity-protected-contents">计算 APK 内容的摘要</a>。</li>
-<li>验证计算出的摘要是否与 digests 中对应的 digest 一致。</li>
-<li>验证 certificates 中第一个 certificate 的 SubjectPublicKeyInfo 是否与 public key 相同。</li>
-</ol>
-<h2 id="v3-签名机制"><a href="#v3-签名机制" class="headerlink" title="v3 签名机制"></a>v3 签名机制</h2><p>为了保持与 v1 APK 格式的向后兼容性，v2 和 v3 APK 签名存储在“APK 签名分块”内紧邻 ZIP Central Directory 前面。</p>
-<p>v3 APK 签名分块的格式与 v2 相同。APK 的 v3 签名会存储为一个“ID-值”对，其中 ID 为 0xf05368c0。</p>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637311968516-9c9164d9-03ed-48bd-a28c-f88e4a421df0.png" alt="img"></p>
-<p>v3 版本签名验证证书步骤：</p>
-<ul>
-<li>利用 PublicKey 解密 Signature，得到 SignerData 的 hash 明文</li>
-<li>计算 SignerData 的 hash 值</li>
-<li>两个值进行比较，如果相同则认为 APK 没有被修改过，解析出 SignerData 中的证书。否则安装失败</li>
-<li>逐个解析出 level 块证书并验证，并保存为这个应用的历史证书</li>
-<li>如果是第一次安装，直接将证书与历史证书一并保存在应用信息中</li>
-<li>如果是更新安装，验证之前的证书与历史证书，是否与本次解析的证书或者历史证书中存在相同的证书，其中任意一个证书符合即可安装</li>
-</ul>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637312149010-e182b936-62dd-468d-bc15-24cc1afd8fdf.png" alt="img"></p>
-<p>每一个 level 块的结构</p>
-<p>proof-of-rotation 存储在“APK 签名方案 v3 分块”内，ID 为 0x3ba06f8c。其格式为：</p>
-<p>带长度前缀的 levels（带长度前缀）序列：</p>
-<ul>
-<li><p>带长度前缀的 signed data（由上一个证书签名 - 如果存在上一个证书）</p>
-</li>
-<li><ul>
-<li>带长度前缀的 X.509 certificate（ASN.1 DER 形式）</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li>signature algorithm ID (uint32) - 上一级证书使用的算法</li>
-<li>flags (uint32) - 这些标记用于指示此证书是否应该在 self-trusted-old-certs 结构中，以及针对哪些操作。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li>signature algorithm ID (uint32) - 必须与下一级签名数据部分中的相应 ID 一致。</li>
-<li>上述 signed data 上带长度前缀的 signature</li>
-</ul>
-</li>
-</ul>
-<p>新特性场景举例</p>
-<p>其实就是当开发者需要更换证书时，即可直接用新证书新的私钥进行签名。不过为了让老应用相信新的证书，则需要用老证书来保证。举个例子，有两个 level 块：level 1 与 level 2：</p>
-<ul>
-<li>level 1 放置老证书的信息</li>
-<li>level 2 中放置新证书的信息以及这段数据的签名</li>
-<li>level 2 中的签名是由老私钥进行签名的，则需要用老证书的公钥来验证</li>
-<li>校验原来的证书与 level 1 相同，则相信本次更新的 level 2 的证书，即签名 APK 的证书</li>
-</ul>
-<p>完成安装并记录新证书信息</p>
-]]></content>
-      <tags>
-        <tag>android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>铃铛</title>
-    <url>/barry.github.io/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/</url>
-    <content><![CDATA[<p>小铃铛每天出门都很怂，出门的时候就不敢下来。</p>
-<p>回到家的时候，就是它的主场，每天白天不起，晚上床头蹦迪。</p>
-<span id="more"></span>
-
-
-<p><img src="https://cdn.jsdelivr.net/gh/barryxc/pictures@main/uPic/IMG_3190.jpeg" alt="IMG_3190"></p>
-]]></content>
-      <tags>
-        <tag>宠物</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>虎妞</title>
-    <url>/barry.github.io/2022/04/23/%E6%88%91%E7%9A%84%E8%99%8E%E5%A6%9E/</url>
-    <content><![CDATA[<p>小铃铛的妈妈，经常带小铃铛干坏事。当然也教会了小铃铛很多生存技能</p>
-<span id="more"></span>
-
-<p><strong>她在看我的手</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/barryxc/pictures@main/uPic/IMG_3141.jpg" alt="IMG_3141"></p>
-]]></content>
-      <tags>
-        <tag>宠物</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hexo</title>
-    <url>/barry.github.io/2022/04/23/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><span id="more"></span>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
+<search> 
+  
+  
+    
+    <entry>
+      <title>android签名详解</title>
+      <link href="/barry.github.io/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/"/>
+      <url>/barry.github.io/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/</url>
+      
+        <content type="html"><![CDATA[<p><strong>Android 支持以下三种应用签名方案</strong></p><ul><li>v1 方案：基于 JAR 签名。</li><li>v2 方案：<a href="https://source.android.com/security/apksigning/v2?hl=zh-cn">APK 签名方案 v2</a>（在 Android 7.0 中引入），Android 11 强制要求开启 v2 签名。</li><li>v3 方案：<a href="https://source.android.com/security/apksigning/v3?hl=zh-cn">APK 签名方案 v3</a>（在 Android 9.0 中引入）。</li></ul><p><strong>APK 签名验证过程</strong></p><span id="more"></span><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637240247957-902343f6-793b-467d-88da-39cb6b79b65b.png" alt="img"></p><h2 id="v1-签名机制"><a href="#v1-签名机制" class="headerlink" title="v1 签名机制"></a>v1 签名机制</h2><p><strong>v1 签名过程</strong></p><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637241119998-710e5f21-ceb5-427d-9737-732fc517d842.png" alt="img"></p><p>android apk 本质上是一个 zip 文件，解压缩 apk 之后，在 META-INF 文件下下面有个 3 个文件。这 3 个文件在签名时创建，在验证时使用。</p><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637241932281-ff71b895-3437-4847-b94e-e1343a28a22b.png" alt="img"></p><ol><li>MANIFEST.MF 文件</li></ol><p>文件内容：前面几行记录的是基础信息，后面的 key-value 对，记录 apk 中每一个文件对应的摘要信息，防止某个文件被篡改。</p><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637241496036-ae9f77f3-de63-498b-84de-c73bd76dbbe5.png" alt="img"></p><ol><li>CERT.SF 文件</li></ol><p>文件的内容：<strong>SHA-256-Digest-Manifest</strong> 记录的是 <strong>MANIFEST.MF</strong> 的信息摘要，以及 <strong>MANIFEST.MF</strong> 中，每个数据块的摘要。防止 <strong>MANIFEST.MF</strong> 被篡改。</p><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637241675582-ba01a2ff-a958-4c1b-a1a8-8ffb83b7e12d.png" alt="img"></p><ol><li>CERT.RSA 文件</li></ol><p>文件内容：存储了签名和公钥证书以及 SF 文件的摘要信息。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl pkcs7 -inform DER -in CERT.RSA -noout -print_certs -text</span><br></pre></td></tr></table></figure><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637289563483-c9d98b18-0e99-4a10-94b8-67a7a89aca25.png" alt="img"></p><p><strong>v1 签名存在的问题</strong></p><ol><li><strong>校验速度慢：</strong>需要对 apk 中的每个文件都计算摘要并验证，如果文件很多，校验时间会很长。</li><li><strong>完整性不够：</strong>V1 签名只会校验 Zip 文件中的部分文件，例如 <strong>META-INFO</strong> 文件夹就不会参与校验。</li></ol><h2 id="V2-签名机制"><a href="#V2-签名机制" class="headerlink" title="V2 签名机制"></a>V2 签名机制</h2><p>了解 zip 压缩包格式和 APK 签名之后的数据格式</p><p>为了保护 APK 内容，APK 包含以下 4 个部分：</p><ul><li>ZIP 条目的内容（从偏移量 0 处开始一直到“APK 签名分块”的起始位置）</li><li>APK 签名分块</li><li>ZIP 中央目录</li><li>ZIP 中央目录结尾</li></ul><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637291796732-139b2e40-e3ee-4fcc-a390-1f522c09d08c.png" alt="img"></p><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637291614626-4631c226-7cf7-462c-83f2-231beb6cd268.png" alt="img"></p><p><strong>zip 压缩包的解析过程</strong></p><ol><li>先从文件尾部查找 0x06054b50，确定 End Of Central Directory Record 区域的起始位置；</li><li>解析 EoCDR 区域，并获得中央目录的起始位置；</li><li>根据起始位置，逐个解析文件。</li></ol><p><strong>V2 签名数据块的格式</strong></p><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637292066946-cb513fd0-a6d9-4877-97a4-a11f6cc69c5a.png" alt="img"></p><p>该分块包含多个“ID-值”对，所采用的封装方式有助于更轻松地在 APK 中找到该分块。APK 的 v2 签名会存储为一个“ID-值”对，其中 ID 为 0x7109871a 保存 apk 的签名信息。</p><p>签名块的末尾是一个魔数，也就是‘APK Sig Block 42’的 ASCII 码。</p><p><strong>签名信息的具体结构</strong></p><p>“APK 签名方案 v2 分块”存储在“APK 签名分块”内，ID 为 0x7109871a。</p><p>“APK 签名方案 v2 分块”的格式如下（所有数字值均采用小端字节序，所有带长度前缀的字段均使用 uint32 值表示长度）：</p><ul><li><p>带长度前缀的 signer（带长度前缀）序列：</p></li><li><ul><li>带长度前缀的 signed data：</li></ul></li><li><ul><li><ul><li>带长度前缀的 digests（带长度前缀）序列：</li></ul></li></ul></li><li><ul><li><ul><li><ul><li>signature algorithm ID (uint32)</li><li>（带长度前缀）digest - 请参阅<a href="https://source.android.google.cn/security/apksigning/v2?hl=zh-cn#integrity-protected-contents">受完整性保护的内容</a></li></ul></li></ul></li></ul></li><li><ul><li><ul><li>带长度前缀的 X.509 certificates 序列：</li></ul></li></ul></li><li><ul><li><ul><li><ul><li>带长度前缀的 X.509 certificate（ASN.1 DER 格式）</li></ul></li></ul></li></ul></li><li><ul><li><ul><li>带长度前缀的 additional attributes（带长度前缀）序列：</li></ul></li></ul></li><li><ul><li><ul><li><ul><li>ID (uint32)</li><li>value（可变长度：附加属性的长度 - 4 个字节）</li></ul></li></ul></li></ul></li><li><ul><li>带长度前缀的 signatures（带长度前缀）序列：</li></ul></li><li><ul><li><ul><li>signature algorithm ID (uint32)</li><li>signed data 上带长度前缀的 signature</li></ul></li></ul></li><li><ul><li>带长度前缀的 public key（SubjectPublicKeyInfo，ASN.1 DER 形式）</li></ul></li></ul><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637292251949-a290643a-011e-4cc8-a7d6-69b58760a5de.png" alt="img"></p><p><strong>V2 摘要计算方式</strong></p><p>第 1、3 和 4 部分的摘要采用以下计算方式，类似于两级 <a href="https://en.wikipedia.org/wiki/Merkle_tree">Merkle 树</a>。每个部分都会被拆分成多个大小为 1MB（220 个字节）的连续块。每个部分的最后一个块可能会短一些。每个块的摘要均通过字节 0xa5 的串联、块的长度（采用小端字节序的 uint32 值，以字节数计）和块的内容进行计算。顶级摘要通过字节 0x5a 的串联、块数（采用小端字节序的 uint32 值）以及块的摘要的连接（按照块在 APK 中显示的顺序）进行计算。摘要以分块方式计算，以便通过并行处理来加快计算速度。</p><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637303311648-f1c266b7-fba4-4349-b4d6-7c1c35111f21.png" alt="img"></p><p><strong>防回滚保护</strong></p><p>攻击者可能会试图在支持对带 v2 签名的 APK 进行验证的 Android 平台上将带 v2 签名的 APK 作为带 v1 签名的 APK 进行验证。为了防范此类攻击，带 v2 签名的 APK 如果还带 v1 签名，其 META-INF&#x2F;<em>.SF 文件的主要部分中必须包含 X-Android-APK-Signed 属性。该属性的值是一组以英文逗号分隔的 APK 签名方案 ID（v2 方案的 ID 为 2）。在验证 v1 签名时，对于此组中验证程序首选的 APK 签名方案（例如，v2 方案），如果 APK 没有相应的签名，APK 验证程序必须要拒绝这些 APK。此项保护依赖于内容 META-INF&#x2F;</em>.SF 文件受 v1 签名保护这一事实。请参阅 JAR 已签名的 APK 的验证部分。</p><p>攻击者可能会试图从“APK 签名方案 v2 分块”中删除安全系数较高的签名。为了防范此类攻击，对 APK 进行签名时使用的签名算法 ID 的列表会存储在通过各个签名保护的 signed data 分块中。</p><p><strong>签名验证</strong></p><p>对“APK 签名方案 v2 分块”中的每个 signer 执行以下操作：</p><ol><li>从 signatures 中选择安全系数最高的受支持 signature algorithm ID。安全系数排序取决于各个实现&#x2F;平台版本。</li><li>使用 public key 并对照 signed data 验证 signatures 中对应的 signature。（现在可以安全地解析 signed data 了。）</li><li>验证 digests 和 signatures 中的签名算法 ID 列表（有序列表）是否相同。（这是为了防止删除&#x2F;添加签名。）</li><li>使用签名算法所用的同一种摘要算法<a href="https://source.android.google.cn/security/apksigning/v2?hl=zh-cn#integrity-protected-contents">计算 APK 内容的摘要</a>。</li><li>验证计算出的摘要是否与 digests 中对应的 digest 一致。</li><li>验证 certificates 中第一个 certificate 的 SubjectPublicKeyInfo 是否与 public key 相同。</li></ol><h2 id="v3-签名机制"><a href="#v3-签名机制" class="headerlink" title="v3 签名机制"></a>v3 签名机制</h2><p>为了保持与 v1 APK 格式的向后兼容性，v2 和 v3 APK 签名存储在“APK 签名分块”内紧邻 ZIP Central Directory 前面。</p><p>v3 APK 签名分块的格式与 v2 相同。APK 的 v3 签名会存储为一个“ID-值”对，其中 ID 为 0xf05368c0。</p><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637311968516-9c9164d9-03ed-48bd-a28c-f88e4a421df0.png" alt="img"></p><p>v3 版本签名验证证书步骤：</p><ul><li>利用 PublicKey 解密 Signature，得到 SignerData 的 hash 明文</li><li>计算 SignerData 的 hash 值</li><li>两个值进行比较，如果相同则认为 APK 没有被修改过，解析出 SignerData 中的证书。否则安装失败</li><li>逐个解析出 level 块证书并验证，并保存为这个应用的历史证书</li><li>如果是第一次安装，直接将证书与历史证书一并保存在应用信息中</li><li>如果是更新安装，验证之前的证书与历史证书，是否与本次解析的证书或者历史证书中存在相同的证书，其中任意一个证书符合即可安装</li></ul><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637312149010-e182b936-62dd-468d-bc15-24cc1afd8fdf.png" alt="img"></p><p>每一个 level 块的结构</p><p>proof-of-rotation 存储在“APK 签名方案 v3 分块”内，ID 为 0x3ba06f8c。其格式为：</p><p>带长度前缀的 levels（带长度前缀）序列：</p><ul><li><p>带长度前缀的 signed data（由上一个证书签名 - 如果存在上一个证书）</p></li><li><ul><li>带长度前缀的 X.509 certificate（ASN.1 DER 形式）</li></ul></li><li><ul><li><ul><li>signature algorithm ID (uint32) - 上一级证书使用的算法</li><li>flags (uint32) - 这些标记用于指示此证书是否应该在 self-trusted-old-certs 结构中，以及针对哪些操作。</li></ul></li></ul></li><li><ul><li>signature algorithm ID (uint32) - 必须与下一级签名数据部分中的相应 ID 一致。</li><li>上述 signed data 上带长度前缀的 signature</li></ul></li></ul><p>新特性场景举例</p><p>其实就是当开发者需要更换证书时，即可直接用新证书新的私钥进行签名。不过为了让老应用相信新的证书，则需要用老证书来保证。举个例子，有两个 level 块：level 1 与 level 2：</p><ul><li>level 1 放置老证书的信息</li><li>level 2 中放置新证书的信息以及这段数据的签名</li><li>level 2 中的签名是由老私钥进行签名的，则需要用老证书的公钥来验证</li><li>校验原来的证书与 level 1 相同，则相信本次更新的 level 2 的证书，即签名 APK 的证书</li></ul><p>完成安装并记录新证书信息</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> android </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>虎妞</title>
+      <link href="/barry.github.io/2022/04/23/%E6%88%91%E7%9A%84%E8%99%8E%E5%A6%9E/"/>
+      <url>/barry.github.io/2022/04/23/%E6%88%91%E7%9A%84%E8%99%8E%E5%A6%9E/</url>
+      
+        <content type="html"><![CDATA[<p>小铃铛的妈妈，经常带小铃铛干坏事。当然也教会了小铃铛很多生存技能</p><span id="more"></span><p><strong>她在看我的手</strong></p><p><img src="https://cdn.jsdelivr.net/gh/barryxc/pictures@main/uPic/IMG_3141.jpg" alt="IMG_3141"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 宠物 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>铃铛</title>
+      <link href="/barry.github.io/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/"/>
+      <url>/barry.github.io/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/</url>
+      
+        <content type="html"><![CDATA[<p>小铃铛每天出门都很怂，出门的时候就不敢下来。</p><p>回到家的时候，就是它的主场，每天白天不起，晚上床头蹦迪。</p><span id="more"></span><p><img src="https://cdn.jsdelivr.net/gh/barryxc/pictures@main/uPic/IMG_3190.jpeg" alt="IMG_3190"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 宠物 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>hexo</title>
+      <link href="/barry.github.io/2022/04/23/hello-world/"/>
+      <url>/barry.github.io/2022/04/23/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><span id="more"></span><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
 </search>

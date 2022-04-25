@@ -145,7 +145,7 @@
   });
 
   $('#btnReward').on('click', function () {
-    $('#imgRewardWx').toggle();
+    $('#imgRewardWx').show();
   });
 
 })(jQuery);
