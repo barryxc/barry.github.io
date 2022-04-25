@@ -143,7 +143,6 @@
   }, function () {
     $("#imgRewardWx").hide();
   });
-
   $('#btnReward').on('click', function () {
     $('#imgRewardWx').show();
   });
