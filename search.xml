@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>android签名详解</title>
-    <url>/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/</url>
+    <url>/barry.github.io/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/</url>
     <content><![CDATA[<p><strong>Android 支持以下三种应用签名方案</strong></p>
 <ul>
 <li>v1 方案：基于 JAR 签名。</li>
@@ -210,7 +210,7 @@
   </entry>
   <entry>
     <title>hexo</title>
-    <url>/2022/04/23/hello-world/</url>
+    <url>/barry.github.io/2022/04/23/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><span id="more"></span>
 
@@ -233,7 +233,7 @@
   </entry>
   <entry>
     <title>虎妞</title>
-    <url>/2022/04/23/%E6%88%91%E7%9A%84%E8%99%8E%E5%A6%9E/</url>
+    <url>/barry.github.io/2022/04/23/%E6%88%91%E7%9A%84%E8%99%8E%E5%A6%9E/</url>
     <content><![CDATA[<p>小铃铛的妈妈，经常带小铃铛干坏事。当然也教会了小铃铛很多生存技能</p>
 <span id="more"></span>
 
@@ -246,7 +246,7 @@
   </entry>
   <entry>
     <title>铃铛</title>
-    <url>/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/</url>
+    <url>/barry.github.io/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/</url>
     <content><![CDATA[<p>小铃铛每天出门都很怂，出门的时候就不敢下来。</p>
 <p>回到家的时候，就是它的主场，每天白天不起，晚上床头蹦迪。</p>
 <span id="more"></span>
