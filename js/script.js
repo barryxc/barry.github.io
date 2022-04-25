@@ -137,7 +137,9 @@
   });
 
   $("#btnReward").hover(function () {
-    $("#imgRewardWx").show();
+    $("#imgRewardWx").css({
+      'display': "flex"
+    });
   }, function () {
     $("#imgRewardWx").hide();
   });
