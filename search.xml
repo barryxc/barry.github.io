@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>hexo 博客搭建教程</title>
+    <url>/2022/04/25/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<p>本文详细介绍了从开始搭建博客到自定义高级功能所经历的整个过程。</p>
+<h2 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h2><ul>
+<li>node</li>
+<li>git</li>
+</ul>
+<h2 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h2><ul>
+<li>安装 hexo</li>
+<li>通过 github 免费建站</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="高级功能"><a href="#高级功能" class="headerlink" title="高级功能"></a>高级功能</h2><ul>
+<li>excerpt 截断， read more 仅显示部分内容</li>
+<li>typora + upic 建立图床</li>
+<li>Vscode 代码编辑器</li>
+<li>自定义 landscape 主题</li>
+<li>valine + leancloud 实现无后端评论系统</li>
+<li>购买阿里云域名实现域名转发</li>
+<li>实现打赏功能</li>
+</ul>
+<h2 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h2><ul>
+<li>设置 default 分支为 gh-pages</li>
+<li>设置 ssh 访问github  ,避免 username + password 无法登录 git</li>
+<li>国内实现 url 显示和隐式转发需要备案</li>
+<li>域名转发导致 css 样式失效</li>
+<li>CNAME 如何避免被自动删除</li>
+</ul>
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hexo</title>
     <url>/2022/04/23/hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -21,6 +59,33 @@
 ]]></content>
       <tags>
         <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>虎妞</title>
+    <url>/2022/04/23/%E6%88%91%E7%9A%84%E8%99%8E%E5%A6%9E/</url>
+    <content><![CDATA[<p>小铃铛的妈妈，经常带小铃铛干坏事。当然也教会了小铃铛很多生存技能</p>
+<span id="more"></span>
+
+<p><strong>她在看我的手</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/barryxc/pictures@main/uPic/IMG_3141.jpg" alt="IMG_3141"></p>
+]]></content>
+      <tags>
+        <tag>宠物</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>铃铛</title>
+    <url>/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/</url>
+    <content><![CDATA[<p>小铃铛每天出门都很怂，出门的时候就不敢下来。</p>
+<p>回到家的时候，就是它的主场，每天白天不起，晚上床头蹦迪。</p>
+<span id="more"></span>
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/barryxc/pictures@main/uPic/IMG_3190.jpeg" alt="IMG_3190"></p>
+]]></content>
+      <tags>
+        <tag>宠物</tag>
       </tags>
   </entry>
   <entry>
@@ -229,75 +294,6 @@
 ]]></content>
       <tags>
         <tag>android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hexo 博客搭建教程</title>
-    <url>/2022/04/25/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<p>本文详细介绍了从开始搭建博客到自定义高级功能所经历的整个过程。</p>
-<h2 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h2><ul>
-<li><p>node</p>
-</li>
-<li><p>git</p>
-</li>
-</ul>
-<h2 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h2><ul>
-<li><p>安装 hexo</p>
-</li>
-<li><p>通过 github 免费建站</p>
-</li>
-</ul>
-<span id="more"></span>
-
-<h2 id="高级功能"><a href="#高级功能" class="headerlink" title="高级功能"></a>高级功能</h2><ul>
-<li>excerpt 截断， read more 仅显示部分内容</li>
-<li>typora + upic 建立图床</li>
-<li>Vscode 代码编辑器</li>
-<li>自定义 landscape 主题</li>
-<li>valine + leancloud 实现无后端评论系统</li>
-<li>购买阿里云域名实现域名转发</li>
-<li>实现打赏功能</li>
-</ul>
-<h2 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h2><ul>
-<li>设置 default 分支为 gh-pages</li>
-<li>设置 ssh 访问github  ,避免 username + password 无法登录 git</li>
-<li>国内实现 url 显示和隐式转发需要备案</li>
-<li>域名转发导致 css 样式失效</li>
-<li>CNAME 如何避免被自动删除</li>
-</ul>
-]]></content>
-      <categories>
-        <category>教程</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>铃铛</title>
-    <url>/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/</url>
-    <content><![CDATA[<p>小铃铛每天出门都很怂，出门的时候就不敢下来。</p>
-<p>回到家的时候，就是它的主场，每天白天不起，晚上床头蹦迪。</p>
-<span id="more"></span>
-
-
-<p><img src="https://cdn.jsdelivr.net/gh/barryxc/pictures@main/uPic/IMG_3190.jpeg" alt="IMG_3190"></p>
-]]></content>
-      <tags>
-        <tag>宠物</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>虎妞</title>
-    <url>/2022/04/23/%E6%88%91%E7%9A%84%E8%99%8E%E5%A6%9E/</url>
-    <content><![CDATA[<p>小铃铛的妈妈，经常带小铃铛干坏事。当然也教会了小铃铛很多生存技能</p>
-<span id="more"></span>
-
-<p><strong>她在看我的手</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/barryxc/pictures@main/uPic/IMG_3141.jpg" alt="IMG_3141"></p>
-]]></content>
-      <tags>
-        <tag>宠物</tag>
       </tags>
   </entry>
 </search>
