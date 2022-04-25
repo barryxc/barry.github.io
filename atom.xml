@@ -6,7 +6,7 @@
   <link href="https://xuechuang.cc/atom.xml" rel="self"/>
   
   <link href="https://xuechuang.cc/"/>
-  <updated>2022-04-24T08:54:40.876Z</updated>
+  <updated>2022-04-25T14:29:36.528Z</updated>
   <id>https://xuechuang.cc/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hexo 博客搭建教程</title>
+    <link href="https://xuechuang.cc/2022/04/25/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/"/>
+    <id>https://xuechuang.cc/2022/04/25/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/</id>
+    <published>2022-04-25T13:53:20.000Z</published>
+    <updated>2022-04-25T14:29:36.528Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;[TOC]&lt;/p&gt;
+&lt;h2 id=&quot;运行环境&quot;&gt;&lt;a href=&quot;#运行环境&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="教程" scheme="https://xuechuang.cc/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+    <category term="hexo" scheme="https://xuechuang.cc/tags/hexo/"/>
+    
+  </entry>
   
   <entry>
     <title>android签名详解</title>
