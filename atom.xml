@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>barry</title>
-  <icon>https://barryxc.github.io/icon.png</icon>
+  <icon>https://xuechuang.cc/icon.png</icon>
   <subtitle>行成于思毁于随</subtitle>
-  <link href="https://barryxc.github.io/atom.xml" rel="self"/>
+  <link href="https://xuechuang.cc/atom.xml" rel="self"/>
   
-  <link href="https://barryxc.github.io/"/>
+  <link href="https://xuechuang.cc/"/>
   <updated>2022-04-24T08:54:40.876Z</updated>
-  <id>https://barryxc.github.io/</id>
+  <id>https://xuechuang.cc/</id>
   
   <author>
     <name>barry</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>android签名详解</title>
-    <link href="https://barryxc.github.io/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/"/>
-    <id>https://barryxc.github.io/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/</id>
+    <link href="https://xuechuang.cc/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/"/>
+    <id>https://xuechuang.cc/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/</id>
     <published>2022-04-24T04:36:49.000Z</published>
     <updated>2022-04-24T08:54:40.876Z</updated>
     
@@ -35,14 +35,14 @@
     
     
     
-    <category term="android" scheme="https://barryxc.github.io/tags/android/"/>
+    <category term="android" scheme="https://xuechuang.cc/tags/android/"/>
     
   </entry>
   
   <entry>
     <title>虎妞</title>
-    <link href="https://barryxc.github.io/2022/04/23/%E6%88%91%E7%9A%84%E8%99%8E%E5%A6%9E/"/>
-    <id>https://barryxc.github.io/2022/04/23/%E6%88%91%E7%9A%84%E8%99%8E%E5%A6%9E/</id>
+    <link href="https://xuechuang.cc/2022/04/23/%E6%88%91%E7%9A%84%E8%99%8E%E5%A6%9E/"/>
+    <id>https://xuechuang.cc/2022/04/23/%E6%88%91%E7%9A%84%E8%99%8E%E5%A6%9E/</id>
     <published>2022-04-23T14:32:31.000Z</published>
     <updated>2022-04-24T08:53:26.044Z</updated>
     
@@ -52,14 +52,14 @@
     
     
     
-    <category term="宠物" scheme="https://barryxc.github.io/tags/%E5%AE%A0%E7%89%A9/"/>
+    <category term="宠物" scheme="https://xuechuang.cc/tags/%E5%AE%A0%E7%89%A9/"/>
     
   </entry>
   
   <entry>
     <title>铃铛</title>
-    <link href="https://barryxc.github.io/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/"/>
-    <id>https://barryxc.github.io/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/</id>
+    <link href="https://xuechuang.cc/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/"/>
+    <id>https://xuechuang.cc/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/</id>
     <published>2022-04-23T14:32:31.000Z</published>
     <updated>2022-04-24T08:55:58.751Z</updated>
     
@@ -70,14 +70,14 @@
     
     
     
-    <category term="宠物" scheme="https://barryxc.github.io/tags/%E5%AE%A0%E7%89%A9/"/>
+    <category term="宠物" scheme="https://xuechuang.cc/tags/%E5%AE%A0%E7%89%A9/"/>
     
   </entry>
   
   <entry>
     <title>hexo</title>
-    <link href="https://barryxc.github.io/2022/04/23/hello-world/"/>
-    <id>https://barryxc.github.io/2022/04/23/hello-world/</id>
+    <link href="https://xuechuang.cc/2022/04/23/hello-world/"/>
+    <id>https://xuechuang.cc/2022/04/23/hello-world/</id>
     <published>2022-04-23T06:11:04.197Z</published>
     <updated>2022-04-24T11:56:47.623Z</updated>
     
@@ -88,7 +88,7 @@
     
     
     
-    <category term="hexo" scheme="https://barryxc.github.io/tags/hexo/"/>
+    <category term="hexo" scheme="https://xuechuang.cc/tags/hexo/"/>
     
   </entry>
   
