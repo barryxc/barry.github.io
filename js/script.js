@@ -142,4 +142,8 @@
     $("#imgRewardWx").hide();
   });
 
+  $('#btnReward').on('click', function () {
+    $('#imgRewardWx').toggle();
+  });
+
 })(jQuery);
