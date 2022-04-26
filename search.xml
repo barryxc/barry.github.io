@@ -115,6 +115,32 @@
       </tags>
   </entry>
   <entry>
+    <title>android https 抓包</title>
+    <url>/2022/04/26/https%E6%8A%93%E5%8C%85/</url>
+    <content><![CDATA[<h3 id="网络安全配置"><a href="#网络安全配置" class="headerlink" title="网络安全配置"></a>网络安全配置</h3><p>android 系统高于 7.0 ,配置网络安全策略</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">android:networkSecurityConfig=&quot;@xml/network_security_config&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;network-security-config&gt;</span><br><span class="line">    &lt;base-config cleartextTrafficPermitted=&quot;true&quot;&gt;</span><br><span class="line">        &lt;trust-anchors&gt;</span><br><span class="line">            &lt;certificates src=&quot;system&quot; overridePins=&quot;true&quot; /&gt;</span><br><span class="line">            &lt;certificates src=&quot;user&quot; overridePins=&quot;true&quot; /&gt;</span><br><span class="line">        &lt;/trust-anchors&gt;</span><br><span class="line">    &lt;/base-config&gt;</span><br><span class="line">&lt;/network-security-config&gt;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h3 id="手机下载安装证书"><a href="#手机下载安装证书" class="headerlink" title="手机下载安装证书"></a>手机下载安装证书</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Charles:</span><br><span class="line"></span><br><span class="line">安卓手机类型众多，所以有些不太一样，</span><br><span class="line"></span><br><span class="line">方法一：</span><br><span class="line"></span><br><span class="line">1、打开Charles，选择help→SSL Proxying→Install Charles Root Certificate on a Mobile Device or Remote Browser</span><br><span class="line"></span><br><span class="line">2、手机连接电脑代理，打开浏览器，输入网址：chls.pro/ssl</span><br><span class="line"></span><br><span class="line">3、手机弹出提示：安装配置描述文件。您要允许吗？忽略|允许，选择允许，即可</span><br><span class="line"></span><br><span class="line">方法二：</span><br><span class="line"></span><br><span class="line">1、打开Charles，选择help→SSL Proxying→Save Charles Certificate，将证书导入到手机中</span><br><span class="line"></span><br><span class="line">2、导入后直接点击安装证书即可</span><br><span class="line"></span><br><span class="line">方法三：</span><br><span class="line"></span><br><span class="line">1、打开Charles，选择help→SSL Proxying→Save Charles Certificate，将证书导入到手机中</span><br><span class="line"></span><br><span class="line">2、导入后直接点击安装证书，提示无法打开</span><br><span class="line"></span><br><span class="line">3、进入手机设置 → 更多设置 → 系统安全 → 从存储设备安装 → 选择charles.pem，点击高级，安装证书即可</span><br><span class="line"></span><br><span class="line">常见手机：小米手机，vivo,华为手机，需要设置手机锁屏密码</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">有的手机 .pem 格式的证书没法直接点击安装，需要修改后缀为.crt 格式，才能点击安装</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="开启代理"><a href="#开启代理" class="headerlink" title="开启代理"></a>开启代理</h3><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1618564185975-da945211-f8fe-4f36-82e3-c4fe9e63239d.png" alt="img"></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="踩坑：chls-证书和电脑是绑定的关系"><a href="#踩坑：chls-证书和电脑是绑定的关系" class="headerlink" title="踩坑：chls 证书和电脑是绑定的关系"></a>踩坑：chls 证书和电脑是绑定的关系</h2><p>连接每台新电脑都需要安装新的 chls 证书</p>
+]]></content>
+      <categories>
+        <category>android</category>
+      </categories>
+      <tags>
+        <tag>android Charles https</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>mac terminal 快捷键</title>
     <url>/2022/04/25/mac-terminal-%E5%BF%AB%E6%8D%B7%E9%94%AE/</url>
     <content><![CDATA[<p>常用快捷键</p>
@@ -142,32 +168,6 @@
       </tags>
   </entry>
   <entry>
-    <title>android https 抓包</title>
-    <url>/2022/04/26/https%E6%8A%93%E5%8C%85/</url>
-    <content><![CDATA[<h3 id="网络安全配置"><a href="#网络安全配置" class="headerlink" title="网络安全配置"></a>网络安全配置</h3><p>android 系统高于 7.0 ,配置网络安全策略</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">android:networkSecurityConfig=&quot;@xml/network_security_config&quot;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;network-security-config&gt;</span><br><span class="line">    &lt;base-config cleartextTrafficPermitted=&quot;true&quot;&gt;</span><br><span class="line">        &lt;trust-anchors&gt;</span><br><span class="line">            &lt;certificates src=&quot;system&quot; overridePins=&quot;true&quot; /&gt;</span><br><span class="line">            &lt;certificates src=&quot;user&quot; overridePins=&quot;true&quot; /&gt;</span><br><span class="line">        &lt;/trust-anchors&gt;</span><br><span class="line">    &lt;/base-config&gt;</span><br><span class="line">&lt;/network-security-config&gt;</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<h3 id="手机下载安装证书"><a href="#手机下载安装证书" class="headerlink" title="手机下载安装证书"></a>手机下载安装证书</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Charles:</span><br><span class="line"></span><br><span class="line">安卓手机类型众多，所以有些不太一样，</span><br><span class="line"></span><br><span class="line">方法一：</span><br><span class="line"></span><br><span class="line">1、打开Charles，选择help→SSL Proxying→Install Charles Root Certificate on a Mobile Device or Remote Browser</span><br><span class="line"></span><br><span class="line">2、手机连接电脑代理，打开浏览器，输入网址：chls.pro/ssl</span><br><span class="line"></span><br><span class="line">3、手机弹出提示：安装配置描述文件。您要允许吗？忽略|允许，选择允许，即可</span><br><span class="line"></span><br><span class="line">方法二：</span><br><span class="line"></span><br><span class="line">1、打开Charles，选择help→SSL Proxying→Save Charles Certificate，将证书导入到手机中</span><br><span class="line"></span><br><span class="line">2、导入后直接点击安装证书即可</span><br><span class="line"></span><br><span class="line">方法三：</span><br><span class="line"></span><br><span class="line">1、打开Charles，选择help→SSL Proxying→Save Charles Certificate，将证书导入到手机中</span><br><span class="line"></span><br><span class="line">2、导入后直接点击安装证书，提示无法打开</span><br><span class="line"></span><br><span class="line">3、进入手机设置 → 更多设置 → 系统安全 → 从存储设备安装 → 选择charles.pem，点击高级，安装证书即可</span><br><span class="line"></span><br><span class="line">常见手机：小米手机，vivo,华为手机，需要设置手机锁屏密码</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">有的手机 .pem 格式的证书没法直接点击安装，需要修改后缀为.crt 格式，才能点击安装</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="开启代理"><a href="#开启代理" class="headerlink" title="开启代理"></a>开启代理</h3><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1618564185975-da945211-f8fe-4f36-82e3-c4fe9e63239d.png" alt="img"></p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="踩坑：chls-证书和电脑是绑定的关系"><a href="#踩坑：chls-证书和电脑是绑定的关系" class="headerlink" title="踩坑：chls 证书和电脑是绑定的关系"></a>踩坑：chls 证书和电脑是绑定的关系</h2><p>连接每台新电脑都需要安装新的 chls 证书</p>
-]]></content>
-      <categories>
-        <category>android</category>
-      </categories>
-      <tags>
-        <tag>android Charles https</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>铃铛</title>
     <url>/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/</url>
     <content><![CDATA[<p>小铃铛每天出门都很怂，出门的时候就不敢下来。</p>
@@ -179,123 +179,6 @@
 ]]></content>
       <tags>
         <tag>宠物</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>特殊字符实体</title>
-    <url>/2022/04/26/%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E5%AE%9E%E4%BD%93/</url>
-    <content><![CDATA[<p>常见的特殊字符实体</p>
-<span id="more"></span>
-
-<table>
-<thead>
-<tr>
-<th>显示结果</th>
-<th>描述</th>
-<th>实体名称</th>
-<th>实体编号</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td>空格</td>
-<td>&amp;nbsp;</td>
-<td>&amp;#160;</td>
-</tr>
-<tr>
-<td>&lt;</td>
-<td>小于号</td>
-<td>&lt;</td>
-<td>&amp;#60;</td>
-</tr>
-<tr>
-<td>&gt;</td>
-<td>大于号</td>
-<td>&gt;</td>
-<td>&amp;#62;</td>
-</tr>
-<tr>
-<td>&amp;</td>
-<td>和号</td>
-<td>&amp;</td>
-<td>&amp;#38;</td>
-</tr>
-<tr>
-<td>“</td>
-<td>引号</td>
-<td>&quot;</td>
-<td>&amp;#34;</td>
-</tr>
-<tr>
-<td>‘</td>
-<td>撇号</td>
-<td>&amp;apos; (IE不支持)</td>
-<td>&#39;</td>
-</tr>
-<tr>
-<td>￠</td>
-<td>分</td>
-<td>&amp;cent;</td>
-<td>&amp;#162;</td>
-</tr>
-<tr>
-<td>£</td>
-<td>镑</td>
-<td>&amp;pound;</td>
-<td>&amp;#163;</td>
-</tr>
-<tr>
-<td>¥</td>
-<td>人民币&#x2F;日元</td>
-<td>&amp;yen;</td>
-<td>&amp;#165;</td>
-</tr>
-<tr>
-<td>€</td>
-<td>欧元</td>
-<td>&amp;euro;</td>
-<td>&amp;#8364;</td>
-</tr>
-<tr>
-<td>§</td>
-<td>小节</td>
-<td>&amp;sect;</td>
-<td>&amp;#167;</td>
-</tr>
-<tr>
-<td>©</td>
-<td>版权</td>
-<td>&amp;copy;</td>
-<td>&amp;#169;</td>
-</tr>
-<tr>
-<td>®</td>
-<td>注册商标</td>
-<td>&amp;reg;</td>
-<td>&amp;#174;</td>
-</tr>
-<tr>
-<td>™</td>
-<td>商标</td>
-<td>&amp;trade;</td>
-<td>&amp;#8482;</td>
-</tr>
-<tr>
-<td>×</td>
-<td>乘号</td>
-<td>&amp;times;</td>
-<td>&amp;#215;</td>
-</tr>
-<tr>
-<td>÷</td>
-<td>除号</td>
-<td>&amp;divide;</td>
-<td>&amp;#247;</td>
-</tr>
-</tbody></table>
-]]></content>
-      <tags>
-        <tag>字符</tag>
       </tags>
   </entry>
   <entry>
@@ -504,6 +387,123 @@
 ]]></content>
       <tags>
         <tag>android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>特殊字符实体</title>
+    <url>/2022/04/26/%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E5%AE%9E%E4%BD%93/</url>
+    <content><![CDATA[<p>常见的特殊字符实体</p>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th>显示结果</th>
+<th>描述</th>
+<th>实体名称</th>
+<th>实体编号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>空格</td>
+<td>&amp;nbsp;</td>
+<td>&amp;#160;</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于号</td>
+<td>&lt;</td>
+<td>&amp;#60;</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于号</td>
+<td>&gt;</td>
+<td>&amp;#62;</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>和号</td>
+<td>&amp;</td>
+<td>&amp;#38;</td>
+</tr>
+<tr>
+<td>“</td>
+<td>引号</td>
+<td>&quot;</td>
+<td>&amp;#34;</td>
+</tr>
+<tr>
+<td>‘</td>
+<td>撇号</td>
+<td>&amp;apos; (IE不支持)</td>
+<td>&#39;</td>
+</tr>
+<tr>
+<td>￠</td>
+<td>分</td>
+<td>&amp;cent;</td>
+<td>&amp;#162;</td>
+</tr>
+<tr>
+<td>£</td>
+<td>镑</td>
+<td>&amp;pound;</td>
+<td>&amp;#163;</td>
+</tr>
+<tr>
+<td>¥</td>
+<td>人民币&#x2F;日元</td>
+<td>&amp;yen;</td>
+<td>&amp;#165;</td>
+</tr>
+<tr>
+<td>€</td>
+<td>欧元</td>
+<td>&amp;euro;</td>
+<td>&amp;#8364;</td>
+</tr>
+<tr>
+<td>§</td>
+<td>小节</td>
+<td>&amp;sect;</td>
+<td>&amp;#167;</td>
+</tr>
+<tr>
+<td>©</td>
+<td>版权</td>
+<td>&amp;copy;</td>
+<td>&amp;#169;</td>
+</tr>
+<tr>
+<td>®</td>
+<td>注册商标</td>
+<td>&amp;reg;</td>
+<td>&amp;#174;</td>
+</tr>
+<tr>
+<td>™</td>
+<td>商标</td>
+<td>&amp;trade;</td>
+<td>&amp;#8482;</td>
+</tr>
+<tr>
+<td>×</td>
+<td>乘号</td>
+<td>&amp;times;</td>
+<td>&amp;#215;</td>
+</tr>
+<tr>
+<td>÷</td>
+<td>除号</td>
+<td>&amp;divide;</td>
+<td>&amp;#247;</td>
+</tr>
+</tbody></table>
+]]></content>
+      <tags>
+        <tag>字符</tag>
       </tags>
   </entry>
 </search>
