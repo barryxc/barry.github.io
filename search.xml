@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>git 笔记</title>
+    <url>/2022/04/26/git-%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h4 id="Git"><a href="#Git" class="headerlink" title="Git"></a><a href="https://git-scm.com/">Git</a></h4><p>什么是 Git ？</p>
+<p>官方文档描述：开源，分布式，版本控制系统</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="检查本地-git-环境"><a href="#检查本地-git-环境" class="headerlink" title="检查本地 git 环境"></a>检查本地 git 环境</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="主要命令"><a href="#主要命令" class="headerlink" title="主要命令"></a>主要命令</h3><h4 id="Branch"><a href="#Branch" class="headerlink" title="Branch"></a>Branch</h4><span id="more"></span>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hexo 博客搭建教程</title>
     <url>/2022/04/25/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/</url>
     <content><![CDATA[<p>本文详细介绍了从开始搭建博客到自定义高级功能所经历的整个过程。</p>
@@ -67,28 +89,6 @@
       </categories>
       <tags>
         <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>git 笔记</title>
-    <url>/2022/04/26/git-%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h4 id="Git"><a href="#Git" class="headerlink" title="Git"></a><a href="https://git-scm.com/">Git</a></h4><p>什么是 Git ？</p>
-<p>官方文档描述：开源，分布式，版本控制系统</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="检查本地-git-环境"><a href="#检查本地-git-环境" class="headerlink" title="检查本地 git 环境"></a>检查本地 git 环境</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="主要命令"><a href="#主要命令" class="headerlink" title="主要命令"></a>主要命令</h3><h4 id="Branch"><a href="#Branch" class="headerlink" title="Branch"></a>Branch</h4><span id="more"></span>
-]]></content>
-      <categories>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>git</tag>
       </tags>
   </entry>
   <entry>
