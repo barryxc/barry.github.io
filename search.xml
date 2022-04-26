@@ -92,6 +92,20 @@
       </tags>
   </entry>
   <entry>
+    <title>mac terminal 快捷键</title>
+    <url>/2022/04/25/mac-terminal-%E5%BF%AB%E6%8D%B7%E9%94%AE/</url>
+    <content><![CDATA[<p>常用快捷键</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ctrl+a 光标移动到行首 ahead</span><br><span class="line">ctrl+e 光标移动到行首 end</span><br><span class="line">command + k 清屏（完全清除） kill</span><br><span class="line">ctrl + c 终止当前执行 cancel</span><br><span class="line">tab 自动补全</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2022/png/3756563/1650432820991-e5116c1d-b7d2-42ac-a4d8-30214c20c2e2.png" alt="img"></p>
+]]></content>
+      <tags>
+        <tag>mac termianl</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hexo</title>
     <url>/2022/04/23/hexo/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -138,20 +152,6 @@
       </categories>
       <tags>
         <tag>android Charles https</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>mac terminal 快捷键</title>
-    <url>/2022/04/25/mac-terminal-%E5%BF%AB%E6%8D%B7%E9%94%AE/</url>
-    <content><![CDATA[<p>常用快捷键</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ctrl+a 光标移动到行首 ahead</span><br><span class="line">ctrl+e 光标移动到行首 end</span><br><span class="line">command + k 清屏（完全清除） kill</span><br><span class="line">ctrl + c 终止当前执行 cancel</span><br><span class="line">tab 自动补全</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2022/png/3756563/1650432820991-e5116c1d-b7d2-42ac-a4d8-30214c20c2e2.png" alt="img"></p>
-]]></content>
-      <tags>
-        <tag>mac termianl</tag>
       </tags>
   </entry>
   <entry>
