@@ -214,7 +214,7 @@
     <content><![CDATA[<h4 id="Git"><a href="#Git" class="headerlink" title="Git"></a><a href="https://git-scm.com/">Git</a></h4><p>官方文档描述：开源，分布式，版本控制系统</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.</span><br></pre></td></tr></table></figure>
 
-<h4 id="检查本地-git-环境"><a href="#检查本地-git-环境" class="headerlink" title="检查本地 git 环境"></a>检查本地 git 环境</h4><p><img src="/Users/barry/Library/Application%20Support/typora-user-images/image-20220426111200468.png" alt="image-20220426111200468"></p>
+<h4 id="检查本地-git-环境"><a href="#检查本地-git-环境" class="headerlink" title="检查本地 git 环境"></a>检查本地 git 环境</h4><p><img src="https://raw.githubusercontent.com/barryxc/pictures/main/imgimage-20220426111200468.png" alt="image-20220426111200468"></p>
 <h4 id="分支命令-Branch"><a href="#分支命令-Branch" class="headerlink" title="分支命令 Branch"></a>分支命令 Branch</h4><span id="more"></span>
 ]]></content>
       <categories>
