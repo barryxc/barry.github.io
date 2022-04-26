@@ -6,7 +6,7 @@
   <link href="https://xuechuang.cc/atom.xml" rel="self"/>
   
   <link href="https://xuechuang.cc/"/>
-  <updated>2022-04-26T04:43:22.495Z</updated>
+  <updated>2022-04-26T04:58:08.902Z</updated>
   <id>https://xuechuang.cc/</id>
   
   <author>
@@ -21,28 +21,10 @@
     <link href="https://xuechuang.cc/2022/04/26/%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E5%AE%9E%E4%BD%93/"/>
     <id>https://xuechuang.cc/2022/04/26/%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E5%AE%9E%E4%BD%93/</id>
     <published>2022-04-26T04:40:18.000Z</published>
-    <updated>2022-04-26T04:43:22.495Z</updated>
+    <updated>2022-04-26T04:58:08.902Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;常见的特殊字符实体&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;显示结果&lt;/th&gt;
-&lt;th&gt;描述&lt;/th&gt;
-&lt;th&gt;实体名称&lt;/th&gt;
-&lt;th&gt;实体编号&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;&lt;tr&gt;
-&lt;td&gt;&lt;/td&gt;
-&lt;td&gt;空格&lt;/td&gt;</summary>
-        
-      
+    <summary type="html">&lt;p&gt;常见的特殊字符实体&lt;/p&gt;</summary>
     
     
     
@@ -125,7 +107,7 @@
     <link href="https://xuechuang.cc/2022/04/25/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/"/>
     <id>https://xuechuang.cc/2022/04/25/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/</id>
     <published>2022-04-25T13:53:20.000Z</published>
-    <updated>2022-04-25T14:46:59.539Z</updated>
+    <updated>2022-04-26T05:11:31.577Z</updated>
     
     
     <summary type="html">&lt;p&gt;本文详细介绍了从开始搭建博客到自定义高级功能所经历的整个过程。&lt;/p&gt;
@@ -135,7 +117,12 @@
 &lt;/ul&gt;
 &lt;h2 id=&quot;搭建步骤&quot;&gt;&lt;a href=&quot;#搭建步骤&quot; class=&quot;headerlink&quot; title=&quot;搭建步骤&quot;&gt;&lt;/a&gt;搭建步骤&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;安装 hexo&lt;/li&gt;
-&lt;li&gt;通过 github 免费建站&lt;/li&gt;
+&lt;li&gt;通过 github page 免费建站&lt;ul&gt;
+&lt;li&gt;创建 repository &lt;/li&gt;
+&lt;li&gt;Settings 配置 page 站点&lt;/li&gt;
+&lt;li&gt;个人 settings 配置 ssh&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;/ul&gt;</summary>
     
     
