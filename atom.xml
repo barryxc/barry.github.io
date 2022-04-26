@@ -6,7 +6,7 @@
   <link href="https://xuechuang.cc/atom.xml" rel="self"/>
   
   <link href="https://xuechuang.cc/"/>
-  <updated>2022-04-26T03:25:20.566Z</updated>
+  <updated>2022-04-26T03:33:50.311Z</updated>
   <id>https://xuechuang.cc/</id>
   
   <author>
@@ -17,18 +17,50 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>android https 抓包</title>
+    <link href="https://xuechuang.cc/2022/04/26/android-https-%E6%8A%93%E5%8C%85/"/>
+    <id>https://xuechuang.cc/2022/04/26/android-https-%E6%8A%93%E5%8C%85/</id>
+    <published>2022-04-26T03:30:54.000Z</published>
+    <updated>2022-04-26T03:33:50.311Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;网络安全配置&quot;&gt;&lt;a href=&quot;#网络安全配置&quot; class=&quot;headerlink&quot; title=&quot;网络安全配置&quot;&gt;&lt;/a&gt;网络安全配置&lt;/h3&gt;&lt;p&gt;android 系统高于 7.0 ,配置网络安全策略&lt;/p&gt;
+&lt;figure</summary>
+        
+      
+    
+    
+    
+    <category term="android" scheme="https://xuechuang.cc/categories/android/"/>
+    
+    
+    <category term="android Charles https" scheme="https://xuechuang.cc/tags/android-Charles-https/"/>
+    
+  </entry>
+  
+  <entry>
     <title>git 笔记</title>
     <link href="https://xuechuang.cc/2022/04/26/git-%E7%AC%94%E8%AE%B0/"/>
     <id>https://xuechuang.cc/2022/04/26/git-%E7%AC%94%E8%AE%B0/</id>
     <published>2022-04-26T01:58:19.000Z</published>
-    <updated>2022-04-26T03:25:20.566Z</updated>
+    <updated>2022-04-26T03:28:21.195Z</updated>
     
     
-    <summary type="html">&lt;h4 id=&quot;Git&quot;&gt;&lt;a href=&quot;#Git&quot; class=&quot;headerlink&quot; title=&quot;Git&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://git-scm.com/&quot;&gt;Git&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;官方文档描述：开源，分布式，版本控制系统&lt;/p&gt;
+    <summary type="html">&lt;h4 id=&quot;Git&quot;&gt;&lt;a href=&quot;#Git&quot; class=&quot;headerlink&quot; title=&quot;Git&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://git-scm.com/&quot;&gt;Git&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;什么是 Git ？&lt;/p&gt;
+&lt;p&gt;官方文档描述：开源，分布式，版本控制系统&lt;/p&gt;
 &lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 
-&lt;h4 id=&quot;检查本地-git-环境&quot;&gt;&lt;a href=&quot;#检查本地-git-环境&quot; class=&quot;headerlink&quot; title=&quot;检查本地 git 环境&quot;&gt;&lt;/a&gt;检查本地 git 环境&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/barryxc/pictures/main/imgimage-20220426111200468.png&quot; alt=&quot;image-20220426111200468&quot;&gt;&lt;/p&gt;
-&lt;h4 id=&quot;分支命令-Branch&quot;&gt;&lt;a href=&quot;#分支命令-Branch&quot; class=&quot;headerlink&quot; title=&quot;分支命令 Branch&quot;&gt;&lt;/a&gt;分支命令 Branch&lt;/h4&gt;</summary>
+
+
+&lt;h4 id=&quot;检查本地-git-环境&quot;&gt;&lt;a href=&quot;#检查本地-git-环境&quot; class=&quot;headerlink&quot; title=&quot;检查本地 git 环境&quot;&gt;&lt;/a&gt;检查本地 git 环境&lt;/h4&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git --version&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+
+
+&lt;h3 id=&quot;主要命令&quot;&gt;&lt;a href=&quot;#主要命令&quot; class=&quot;headerlink&quot; title=&quot;主要命令&quot;&gt;&lt;/a&gt;主要命令&lt;/h3&gt;&lt;h4 id=&quot;Branch&quot;&gt;&lt;a href=&quot;#Branch&quot; class=&quot;headerlink&quot; title=&quot;Branch&quot;&gt;&lt;/a&gt;Branch&lt;/h4&gt;</summary>
     
     
     

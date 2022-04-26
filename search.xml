@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>android https 抓包</title>
+    <url>/2022/04/26/android-https-%E6%8A%93%E5%8C%85/</url>
+    <content><![CDATA[<h3 id="网络安全配置"><a href="#网络安全配置" class="headerlink" title="网络安全配置"></a>网络安全配置</h3><p>android 系统高于 7.0 ,配置网络安全策略</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">android:networkSecurityConfig=&quot;@xml/network_security_config&quot;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;network-security-config&gt;</span><br><span class="line">    &lt;base-config cleartextTrafficPermitted=&quot;true&quot;&gt;</span><br><span class="line">        &lt;trust-anchors&gt;</span><br><span class="line">            &lt;certificates src=&quot;system&quot; overridePins=&quot;true&quot; /&gt;</span><br><span class="line">            &lt;certificates src=&quot;user&quot; overridePins=&quot;true&quot; /&gt;</span><br><span class="line">        &lt;/trust-anchors&gt;</span><br><span class="line">    &lt;/base-config&gt;</span><br><span class="line">&lt;/network-security-config&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="手机下载安装证书"><a href="#手机下载安装证书" class="headerlink" title="手机下载安装证书"></a>手机下载安装证书</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Charles:</span><br><span class="line"></span><br><span class="line">安卓手机类型众多，所以有些不太一样，</span><br><span class="line"></span><br><span class="line">方法一：</span><br><span class="line"></span><br><span class="line">1、打开Charles，选择help→SSL Proxying→Install Charles Root Certificate on a Mobile Device or Remote Browser</span><br><span class="line"></span><br><span class="line">2、手机连接电脑代理，打开浏览器，输入网址：chls.pro/ssl</span><br><span class="line"></span><br><span class="line">3、手机弹出提示：安装配置描述文件。您要允许吗？忽略|允许，选择允许，即可</span><br><span class="line"></span><br><span class="line">方法二：</span><br><span class="line"></span><br><span class="line">1、打开Charles，选择help→SSL Proxying→Save Charles Certificate，将证书导入到手机中</span><br><span class="line"></span><br><span class="line">2、导入后直接点击安装证书即可</span><br><span class="line"></span><br><span class="line">方法三：</span><br><span class="line"></span><br><span class="line">1、打开Charles，选择help→SSL Proxying→Save Charles Certificate，将证书导入到手机中</span><br><span class="line"></span><br><span class="line">2、导入后直接点击安装证书，提示无法打开</span><br><span class="line"></span><br><span class="line">3、进入手机设置 → 更多设置 → 系统安全 → 从存储设备安装 → 选择charles.pem，点击高级，安装证书即可</span><br><span class="line"></span><br><span class="line">常见手机：小米手机，vivo,华为手机，需要设置手机锁屏密码</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">有的手机 .pem 格式的证书没法直接点击安装，需要修改后缀为.crt 格式，才能点击安装</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="开启代理"><a href="#开启代理" class="headerlink" title="开启代理"></a>开启代理</h3><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1618564185975-da945211-f8fe-4f36-82e3-c4fe9e63239d.png" alt="img"></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="踩坑：chls-证书和电脑是绑定的关系"><a href="#踩坑：chls-证书和电脑是绑定的关系" class="headerlink" title="踩坑：chls 证书和电脑是绑定的关系"></a>踩坑：chls 证书和电脑是绑定的关系</h2><p>连接每台新电脑都需要安装新的 chls 证书</p>
+]]></content>
+      <categories>
+        <category>android</category>
+      </categories>
+      <tags>
+        <tag>android Charles https</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>android签名详解</title>
     <url>/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/</url>
     <content><![CDATA[<p><strong>Android 支持以下三种应用签名方案</strong></p>
@@ -211,40 +237,23 @@
   <entry>
     <title>git 笔记</title>
     <url>/2022/04/26/git-%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h4 id="Git"><a href="#Git" class="headerlink" title="Git"></a><a href="https://git-scm.com/">Git</a></h4><p>官方文档描述：开源，分布式，版本控制系统</p>
+    <content><![CDATA[<h4 id="Git"><a href="#Git" class="headerlink" title="Git"></a><a href="https://git-scm.com/">Git</a></h4><p>什么是 Git ？</p>
+<p>官方文档描述：开源，分布式，版本控制系统</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.</span><br></pre></td></tr></table></figure>
 
-<h4 id="检查本地-git-环境"><a href="#检查本地-git-环境" class="headerlink" title="检查本地 git 环境"></a>检查本地 git 环境</h4><p><img src="https://raw.githubusercontent.com/barryxc/pictures/main/imgimage-20220426111200468.png" alt="image-20220426111200468"></p>
-<h4 id="分支命令-Branch"><a href="#分支命令-Branch" class="headerlink" title="分支命令 Branch"></a>分支命令 Branch</h4><span id="more"></span>
+
+
+<h4 id="检查本地-git-环境"><a href="#检查本地-git-环境" class="headerlink" title="检查本地 git 环境"></a>检查本地 git 环境</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="主要命令"><a href="#主要命令" class="headerlink" title="主要命令"></a>主要命令</h3><h4 id="Branch"><a href="#Branch" class="headerlink" title="Branch"></a>Branch</h4><span id="more"></span>
 ]]></content>
       <categories>
         <category>笔记</category>
       </categories>
       <tags>
         <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hexo</title>
-    <url>/2022/04/23/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><span id="more"></span>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-      <tags>
-        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -292,6 +301,29 @@
       <categories>
         <category>分类</category>
       </categories>
+  </entry>
+  <entry>
+    <title>hexo</title>
+    <url>/2022/04/23/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><span id="more"></span>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
   </entry>
   <entry>
     <title>虎妞</title>
