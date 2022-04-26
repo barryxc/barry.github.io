@@ -79,9 +79,9 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-android-https-抓包" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-https抓包" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/04/26/android-https-%E6%8A%93%E5%8C%85/" class="article-date">
+    <a href="/2022/04/26/https%E6%8A%93%E5%8C%85/" class="article-date">
   <time class="dt-published" datetime="2022-04-26T03:30:54.000Z" itemprop="datePublished">2022-04-26</time>
 </a>
     
@@ -97,7 +97,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/04/26/android-https-%E6%8A%93%E5%8C%85/">android https 抓包</a>
+      <a class="p-name article-title" href="/2022/04/26/https%E6%8A%93%E5%8C%85/">android https 抓包</a>
     </h1>
   
 
@@ -109,26 +109,19 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:networkSecurityConfig=&quot;@xml/network_security_config&quot;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;network-security-config&gt;</span><br><span class="line">    &lt;base-config cleartextTrafficPermitted=&quot;true&quot;&gt;</span><br><span class="line">        &lt;trust-anchors&gt;</span><br><span class="line">            &lt;certificates src=&quot;system&quot; overridePins=&quot;true&quot; /&gt;</span><br><span class="line">            &lt;certificates src=&quot;user&quot; overridePins=&quot;true&quot; /&gt;</span><br><span class="line">        &lt;/trust-anchors&gt;</span><br><span class="line">    &lt;/base-config&gt;</span><br><span class="line">&lt;/network-security-config&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="手机下载安装证书"><a href="#手机下载安装证书" class="headerlink" title="手机下载安装证书"></a>手机下载安装证书</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">Charles:</span><br><span class="line"></span><br><span class="line">安卓手机类型众多，所以有些不太一样，</span><br><span class="line"></span><br><span class="line">方法一：</span><br><span class="line"></span><br><span class="line">1、打开Charles，选择help→SSL Proxying→Install Charles Root Certificate on a Mobile Device or Remote Browser</span><br><span class="line"></span><br><span class="line">2、手机连接电脑代理，打开浏览器，输入网址：chls.pro/ssl</span><br><span class="line"></span><br><span class="line">3、手机弹出提示：安装配置描述文件。您要允许吗？忽略|允许，选择允许，即可</span><br><span class="line"></span><br><span class="line">方法二：</span><br><span class="line"></span><br><span class="line">1、打开Charles，选择help→SSL Proxying→Save Charles Certificate，将证书导入到手机中</span><br><span class="line"></span><br><span class="line">2、导入后直接点击安装证书即可</span><br><span class="line"></span><br><span class="line">方法三：</span><br><span class="line"></span><br><span class="line">1、打开Charles，选择help→SSL Proxying→Save Charles Certificate，将证书导入到手机中</span><br><span class="line"></span><br><span class="line">2、导入后直接点击安装证书，提示无法打开</span><br><span class="line"></span><br><span class="line">3、进入手机设置 → 更多设置 → 系统安全 → 从存储设备安装 → 选择charles.pem，点击高级，安装证书即可</span><br><span class="line"></span><br><span class="line">常见手机：小米手机，vivo,华为手机，需要设置手机锁屏密码</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有的手机 .pem 格式的证书没法直接点击安装，需要修改后缀为.crt 格式，才能点击安装</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="开启代理"><a href="#开启代理" class="headerlink" title="开启代理"></a>开启代理</h3><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1618564185975-da945211-f8fe-4f36-82e3-c4fe9e63239d.png" alt="img"></p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="踩坑：chls-证书和电脑是绑定的关系"><a href="#踩坑：chls-证书和电脑是绑定的关系" class="headerlink" title="踩坑：chls 证书和电脑是绑定的关系"></a>踩坑：chls 证书和电脑是绑定的关系</h2><p>连接每台新电脑都需要安装新的 chls 证书</p>
-
+        
+          <p class="article-more-link">
+            <a href="/2022/04/26/https%E6%8A%93%E5%8C%85/#more">阅读全文</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://xuechuang.cc/2022/04/26/android-https-%E6%8A%93%E5%8C%85/" data-id="cl2fmg8ne0000oc6x7qo48oqf" data-title="android https 抓包" class="article-share-link">分享</a>
+      <a data-url="https://xuechuang.cc/2022/04/26/https%E6%8A%93%E5%8C%85/" data-id="cl2fnkn940005ml6xdryx1o2h" data-title="android https 抓包" class="article-share-link">分享</a>
       
       
-        <a href="/2022/04/26/android-https-%E6%8A%93%E5%8C%85/#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="/2022/04/26/android-https-%E6%8A%93%E5%8C%85/" itemprop="commentCount"></span>
+        <a href="/2022/04/26/https%E6%8A%93%E5%8C%85/#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/2022/04/26/https%E6%8A%93%E5%8C%85/" itemprop="commentCount"></span>
           留言
         </a>
       
@@ -188,7 +181,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://xuechuang.cc/2022/04/26/git-%E7%AC%94%E8%AE%B0/" data-id="cl2fmg8nl0004oc6x2sf422r2" data-title="git 笔记" class="article-share-link">分享</a>
+      <a data-url="https://xuechuang.cc/2022/04/26/git-%E7%AC%94%E8%AE%B0/" data-id="cl2fnkn930004ml6xf60j1vze" data-title="git 笔记" class="article-share-link">分享</a>
       
       
         <a href="/2022/04/26/git-%E7%AC%94%E8%AE%B0/#comments" class="article-comment-link">
@@ -213,10 +206,6 @@
   <time class="dt-published" datetime="2022-04-25T15:24:50.000Z" itemprop="datePublished">2022-04-25</time>
 </a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%88%86%E7%B1%BB/">分类</a>
-  </div>
-
   </div>
   <div class="article-inner">
     
@@ -233,11 +222,17 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
+        <p>常用快捷键</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctrl+a 光标移动到行首 ahead</span><br><span class="line">ctrl+e 光标移动到行首 end</span><br><span class="line">command + k 清屏（完全清除） kill</span><br><span class="line">ctrl + c 终止当前执行 cancel</span><br><span class="line">tab 自动补全</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2022/04/25/mac-terminal-%E5%BF%AB%E6%8D%B7%E9%94%AE/#more">阅读全文</a>
+          </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://xuechuang.cc/2022/04/25/mac-terminal-%E5%BF%AB%E6%8D%B7%E9%94%AE/" data-id="cl2fmg8nn0006oc6xb1yj3vjm" data-title="mac terminal 快捷键" class="article-share-link">分享</a>
+      <a data-url="https://xuechuang.cc/2022/04/25/mac-terminal-%E5%BF%AB%E6%8D%B7%E9%94%AE/" data-id="cl2fnkn950006ml6x45nc01p0" data-title="mac terminal 快捷键" class="article-share-link">分享</a>
       
       
         <a href="/2022/04/25/mac-terminal-%E5%BF%AB%E6%8D%B7%E9%94%AE/#comments" class="article-comment-link">
@@ -246,6 +241,8 @@
         </a>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mac-termianl/" rel="tag">mac termianl</a></li></ul>
+
     </footer>
   </div>
   
@@ -297,7 +294,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://xuechuang.cc/2022/04/25/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/" data-id="cl2fmg8nm0005oc6x31g3d8sl" data-title="hexo 博客搭建教程" class="article-share-link">分享</a>
+      <a data-url="https://xuechuang.cc/2022/04/25/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/" data-id="cl2fnkn8t0000ml6x39wjfzck" data-title="hexo 博客搭建教程" class="article-share-link">分享</a>
       
       
         <a href="/2022/04/25/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/#comments" class="article-comment-link">
@@ -316,9 +313,9 @@
 
 
   
-    <article id="post-android-签名方案研究" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-签名方案" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/" class="article-date">
+    <a href="/2022/04/24/%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88/" class="article-date">
   <time class="dt-published" datetime="2022-04-24T04:36:49.000Z" itemprop="datePublished">2022-04-24</time>
 </a>
     
@@ -330,7 +327,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/">android签名详解</a>
+      <a class="p-name article-title" href="/2022/04/24/%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88/">android签名详解</a>
     </h1>
   
 
@@ -347,17 +344,17 @@
 <p><strong>APK 签名验证过程</strong></p>
         
           <p class="article-more-link">
-            <a href="/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/#more">阅读全文</a>
+            <a href="/2022/04/24/%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88/#more">阅读全文</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://xuechuang.cc/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/" data-id="cl2fmg8ni0001oc6x3tuh3tks" data-title="android签名详解" class="article-share-link">分享</a>
+      <a data-url="https://xuechuang.cc/2022/04/24/%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88/" data-id="cl2fnkn9b000gml6x8jdgg3zv" data-title="android签名详解" class="article-share-link">分享</a>
       
       
-        <a href="/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/" itemprop="commentCount"></span>
+        <a href="/2022/04/24/%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88/#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/2022/04/24/%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88/" itemprop="commentCount"></span>
           留言
         </a>
       
@@ -403,7 +400,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://xuechuang.cc/2022/04/23/%E6%88%91%E7%9A%84%E8%99%8E%E5%A6%9E/" data-id="cl2fmg8np000boc6x361t1xda" data-title="虎妞" class="article-share-link">分享</a>
+      <a data-url="https://xuechuang.cc/2022/04/23/%E6%88%91%E7%9A%84%E8%99%8E%E5%A6%9E/" data-id="cl2fnkn98000aml6x53jw706n" data-title="虎妞" class="article-share-link">分享</a>
       
       
         <a href="/2022/04/23/%E6%88%91%E7%9A%84%E8%99%8E%E5%A6%9E/#comments" class="article-comment-link">
@@ -454,7 +451,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://xuechuang.cc/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/" data-id="cl2fmg8nq000foc6xfqscef26" data-title="铃铛" class="article-share-link">分享</a>
+      <a data-url="https://xuechuang.cc/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/" data-id="cl2fnkn99000bml6x8zob4rrq" data-title="铃铛" class="article-share-link">分享</a>
       
       
         <a href="/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/#comments" class="article-comment-link">
@@ -473,9 +470,9 @@
 
 
   
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-hexo" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/04/23/hello-world/" class="article-date">
+    <a href="/2022/04/23/hexo/" class="article-date">
   <time class="dt-published" datetime="2022-04-23T06:11:04.197Z" itemprop="datePublished">2022-04-23</time>
 </a>
     
@@ -487,7 +484,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/04/23/hello-world/">hexo</a>
+      <a class="p-name article-title" href="/2022/04/23/hexo/">hexo</a>
     </h1>
   
 
@@ -499,17 +496,17 @@
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3>
         
           <p class="article-more-link">
-            <a href="/2022/04/23/hello-world/#more">阅读全文</a>
+            <a href="/2022/04/23/hexo/#more">阅读全文</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://xuechuang.cc/2022/04/23/hello-world/" data-id="cl2fmg8no000aoc6xg6xhc6va" data-title="hexo" class="article-share-link">分享</a>
+      <a data-url="https://xuechuang.cc/2022/04/23/hexo/" data-id="cl2fnkn8y0001ml6xf3bi67u6" data-title="hexo" class="article-share-link">分享</a>
       
       
-        <a href="/2022/04/23/hello-world/#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="/2022/04/23/hello-world/" itemprop="commentCount"></span>
+        <a href="/2022/04/23/hexo/#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/2022/04/23/hexo/" itemprop="commentCount"></span>
           留言
         </a>
       
@@ -534,7 +531,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%88%86%E7%B1%BB/">分类</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></li></ul>
     </div>
   </div>
 
@@ -544,7 +541,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/" rel="tag">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-Charles-https/" rel="tag">android Charles https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%A0%E7%89%A9/" rel="tag">宠物</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/" rel="tag">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-Charles-https/" rel="tag">android Charles https</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac-termianl/" rel="tag">mac termianl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%A0%E7%89%A9/" rel="tag">宠物</a></li></ul>
     </div>
   </div>
 
@@ -554,7 +551,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/android-Charles-https/" style="font-size: 10px;">android Charles https</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/%E5%AE%A0%E7%89%A9/" style="font-size: 20px;">宠物</a>
+      <a href="/tags/android/" style="font-size: 10px;">android</a> <a href="/tags/android-Charles-https/" style="font-size: 10px;">android Charles https</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hexo/" style="font-size: 20px;">hexo</a> <a href="/tags/mac-termianl/" style="font-size: 10px;">mac termianl</a> <a href="/tags/%E5%AE%A0%E7%89%A9/" style="font-size: 20px;">宠物</a>
     </div>
   </div>
 
@@ -576,7 +573,7 @@
       <ul>
         
           <li>
-            <a href="/2022/04/26/android-https-%E6%8A%93%E5%8C%85/">android https 抓包</a>
+            <a href="/2022/04/26/https%E6%8A%93%E5%8C%85/">android https 抓包</a>
           </li>
         
           <li>
@@ -592,7 +589,7 @@
           </li>
         
           <li>
-            <a href="/2022/04/24/android-%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88%E7%A0%94%E7%A9%B6/">android签名详解</a>
+            <a href="/2022/04/24/%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88/">android签名详解</a>
           </li>
         
           <li>
@@ -604,7 +601,7 @@
           </li>
         
           <li>
-            <a href="/2022/04/23/hello-world/">hexo</a>
+            <a href="/2022/04/23/hexo/">hexo</a>
           </li>
         
       </ul>
