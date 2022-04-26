@@ -138,7 +138,7 @@
 
   $("#btnReward").hover(function () {
     $("#imgRewardWx").css({
-      'display': "flex"
+      'display': "block"
     });
   }, function () {
     $("#imgRewardWx").hide();
