@@ -1,1403 +1,332 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>常用adb命令</title>
-    <url>/2022/04/24/adb/</url>
-    <content><![CDATA[<h2 id="抓取日志"><a href="#抓取日志" class="headerlink" title="抓取日志"></a>抓取日志</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb shell logcat --pid=xxx &quot;tag:priority&quot;  &gt; ~/desktop/xx</span><br><span class="line">.log</span><br></pre></td></tr></table></figure>
-
-<h2 id="截屏"><a href="#截屏" class="headerlink" title="截屏"></a>截屏</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb shell screencap /sdcard/xx.png</span><br><span class="line">adb shell pull /sdcard/xx.png ~/desktop/xx.png</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<h2 id="录屏"><a href="#录屏" class="headerlink" title="录屏"></a>录屏</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb shell record /sdcard/xx.mp4</span><br></pre></td></tr></table></figure>
-
-<h2 id="wifi-调试"><a href="#wifi-调试" class="headerlink" title="wifi 调试"></a>wifi 调试</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb tcpip 5555</span><br><span class="line">adb connect 192.168.xx.xx:5555</span><br></pre></td></tr></table></figure>
-
-<h2 id="查看指定包名的进程-id"><a href="#查看指定包名的进程-id" class="headerlink" title="查看指定包名的进程 id"></a>查看指定包名的进程 id</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb shell ps | grep &quot;包名&quot;</span><br></pre></td></tr></table></figure>
-
-<h2 id="获取-apk-签名"><a href="#获取-apk-签名" class="headerlink" title="获取 apk 签名"></a>获取 apk 签名</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">1. 将apk解压；</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">2. 找到META-INF 下的.RSA文件；</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">3. 进入shelll环境，进入.RSA文件文件所在路径，执行命令：</span></span><br><span class="line">keytool -printcert -file XXX.RSA即可查看签名信息。</span><br></pre></td></tr></table></figure>
-
-<h2 id="获取-keystore-签名"><a href="#获取-keystore-签名" class="headerlink" title="获取 keystore 签名"></a>获取 keystore 签名</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">keystore在jdk安装目录bin文件夹下面</span></span><br><span class="line">keytool -list -v -keystore xxx(keystore文件)</span><br></pre></td></tr></table></figure>
-
-<h2 id="获取手机分辨率"><a href="#获取手机分辨率" class="headerlink" title="获取手机分辨率"></a>获取手机分辨率</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb shell wm size</span><br></pre></td></tr></table></figure>
-
-<h2 id="查看屏幕密度"><a href="#查看屏幕密度" class="headerlink" title="查看屏幕密度"></a>查看屏幕密度</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb shell wm density</span><br></pre></td></tr></table></figure>
-
-<h2 id="获取所有已安装-apk"><a href="#获取所有已安装-apk" class="headerlink" title="获取所有已安装 apk"></a>获取所有已安装 apk</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb shell pm list package</span><br></pre></td></tr></table></figure>
-
-<h2 id="获取已安装-apk-文件路径"><a href="#获取已安装-apk-文件路径" class="headerlink" title="获取已安装 apk 文件路径"></a>获取已安装 apk 文件路径</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb shell pm path 包名</span><br><span class="line">adb pull xxx.apk ~/desktop/xx.apk  #转储apk</span><br></pre></td></tr></table></figure>
-
-<h2 id="清除应用数据"><a href="#清除应用数据" class="headerlink" title="清除应用数据"></a>清除应用数据</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb shell pm clear 包名</span><br></pre></td></tr></table></figure>
-
-<h2 id="覆盖安装-apk"><a href="#覆盖安装-apk" class="headerlink" title="覆盖安装 apk"></a>覆盖安装 apk</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb install xxx.pk</span><br><span class="line">adb install -r xxx.apk  覆盖安装</span><br></pre></td></tr></table></figure>
-
-<h2 id="卸载-apk"><a href="#卸载-apk" class="headerlink" title="卸载 apk"></a>卸载 apk</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb uninstall 包名</span><br><span class="line">adb uninsatll -k 包名  保留数据卸载(adb shell pm uninstall -k  xxx )</span><br></pre></td></tr></table></figure>
-
-<h2 id="AAPT-查看-apk-信息"><a href="#AAPT-查看-apk-信息" class="headerlink" title="AAPT 查看 apk 信息"></a>AAPT 查看 apk 信息</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">列出压缩文件(zip,jar,apk)中的目录内容</span></span><br><span class="line"> aapt l[ist] [-v] [-a] xxx.&#123;zip,jar,apk&#125;</span><br><span class="line"><span class="meta prompt_"> #</span><span class="language-bash">转储apk文件信息</span></span><br><span class="line"> aapt dump badging xxx.apk</span><br></pre></td></tr></table></figure>
-
-<h2 id="抓取数据库"><a href="#抓取数据库" class="headerlink" title="抓取数据库"></a>抓取数据库</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb shell mkdir /sdcard/databases</span><br><span class="line">adb shell run-as 包名</span><br><span class="line">cp databases /sdcard/databases</span><br><span class="line">exit</span><br><span class="line">adb pull /sdcard/databases  ~/desktop</span><br></pre></td></tr></table></figure>
-
-<h2 id="已连接设备"><a href="#已连接设备" class="headerlink" title="已连接设备"></a>已连接设备</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb devcies</span><br></pre></td></tr></table></figure>
-
-<h2 id="重启手机"><a href="#重启手机" class="headerlink" title="重启手机"></a>重启手机</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">adb -s xxx（手机序列号） reboot</span><br></pre></td></tr></table></figure>
-
-<h2 id="备份与还原"><a href="#备份与还原" class="headerlink" title="备份与还原"></a>备份与还原</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">adb backup -f xxx.ab -noapk xxxx包名</span><br><span class="line">adb restore xxx.ab</span><br><span class="line"></span><br><span class="line">备份文件解析工具：safemobile 手机芯片取证系统</span><br></pre></td></tr></table></figure>
-]]></content>
+<search> 
+  
+  
+    
+    <entry>
+      <title>shell 语法</title>
+      <link href="/2022/04/28/shell-%E8%AF%AD%E6%B3%95/"/>
+      <url>/2022/04/28/shell-%E8%AF%AD%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<h2 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a=&quot;2&quot;</span><br></pre></td></tr></table></figure><h2 id="读取键盘输入"><a href="#读取键盘输入" class="headerlink" title="读取键盘输入"></a>读取键盘输入</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">\当做普通字符</span></span><br><span class="line">read -r &quot;please input your name~ &quot;</span><br></pre></td></tr></table></figure><h2 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\</span><br></pre></td></tr></table></figure><span id="more"></span><h2 id="切换-shell"><a href="#切换-shell" class="headerlink" title="切换 shell"></a>切换 shell</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chsh -s /bin/bash</span><br></pre></td></tr></table></figure><h2 id="切换目录"><a href="#切换目录" class="headerlink" title="切换目录"></a>切换目录</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd</span><br></pre></td></tr></table></figure><h2 id="拷贝"><a href="#拷贝" class="headerlink" title="拷贝"></a>拷贝</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp</span><br></pre></td></tr></table></figure><h2 id="创建文件"><a href="#创建文件" class="headerlink" title="创建文件"></a>创建文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch</span><br></pre></td></tr></table></figure><h2 id="移动-amp-重命名"><a href="#移动-amp-重命名" class="headerlink" title="移动&amp;重命名"></a>移动&amp;重命名</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv</span><br></pre></td></tr></table></figure><h2 id="打开文件或文件夹"><a href="#打开文件或文件夹" class="headerlink" title="打开文件或文件夹"></a>打开文件或文件夹</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">open</span><br></pre></td></tr></table></figure><h2 id="查看文件内容"><a href="#查看文件内容" class="headerlink" title="查看文件内容"></a>查看文件内容</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat</span><br></pre></td></tr></table></figure><h2 id="查看文件类型"><a href="#查看文件类型" class="headerlink" title="查看文件类型"></a>查看文件类型</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file</span><br></pre></td></tr></table></figure><h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-long format</span></span><br><span class="line">ls -al</span><br></pre></td></tr></table></figure><h2 id="创建文件夹"><a href="#创建文件夹" class="headerlink" title="创建文件夹"></a>创建文件夹</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir</span><br></pre></td></tr></table></figure><h2 id="删除文件或文件夹"><a href="#删除文件或文件夹" class="headerlink" title="删除文件或文件夹"></a>删除文件或文件夹</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rm</span><br><span class="line">rmdir</span><br></pre></td></tr></table></figure><h2 id="打开-vi-程序编辑器"><a href="#打开-vi-程序编辑器" class="headerlink" title="#打开 vi 程序编辑器"></a>#打开 vi 程序编辑器</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim</span><br></pre></td></tr></table></figure><h2 id="查看命令"><a href="#查看命令" class="headerlink" title="查看命令"></a>查看命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type</span><br></pre></td></tr></table></figure><h2 id="正则匹配"><a href="#正则匹配" class="headerlink" title="正则匹配"></a>正则匹配</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep</span><br></pre></td></tr></table></figure><h2 id="修改权限"><a href="#修改权限" class="headerlink" title="修改权限"></a>修改权限</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x file</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改用户</span></span><br><span class="line">chown</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改用户组</span></span><br><span class="line">chgrp</span><br></pre></td></tr></table></figure><h2 id="查找文件"><a href="#查找文件" class="headerlink" title="查找文件"></a>查找文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find</span><br></pre></td></tr></table></figure><h2 id="打印当前目录"><a href="#打印当前目录" class="headerlink" title="打印当前目录"></a>打印当前目录</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure><h2 id="执行脚本"><a href="#执行脚本" class="headerlink" title="执行脚本"></a>执行脚本</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sh #开启子shell进程执行脚本</span><br><span class="line">source #当前shell执行脚本</span><br><span class="line">. #执行脚本</span><br></pre></td></tr></table></figure><h2 id="结束命令"><a href="#结束命令" class="headerlink" title="结束命令"></a>结束命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">^C #终止命令</span><br><span class="line">^Z #暂停命令</span><br></pre></td></tr></table></figure><h2 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias #查看所有别名&amp;设置别名</span><br></pre></td></tr></table></figure><h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo</span><br></pre></td></tr></table></figure><h2 id="清空屏幕"><a href="#清空屏幕" class="headerlink" title="清空屏幕"></a>清空屏幕</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clear</span><br></pre></td></tr></table></figure><h2 id="优先执行子命令"><a href="#优先执行子命令" class="headerlink" title="优先执行子命令"></a>优先执行子命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">() <span class="comment">#优先执行子命令</span></span></span><br><span class="line">` ` #优先执行子命令</span><br></pre></td></tr></table></figure><h2 id="查看所有环境变量"><a href="#查看所有环境变量" class="headerlink" title="查看所有环境变量"></a>查看所有环境变量</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">env</span><br></pre></td></tr></table></figure><h2 id="查询命令手册"><a href="#查询命令手册" class="headerlink" title="查询命令手册"></a>查询命令手册</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">man $&#123;cmd&#125;</span><br></pre></td></tr></table></figure><h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">export #导出变量使得变量成为环境变量，下次启动无效</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">? <span class="comment">#上个命令回传码</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">0 <span class="comment">#执行脚本文件名</span></span></span><br><span class="line">uname #获取操作系统名称</span><br><span class="line">basename # 获取基本文件名</span><br><span class="line">dirname #获取父路径</span><br><span class="line">ifconfig #获取ip地址</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
       <categories>
-        <category>adb</category>
+          
+          <category> shell </category>
+          
       </categories>
-      <tags>
-        <tag>adb android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>git 笔记</title>
-    <url>/2022/04/26/git-%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h4 id="Git"><a href="#Git" class="headerlink" title="Git"></a><a href="https://git-scm.com/">Git</a></h4><p>什么是 Git ？</p>
-<p>官方文档描述：开源，分布式，版本控制系统</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="检查本地-git-环境"><a href="#检查本地-git-环境" class="headerlink" title="检查本地 git 环境"></a>检查本地 git 环境</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="主要命令"><a href="#主要命令" class="headerlink" title="主要命令"></a>主要命令</h3><h4 id="Branch"><a href="#Branch" class="headerlink" title="Branch"></a>Branch</h4><span id="more"></span>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> shell </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>typora 快捷键</title>
+      <link href="/2022/04/27/typora/"/>
+      <url>/2022/04/27/typora/</url>
+      
+        <content type="html"><![CDATA[<h1 id="一级标题-⌘1"><a href="#一级标题-⌘1" class="headerlink" title="一级标题 ⌘1"></a>一级标题 <code>⌘1</code></h1><h2 id="二级标题-⌘2"><a href="#二级标题-⌘2" class="headerlink" title="二级标题 ⌘2"></a>二级标题 <code>⌘2</code></h2><h3 id="三级标题-⌘3"><a href="#三级标题-⌘3" class="headerlink" title="三级标题 ⌘3"></a>三级标题 <code>⌘3</code></h3><h4 id="四级标题-⌘4"><a href="#四级标题-⌘4" class="headerlink" title="四级标题 ⌘4"></a>四级标题 <code>⌘4</code></h4><h5 id="五级标题-⌘5"><a href="#五级标题-⌘5" class="headerlink" title="五级标题 ⌘5"></a>五级标题 <code>⌘5</code></h5><h6 id="六级标题-⌘6"><a href="#六级标题-⌘6" class="headerlink" title="六级标题 ⌘6"></a>六级标题 <code>⌘6</code></h6><span id="more"></span><p>正文 <code>⌘0</code></p><h1 id="加粗-⌘B"><a href="#加粗-⌘B" class="headerlink" title="加粗 ⌘B"></a><strong>加粗</strong> <code>⌘B</code></h1><h1 id="斜体文字-⌘I"><a href="#斜体文字-⌘I" class="headerlink" title="斜体文字 ⌘I"></a><em>斜体文字</em> <code>⌘I</code></h1><h1 id="下划线⌘U"><a href="#下划线⌘U" class="headerlink" title="下划线⌘U"></a><u>下划线</u><code>⌘U</code></h1><h1 id="删除线-⌘⇧-96"><a href="#删除线-⌘⇧-96" class="headerlink" title="删除线 [⌘⇧&#96;]()"></a><del>删除线</del> [⌘⇧&#96;]()</h1><h1 id="超链接-⌘K"><a href="#超链接-⌘K" class="headerlink" title="超链接 ⌘K"></a><a href="https://www.baidu.com/">超链接</a> <code>⌘K</code></h1><h1 id="选中行-⌘L"><a href="#选中行-⌘L" class="headerlink" title="选中行 ⌘L"></a>选中行 <code>⌘L</code></h1><h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><ol><li>有序列表 <code>⌥⌘O</code></li></ol><ul><li>无序列表 <code>⌥⌘U</code></li></ul><h1 id="缩进"><a href="#缩进" class="headerlink" title="缩进"></a>缩进</h1><ul><li>减少缩进 <code>⌘【</code><ul><li>增加缩进 <code>⌘】</code></li></ul></li></ul><h1 id="代码块-⌥⌘C"><a href="#代码块-⌥⌘C" class="headerlink" title="代码块 ⌥⌘C"></a>代码块 <code>⌥⌘C</code></h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="string">&quot;barry&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h1 id="代码-⌃-96"><a href="#代码-⌃-96" class="headerlink" title="代码 [⌃&#96;]()"></a>代码 [⌃&#96;]()</h1><p><code>fun getName() </code></p><h1 id="表格-⌥⌘T"><a href="#表格-⌥⌘T" class="headerlink" title="表格 ⌥⌘T"></a>表格 <code>⌥⌘T</code></h1><table><thead><tr><th align="left"></th><th></th></tr></thead><tbody><tr><td align="left"></td><td></td></tr></tbody></table><h1 id="引用-⌥⌘Q"><a href="#引用-⌥⌘Q" class="headerlink" title="引用 ⌥⌘Q"></a>引用 <code>⌥⌘Q</code></h1><blockquote><p>如果允许将一个<a href="https://baike.baidu.com/item/%E8%BF%9B%E7%A8%8B/382503">进程</a>直接分散地装入到许多不相邻的分区中，则无须再进行“紧凑”。基于这一思想而产生了<a href="https://baike.baidu.com/item/%E7%A6%BB%E6%95%A3/858263">离散</a>分配方式。如果离散分配的基本单位是页，则称为分页存储管理方式。在分页存储管理方式中，如果不具备<a href="https://baike.baidu.com/item/%E9%A1%B5%E9%9D%A2/5544813">页面</a><a href="https://baike.baidu.com/item/%E5%AF%B9%E6%8D%A2/2817180">对换</a>功能，则称为基本分页存储管理方式，或称为纯分页存储管理方式，它不具有支持实现<a href="https://baike.baidu.com/item/%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8/944209">虚拟存储器</a>的功能，它要求把每个作业全部装入内存后方能运行。</p><p>分页存储管理方式：将用户程序的地址空间分为若干个固定大小的区域，称为“页”或“页面”。典型的页面大小为 1KB。实现了离散分配。<br>分段存储管理方式：把用户程序的地址空间分为若干个大小不同的段，每段可定义一组相对完整的信息。在存储器分配时，这些段在内存中可以不邻接，所以也实现了离散分配。段页式存储管理方式：是分页和分段两种存储管理方式结合的产物。同时具有两者的优点，目前使用最广泛。</p></blockquote><blockquote><blockquote><blockquote><blockquote><blockquote><blockquote><blockquote><blockquote><blockquote><blockquote><blockquote><blockquote></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote></blockquote><h1 id="插入图片-⌃⌘I"><a href="#插入图片-⌃⌘I" class="headerlink" title="插入图片 ⌃⌘I"></a>插入图片 <code>⌃⌘I</code></h1><img src="/Users/barry/Pictures/Photos Library.photoslibrary/originals/0/088974A5-1079-486B-BBB2-25AB3299C7FE.jpeg"  /><h1 id="源码模式-⌘"><a href="#源码模式-⌘" class="headerlink" title="源码模式 ⌘/"></a>源码模式 <code>⌘/</code></h1><h1 id="链接-⌥⌘L"><a href="#链接-⌥⌘L" class="headerlink" title="链接 ⌥⌘L"></a>链接 ⌥⌘L</h1><h1 id="水平分割线-⌥⌘"><a href="#水平分割线-⌥⌘" class="headerlink" title="水平分割线 ⌥⌘-"></a>水平分割线 <code>⌥⌘-</code></h1><hr><hr><hr>]]></content>
+      
+      
       <categories>
-        <category>git</category>
+          
+          <category> typora </category>
+          
       </categories>
-      <tags>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hexo 博客搭建教程</title>
-    <url>/2022/04/25/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/</url>
-    <content><![CDATA[<p>本文详细介绍了从开始搭建博客到自定义高级功能所经历的整个过程。</p>
-<h2 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h2><ul>
-<li>node</li>
-<li>git</li>
-</ul>
-<h2 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h2><ul>
-<li>安装 hexo</li>
-<li>通过 github page 免费建站<ul>
-<li>创建 repository </li>
-<li>Settings 配置 page 站点</li>
-<li>个人 settings 配置 ssh</li>
-</ul>
-</li>
-</ul>
-<span id="more"></span>
-
-<h2 id="基础功能"><a href="#基础功能" class="headerlink" title="基础功能"></a>基础功能</h2><ul>
-<li><p>read more ，首页仅显示文章摘要</p>
-</li>
-<li><p>使用官方推荐 <code>&lt;!-- more--&gt;</code>标签截断 .md 文档</p>
-</li>
-<li><p>使用 typort + upic 编辑文档、建立图床</p>
-<ul>
-<li>也可使用 typora + picgo 实现图床</li>
-</ul>
-</li>
-</ul>
-<h2 id="高级功能"><a href="#高级功能" class="headerlink" title="高级功能"></a>高级功能</h2><ul>
-<li>自定义 landscape 主题</li>
-<li>valine + leancloud 实现无后端评论系统</li>
-<li>使用阿里云域名实现域名转发</li>
-<li>rss 订阅</li>
-<li>实现打赏功能</li>
-<li>实现国内分享</li>
-</ul>
-<h2 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h2><ul>
-<li>需要设置 github repository default 分支为 gh-pages<ul>
-<li>master 分支用于管理 hexo project </li>
-<li>git-pages 用于实现网站托管</li>
-</ul>
-</li>
-<li>通过 ssh 访问 github , username + password 登录方式无法使用<ul>
-<li>也可通过 acesstoken 方式实现访问</li>
-</ul>
-</li>
-<li>通过 CNAME 实现域名转发，无须备案<ul>
-<li>阿里云 url 转发需要备案</li>
-</ul>
-</li>
-<li>域名转发导致 css 样式失效<ul>
-<li>theme 主题，url 设置错误</li>
-</ul>
-</li>
-<li>CNAME 如何避免被自动删除<ul>
-<li>放在 source 文件夹下，避免被自动删除。</li>
-</ul>
-</li>
-</ul>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> typora </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>特殊字符实体</title>
+      <link href="/2022/04/26/%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E5%AE%9E%E4%BD%93/"/>
+      <url>/2022/04/26/%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E5%AE%9E%E4%BD%93/</url>
+      
+        <content type="html"><![CDATA[<p>常见的特殊字符实体</p><span id="more"></span><table><thead><tr><th>显示结果</th><th>描述</th><th>实体名称</th><th>实体编号</th></tr></thead><tbody><tr><td></td><td>空格</td><td>&amp;nbsp;</td><td>&amp;#160;</td></tr><tr><td>&lt;</td><td>小于号</td><td>&lt;</td><td>&amp;#60;</td></tr><tr><td>&gt;</td><td>大于号</td><td>&gt;</td><td>&amp;#62;</td></tr><tr><td>&amp;</td><td>和号</td><td>&amp;</td><td>&amp;#38;</td></tr><tr><td>“</td><td>引号</td><td>&quot;</td><td>&amp;#34;</td></tr><tr><td>‘</td><td>撇号</td><td>&amp;apos; (IE不支持)</td><td>&#39;</td></tr><tr><td>￠</td><td>分</td><td>&amp;cent;</td><td>&amp;#162;</td></tr><tr><td>£</td><td>镑</td><td>&amp;pound;</td><td>&amp;#163;</td></tr><tr><td>¥</td><td>人民币&#x2F;日元</td><td>&amp;yen;</td><td>&amp;#165;</td></tr><tr><td>€</td><td>欧元</td><td>&amp;euro;</td><td>&amp;#8364;</td></tr><tr><td>§</td><td>小节</td><td>&amp;sect;</td><td>&amp;#167;</td></tr><tr><td>©</td><td>版权</td><td>&amp;copy;</td><td>&amp;#169;</td></tr><tr><td>®</td><td>注册商标</td><td>&amp;reg;</td><td>&amp;#174;</td></tr><tr><td>™</td><td>商标</td><td>&amp;trade;</td><td>&amp;#8482;</td></tr><tr><td>×</td><td>乘号</td><td>&amp;times;</td><td>&amp;#215;</td></tr><tr><td>÷</td><td>除号</td><td>&amp;divide;</td><td>&amp;#247;</td></tr></tbody></table>]]></content>
+      
+      
       <categories>
-        <category>hexo</category>
+          
+          <category> 笔记 </category>
+          
       </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hexo</title>
-    <url>/2022/04/23/hexo/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><span id="more"></span>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 字符 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>android https 抓包</title>
+      <link href="/2022/04/26/https%E6%8A%93%E5%8C%85/"/>
+      <url>/2022/04/26/https%E6%8A%93%E5%8C%85/</url>
+      
+        <content type="html"><![CDATA[<h3 id="网络安全配置"><a href="#网络安全配置" class="headerlink" title="网络安全配置"></a>网络安全配置</h3><p>android 系统高于 7.0 ,配置网络安全策略</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:networkSecurityConfig=&quot;@xml/network_security_config&quot;</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;network-security-config&gt;</span><br><span class="line">    &lt;base-config cleartextTrafficPermitted=&quot;true&quot;&gt;</span><br><span class="line">        &lt;trust-anchors&gt;</span><br><span class="line">            &lt;certificates src=&quot;system&quot; overridePins=&quot;true&quot; /&gt;</span><br><span class="line">            &lt;certificates src=&quot;user&quot; overridePins=&quot;true&quot; /&gt;</span><br><span class="line">        &lt;/trust-anchors&gt;</span><br><span class="line">    &lt;/base-config&gt;</span><br><span class="line">&lt;/network-security-config&gt;</span><br></pre></td></tr></table></figure><span id="more"></span><h3 id="手机下载安装证书"><a href="#手机下载安装证书" class="headerlink" title="手机下载安装证书"></a>手机下载安装证书</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">Charles:</span><br><span class="line"></span><br><span class="line">安卓手机类型众多，所以有些不太一样，</span><br><span class="line"></span><br><span class="line">方法一：</span><br><span class="line"></span><br><span class="line">1、打开Charles，选择help→SSL Proxying→Install Charles Root Certificate on a Mobile Device or Remote Browser</span><br><span class="line"></span><br><span class="line">2、手机连接电脑代理，打开浏览器，输入网址：chls.pro/ssl</span><br><span class="line"></span><br><span class="line">3、手机弹出提示：安装配置描述文件。您要允许吗？忽略|允许，选择允许，即可</span><br><span class="line"></span><br><span class="line">方法二：</span><br><span class="line"></span><br><span class="line">1、打开Charles，选择help→SSL Proxying→Save Charles Certificate，将证书导入到手机中</span><br><span class="line"></span><br><span class="line">2、导入后直接点击安装证书即可</span><br><span class="line"></span><br><span class="line">方法三：</span><br><span class="line"></span><br><span class="line">1、打开Charles，选择help→SSL Proxying→Save Charles Certificate，将证书导入到手机中</span><br><span class="line"></span><br><span class="line">2、导入后直接点击安装证书，提示无法打开</span><br><span class="line"></span><br><span class="line">3、进入手机设置 → 更多设置 → 系统安全 → 从存储设备安装 → 选择charles.pem，点击高级，安装证书即可</span><br><span class="line"></span><br><span class="line">常见手机：小米手机，vivo,华为手机，需要设置手机锁屏密码</span><br></pre></td></tr></table></figure><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有的手机 .pem 格式的证书没法直接点击安装，需要修改后缀为.crt 格式，才能点击安装</span><br></pre></td></tr></table></figure><h3 id="开启代理"><a href="#开启代理" class="headerlink" title="开启代理"></a>开启代理</h3><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1618564185975-da945211-f8fe-4f36-82e3-c4fe9e63239d.png" alt="img"></p><h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="踩坑：chls-证书和电脑是绑定的关系"><a href="#踩坑：chls-证书和电脑是绑定的关系" class="headerlink" title="踩坑：chls 证书和电脑是绑定的关系"></a>踩坑：chls 证书和电脑是绑定的关系</h2><p>连接每台新电脑都需要安装新的 chls 证书</p>]]></content>
+      
+      
       <categories>
-        <category>hexo</category>
+          
+          <category> android </category>
+          
       </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>android https 抓包</title>
-    <url>/2022/04/26/https%E6%8A%93%E5%8C%85/</url>
-    <content><![CDATA[<h3 id="网络安全配置"><a href="#网络安全配置" class="headerlink" title="网络安全配置"></a>网络安全配置</h3><p>android 系统高于 7.0 ,配置网络安全策略</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">android:networkSecurityConfig=&quot;@xml/network_security_config&quot;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;network-security-config&gt;</span><br><span class="line">    &lt;base-config cleartextTrafficPermitted=&quot;true&quot;&gt;</span><br><span class="line">        &lt;trust-anchors&gt;</span><br><span class="line">            &lt;certificates src=&quot;system&quot; overridePins=&quot;true&quot; /&gt;</span><br><span class="line">            &lt;certificates src=&quot;user&quot; overridePins=&quot;true&quot; /&gt;</span><br><span class="line">        &lt;/trust-anchors&gt;</span><br><span class="line">    &lt;/base-config&gt;</span><br><span class="line">&lt;/network-security-config&gt;</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<h3 id="手机下载安装证书"><a href="#手机下载安装证书" class="headerlink" title="手机下载安装证书"></a>手机下载安装证书</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Charles:</span><br><span class="line"></span><br><span class="line">安卓手机类型众多，所以有些不太一样，</span><br><span class="line"></span><br><span class="line">方法一：</span><br><span class="line"></span><br><span class="line">1、打开Charles，选择help→SSL Proxying→Install Charles Root Certificate on a Mobile Device or Remote Browser</span><br><span class="line"></span><br><span class="line">2、手机连接电脑代理，打开浏览器，输入网址：chls.pro/ssl</span><br><span class="line"></span><br><span class="line">3、手机弹出提示：安装配置描述文件。您要允许吗？忽略|允许，选择允许，即可</span><br><span class="line"></span><br><span class="line">方法二：</span><br><span class="line"></span><br><span class="line">1、打开Charles，选择help→SSL Proxying→Save Charles Certificate，将证书导入到手机中</span><br><span class="line"></span><br><span class="line">2、导入后直接点击安装证书即可</span><br><span class="line"></span><br><span class="line">方法三：</span><br><span class="line"></span><br><span class="line">1、打开Charles，选择help→SSL Proxying→Save Charles Certificate，将证书导入到手机中</span><br><span class="line"></span><br><span class="line">2、导入后直接点击安装证书，提示无法打开</span><br><span class="line"></span><br><span class="line">3、进入手机设置 → 更多设置 → 系统安全 → 从存储设备安装 → 选择charles.pem，点击高级，安装证书即可</span><br><span class="line"></span><br><span class="line">常见手机：小米手机，vivo,华为手机，需要设置手机锁屏密码</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">有的手机 .pem 格式的证书没法直接点击安装，需要修改后缀为.crt 格式，才能点击安装</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="开启代理"><a href="#开启代理" class="headerlink" title="开启代理"></a>开启代理</h3><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1618564185975-da945211-f8fe-4f36-82e3-c4fe9e63239d.png" alt="img"></p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="踩坑：chls-证书和电脑是绑定的关系"><a href="#踩坑：chls-证书和电脑是绑定的关系" class="headerlink" title="踩坑：chls 证书和电脑是绑定的关系"></a>踩坑：chls 证书和电脑是绑定的关系</h2><p>连接每台新电脑都需要安装新的 chls 证书</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> android Charles https </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>git 笔记</title>
+      <link href="/2022/04/26/git-%E7%AC%94%E8%AE%B0/"/>
+      <url>/2022/04/26/git-%E7%AC%94%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<h4 id="Git"><a href="#Git" class="headerlink" title="Git"></a><a href="https://git-scm.com/">Git</a></h4><p>什么是 Git ？</p><p>官方文档描述：开源，分布式，版本控制系统</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.</span><br></pre></td></tr></table></figure><h4 id="检查本地-git-环境"><a href="#检查本地-git-环境" class="headerlink" title="检查本地 git 环境"></a>检查本地 git 环境</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure><h3 id="主要命令"><a href="#主要命令" class="headerlink" title="主要命令"></a>主要命令</h3><h4 id="Branch"><a href="#Branch" class="headerlink" title="Branch"></a>Branch</h4><span id="more"></span>]]></content>
+      
+      
       <categories>
-        <category>android</category>
+          
+          <category> git </category>
+          
       </categories>
-      <tags>
-        <tag>android Charles https</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>mac terminal 快捷键</title>
-    <url>/2022/04/25/mac-terminal-%E5%BF%AB%E6%8D%B7%E9%94%AE/</url>
-    <content><![CDATA[<p>常用快捷键</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ctrl+a 光标移动到行首 ahead</span><br><span class="line">ctrl+e 光标移动到行首 end</span><br><span class="line">command + k 清屏（完全清除） kill</span><br><span class="line">ctrl + c 终止当前执行 cancel</span><br><span class="line">tab 自动补全</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2022/png/3756563/1650432820991-e5116c1d-b7d2-42ac-a4d8-30214c20c2e2.png" alt="img"></p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>mac terminal 快捷键</title>
+      <link href="/2022/04/25/mac-terminal-%E5%BF%AB%E6%8D%B7%E9%94%AE/"/>
+      <url>/2022/04/25/mac-terminal-%E5%BF%AB%E6%8D%B7%E9%94%AE/</url>
+      
+        <content type="html"><![CDATA[<p>常用快捷键</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctrl+a 光标移动到行首 ahead</span><br><span class="line">ctrl+e 光标移动到行首 end</span><br><span class="line">command + k 清屏（完全清除） kill</span><br><span class="line">ctrl + c 终止当前执行 cancel</span><br><span class="line">tab 自动补全</span><br></pre></td></tr></table></figure><span id="more"></span><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2022/png/3756563/1650432820991-e5116c1d-b7d2-42ac-a4d8-30214c20c2e2.png" alt="img"></p>]]></content>
+      
+      
       <categories>
-        <category>mac</category>
+          
+          <category> mac </category>
+          
       </categories>
-      <tags>
-        <tag>termianl</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>shell 语法</title>
-    <url>/2022/04/28/shell-%E8%AF%AD%E6%B3%95/</url>
-    <content><![CDATA[<h2 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">a=&quot;2&quot;</span><br></pre></td></tr></table></figure>
-
-<h2 id="读取键盘输入"><a href="#读取键盘输入" class="headerlink" title="读取键盘输入"></a>读取键盘输入</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">\当做普通字符</span></span><br><span class="line">read -r &quot;please input your name~ &quot;</span><br></pre></td></tr></table></figure>
-
-<h2 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">\</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<h2 id="切换-shell"><a href="#切换-shell" class="headerlink" title="切换 shell"></a>切换 shell</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chsh -s /bin/bash</span><br></pre></td></tr></table></figure>
-
-<h2 id="切换目录"><a href="#切换目录" class="headerlink" title="切换目录"></a>切换目录</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd</span><br></pre></td></tr></table></figure>
-
-<h2 id="拷贝"><a href="#拷贝" class="headerlink" title="拷贝"></a>拷贝</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cp</span><br></pre></td></tr></table></figure>
-
-<h2 id="创建文件"><a href="#创建文件" class="headerlink" title="创建文件"></a>创建文件</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">touch</span><br></pre></td></tr></table></figure>
-
-<h2 id="移动-amp-重命名"><a href="#移动-amp-重命名" class="headerlink" title="移动&amp;重命名"></a>移动&amp;重命名</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mv</span><br></pre></td></tr></table></figure>
-
-<h2 id="打开文件或文件夹"><a href="#打开文件或文件夹" class="headerlink" title="打开文件或文件夹"></a>打开文件或文件夹</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">open</span><br></pre></td></tr></table></figure>
-
-<h2 id="查看文件内容"><a href="#查看文件内容" class="headerlink" title="查看文件内容"></a>查看文件内容</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat</span><br></pre></td></tr></table></figure>
-
-<h2 id="查看文件类型"><a href="#查看文件类型" class="headerlink" title="查看文件类型"></a>查看文件类型</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">file</span><br></pre></td></tr></table></figure>
-
-<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-long format</span></span><br><span class="line">ls -al</span><br></pre></td></tr></table></figure>
-
-<h2 id="创建文件夹"><a href="#创建文件夹" class="headerlink" title="创建文件夹"></a>创建文件夹</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir</span><br></pre></td></tr></table></figure>
-
-<h2 id="删除文件或文件夹"><a href="#删除文件或文件夹" class="headerlink" title="删除文件或文件夹"></a>删除文件或文件夹</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">rm</span><br><span class="line">rmdir</span><br></pre></td></tr></table></figure>
-
-<h2 id="打开-vi-程序编辑器"><a href="#打开-vi-程序编辑器" class="headerlink" title="#打开 vi 程序编辑器"></a>#打开 vi 程序编辑器</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vim</span><br></pre></td></tr></table></figure>
-
-<h2 id="查看命令"><a href="#查看命令" class="headerlink" title="查看命令"></a>查看命令</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">type</span><br></pre></td></tr></table></figure>
-
-<h2 id="正则匹配"><a href="#正则匹配" class="headerlink" title="正则匹配"></a>正则匹配</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">grep</span><br></pre></td></tr></table></figure>
-
-<h2 id="修改权限"><a href="#修改权限" class="headerlink" title="修改权限"></a>修改权限</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">chmod a+x file</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改用户</span></span><br><span class="line">chown</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">修改用户组</span></span><br><span class="line">chgrp</span><br></pre></td></tr></table></figure>
-
-<h2 id="查找文件"><a href="#查找文件" class="headerlink" title="查找文件"></a>查找文件</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">find</span><br></pre></td></tr></table></figure>
-
-<h2 id="打印当前目录"><a href="#打印当前目录" class="headerlink" title="打印当前目录"></a>打印当前目录</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure>
-
-<h2 id="执行脚本"><a href="#执行脚本" class="headerlink" title="执行脚本"></a>执行脚本</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sh #开启子shell进程执行脚本</span><br><span class="line">source #当前shell执行脚本</span><br><span class="line">. #执行脚本</span><br></pre></td></tr></table></figure>
-
-<h2 id="结束命令"><a href="#结束命令" class="headerlink" title="结束命令"></a>结束命令</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">^C #终止命令</span><br><span class="line">^Z #暂停命令</span><br></pre></td></tr></table></figure>
-
-<h2 id="别名"><a href="#别名" class="headerlink" title="别名"></a>别名</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">alias #查看所有别名&amp;设置别名</span><br></pre></td></tr></table></figure>
-
-<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo</span><br></pre></td></tr></table></figure>
-
-<h2 id="清空屏幕"><a href="#清空屏幕" class="headerlink" title="清空屏幕"></a>清空屏幕</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">clear</span><br></pre></td></tr></table></figure>
-
-<h2 id="优先执行子命令"><a href="#优先执行子命令" class="headerlink" title="优先执行子命令"></a>优先执行子命令</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">() <span class="comment">#优先执行子命令</span></span></span><br><span class="line">` ` #优先执行子命令</span><br></pre></td></tr></table></figure>
-
-<h2 id="查看所有环境变量"><a href="#查看所有环境变量" class="headerlink" title="查看所有环境变量"></a>查看所有环境变量</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">env</span><br></pre></td></tr></table></figure>
-
-<h2 id="查询命令手册"><a href="#查询命令手册" class="headerlink" title="查询命令手册"></a>查询命令手册</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">man $&#123;cmd&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export #导出变量使得变量成为环境变量，下次启动无效</span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">? <span class="comment">#上个命令回传码</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">0 <span class="comment">#执行脚本文件名</span></span></span><br><span class="line">uname #获取操作系统名称</span><br><span class="line">basename # 获取基本文件名</span><br><span class="line">dirname #获取父路径</span><br><span class="line">ifconfig #获取ip地址</span><br></pre></td></tr></table></figure>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> termianl </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>hexo 博客搭建教程</title>
+      <link href="/2022/04/25/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/"/>
+      <url>/2022/04/25/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<p>本文详细介绍了从开始搭建博客到自定义高级功能所经历的整个过程。</p><h2 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h2><ul><li>node</li><li>git</li></ul><h2 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h2><ul><li>安装 hexo</li><li>通过 github page 免费建站<ul><li>创建 repository </li><li>Settings 配置 page 站点</li><li>个人 settings 配置 ssh</li></ul></li></ul><span id="more"></span><h2 id="基础功能"><a href="#基础功能" class="headerlink" title="基础功能"></a>基础功能</h2><ul><li><p>read more ，首页仅显示文章摘要</p></li><li><p>使用官方推荐 <code>&lt;!-- more--&gt;</code>标签截断 .md 文档</p></li><li><p>使用 typort + upic 编辑文档、建立图床</p><ul><li>也可使用 typora + picgo 实现图床</li></ul></li></ul><h2 id="高级功能"><a href="#高级功能" class="headerlink" title="高级功能"></a>高级功能</h2><ul><li>自定义 landscape 主题</li><li>valine + leancloud 实现无后端评论系统</li><li>使用阿里云域名实现域名转发</li><li>rss 订阅</li><li>实现打赏功能</li><li>实现国内分享</li></ul><h2 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h2><ul><li>需要设置 github repository default 分支为 gh-pages<ul><li>master 分支用于管理 hexo project </li><li>git-pages 用于实现网站托管</li></ul></li><li>通过 ssh 访问 github , username + password 登录方式无法使用<ul><li>也可通过 acesstoken 方式实现访问</li></ul></li><li>通过 CNAME 实现域名转发，无须备案<ul><li>阿里云 url 转发需要备案</li></ul></li><li>域名转发导致 css 样式失效<ul><li>theme 主题，url 设置错误</li></ul></li><li>CNAME 如何避免被自动删除<ul><li>放在 source 文件夹下，避免被自动删除。</li></ul></li></ul>]]></content>
+      
+      
       <categories>
-        <category>shell</category>
+          
+          <category> hexo </category>
+          
       </categories>
-      <tags>
-        <tag>shell</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>typora 快捷键</title>
-    <url>/2022/04/27/typora/</url>
-    <content><![CDATA[<h1 id="一级标题-⌘1"><a href="#一级标题-⌘1" class="headerlink" title="一级标题 ⌘1"></a>一级标题 <code>⌘1</code></h1><h2 id="二级标题-⌘2"><a href="#二级标题-⌘2" class="headerlink" title="二级标题 ⌘2"></a>二级标题 <code>⌘2</code></h2><h3 id="三级标题-⌘3"><a href="#三级标题-⌘3" class="headerlink" title="三级标题 ⌘3"></a>三级标题 <code>⌘3</code></h3><h4 id="四级标题-⌘4"><a href="#四级标题-⌘4" class="headerlink" title="四级标题 ⌘4"></a>四级标题 <code>⌘4</code></h4><h5 id="五级标题-⌘5"><a href="#五级标题-⌘5" class="headerlink" title="五级标题 ⌘5"></a>五级标题 <code>⌘5</code></h5><h6 id="六级标题-⌘6"><a href="#六级标题-⌘6" class="headerlink" title="六级标题 ⌘6"></a>六级标题 <code>⌘6</code></h6><span id="more"></span>
-
-<p>正文 <code>⌘0</code></p>
-<h1 id="加粗-⌘B"><a href="#加粗-⌘B" class="headerlink" title="加粗 ⌘B"></a><strong>加粗</strong> <code>⌘B</code></h1><h1 id="斜体文字-⌘I"><a href="#斜体文字-⌘I" class="headerlink" title="斜体文字 ⌘I"></a><em>斜体文字</em> <code>⌘I</code></h1><h1 id="下划线⌘U"><a href="#下划线⌘U" class="headerlink" title="下划线⌘U"></a><u>下划线</u><code>⌘U</code></h1><h1 id="删除线-⌘⇧-96"><a href="#删除线-⌘⇧-96" class="headerlink" title="删除线 [⌘⇧&#96;]()"></a><del>删除线</del> [⌘⇧&#96;]()</h1><h1 id="超链接-⌘K"><a href="#超链接-⌘K" class="headerlink" title="超链接 ⌘K"></a><a href="https://www.baidu.com/">超链接</a> <code>⌘K</code></h1><h1 id="选中行-⌘L"><a href="#选中行-⌘L" class="headerlink" title="选中行 ⌘L"></a>选中行 <code>⌘L</code></h1><h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><ol>
-<li>有序列表 <code>⌥⌘O</code></li>
-</ol>
-<ul>
-<li>无序列表 <code>⌥⌘U</code></li>
-</ul>
-<h1 id="缩进"><a href="#缩进" class="headerlink" title="缩进"></a>缩进</h1><ul>
-<li>减少缩进 <code>⌘【</code><ul>
-<li>增加缩进 <code>⌘】</code></li>
-</ul>
-</li>
-</ul>
-<h1 id="代码块-⌥⌘C"><a href="#代码块-⌥⌘C" class="headerlink" title="代码块 ⌥⌘C"></a>代码块 <code>⌥⌘C</code></h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="string">&quot;barry&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="代码-⌃-96"><a href="#代码-⌃-96" class="headerlink" title="代码 [⌃&#96;]()"></a>代码 [⌃&#96;]()</h1><p><code>fun getName() </code></p>
-<h1 id="表格-⌥⌘T"><a href="#表格-⌥⌘T" class="headerlink" title="表格 ⌥⌘T"></a>表格 <code>⌥⌘T</code></h1><table>
-<thead>
-<tr>
-<th align="left"></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"></td>
-<td></td>
-</tr>
-</tbody></table>
-<h1 id="引用-⌥⌘Q"><a href="#引用-⌥⌘Q" class="headerlink" title="引用 ⌥⌘Q"></a>引用 <code>⌥⌘Q</code></h1><blockquote>
-<p>如果允许将一个<a href="https://baike.baidu.com/item/%E8%BF%9B%E7%A8%8B/382503">进程</a>直接分散地装入到许多不相邻的分区中，则无须再进行“紧凑”。基于这一思想而产生了<a href="https://baike.baidu.com/item/%E7%A6%BB%E6%95%A3/858263">离散</a>分配方式。如果离散分配的基本单位是页，则称为分页存储管理方式。在分页存储管理方式中，如果不具备<a href="https://baike.baidu.com/item/%E9%A1%B5%E9%9D%A2/5544813">页面</a><a href="https://baike.baidu.com/item/%E5%AF%B9%E6%8D%A2/2817180">对换</a>功能，则称为基本分页存储管理方式，或称为纯分页存储管理方式，它不具有支持实现<a href="https://baike.baidu.com/item/%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8/944209">虚拟存储器</a>的功能，它要求把每个作业全部装入内存后方能运行。</p>
-<p>分页存储管理方式：将用户程序的地址空间分为若干个固定大小的区域，称为“页”或“页面”。典型的页面大小为 1KB。实现了离散分配。<br>分段存储管理方式：把用户程序的地址空间分为若干个大小不同的段，每段可定义一组相对完整的信息。在存储器分配时，这些段在内存中可以不邻接，所以也实现了离散分配。段页式存储管理方式：是分页和分段两种存储管理方式结合的产物。同时具有两者的优点，目前使用最广泛。</p>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-<h1 id="插入图片-⌃⌘I"><a href="#插入图片-⌃⌘I" class="headerlink" title="插入图片 ⌃⌘I"></a>插入图片 <code>⌃⌘I</code></h1><img src="/Users/barry/Pictures/Photos Library.photoslibrary/originals/0/088974A5-1079-486B-BBB2-25AB3299C7FE.jpeg"  />
-
-<h1 id="源码模式-⌘"><a href="#源码模式-⌘" class="headerlink" title="源码模式 ⌘/"></a>源码模式 <code>⌘/</code></h1><h1 id="链接-⌥⌘L"><a href="#链接-⌥⌘L" class="headerlink" title="链接 ⌥⌘L"></a>链接 ⌥⌘L</h1><h1 id="水平分割线-⌥⌘"><a href="#水平分割线-⌥⌘" class="headerlink" title="水平分割线 ⌥⌘-"></a>水平分割线 <code>⌥⌘-</code></h1><hr>
-<hr>
-<hr>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>常用adb命令</title>
+      <link href="/2022/04/24/adb/"/>
+      <url>/2022/04/24/adb/</url>
+      
+        <content type="html"><![CDATA[<h2 id="查看缓存文件"><a href="#查看缓存文件" class="headerlink" title="查看缓存文件"></a>查看缓存文件</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">adb shell</span><br><span class="line">run-as xxx包名</span><br><span class="line">cd shared_prefs</span><br><span class="line">cat xxx文件名</span><br></pre></td></tr></table></figure><h2 id="抓取日志"><a href="#抓取日志" class="headerlink" title="抓取日志"></a>抓取日志</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adb shell logcat --pid=xxx &quot;tag:priority&quot;  &gt; ~/desktop/xx</span><br><span class="line">.log</span><br></pre></td></tr></table></figure><span id="more"></span><h2 id="截屏"><a href="#截屏" class="headerlink" title="截屏"></a>截屏</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adb shell screencap /sdcard/xx.png</span><br><span class="line">adb shell pull /sdcard/xx.png ~/desktop/xx.png</span><br></pre></td></tr></table></figure><h2 id="录屏"><a href="#录屏" class="headerlink" title="录屏"></a>录屏</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell record /sdcard/xx.mp4</span><br></pre></td></tr></table></figure><h2 id="wifi-调试"><a href="#wifi-调试" class="headerlink" title="wifi 调试"></a>wifi 调试</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adb tcpip 5555</span><br><span class="line">adb connect 192.168.xx.xx:5555</span><br></pre></td></tr></table></figure><h2 id="查看指定包名的进程-id"><a href="#查看指定包名的进程-id" class="headerlink" title="查看指定包名的进程 id"></a>查看指定包名的进程 id</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell ps | grep &quot;包名&quot;</span><br></pre></td></tr></table></figure><h2 id="获取-apk-签名"><a href="#获取-apk-签名" class="headerlink" title="获取 apk 签名"></a>获取 apk 签名</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">1. 将apk解压；</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">2. 找到META-INF 下的.RSA文件；</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">3. 进入shelll环境，进入.RSA文件文件所在路径，执行命令：</span></span><br><span class="line">keytool -printcert -file XXX.RSA即可查看签名信息。</span><br></pre></td></tr></table></figure><h2 id="获取-keystore-签名"><a href="#获取-keystore-签名" class="headerlink" title="获取 keystore 签名"></a>获取 keystore 签名</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">keystore在jdk安装目录bin文件夹下面</span></span><br><span class="line">keytool -list -v -keystore xxx(keystore文件)</span><br></pre></td></tr></table></figure><h2 id="获取手机分辨率"><a href="#获取手机分辨率" class="headerlink" title="获取手机分辨率"></a>获取手机分辨率</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell wm size</span><br></pre></td></tr></table></figure><h2 id="查看屏幕密度"><a href="#查看屏幕密度" class="headerlink" title="查看屏幕密度"></a>查看屏幕密度</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell wm density</span><br></pre></td></tr></table></figure><h2 id="获取所有已安装-apk"><a href="#获取所有已安装-apk" class="headerlink" title="获取所有已安装 apk"></a>获取所有已安装 apk</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell pm list package</span><br></pre></td></tr></table></figure><h2 id="获取已安装-apk-文件路径"><a href="#获取已安装-apk-文件路径" class="headerlink" title="获取已安装 apk 文件路径"></a>获取已安装 apk 文件路径</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adb shell pm path 包名</span><br><span class="line">adb pull xxx.apk ~/desktop/xx.apk  #转储apk</span><br></pre></td></tr></table></figure><h2 id="清除应用数据"><a href="#清除应用数据" class="headerlink" title="清除应用数据"></a>清除应用数据</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell pm clear 包名</span><br></pre></td></tr></table></figure><h2 id="覆盖安装-apk"><a href="#覆盖安装-apk" class="headerlink" title="覆盖安装 apk"></a>覆盖安装 apk</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adb install xxx.pk</span><br><span class="line">adb install -r xxx.apk  覆盖安装</span><br></pre></td></tr></table></figure><h2 id="卸载-apk"><a href="#卸载-apk" class="headerlink" title="卸载 apk"></a>卸载 apk</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">adb uninstall 包名</span><br><span class="line">adb uninsatll -k 包名  保留数据卸载(adb shell pm uninstall -k  xxx )</span><br></pre></td></tr></table></figure><h2 id="AAPT-查看-apk-信息"><a href="#AAPT-查看-apk-信息" class="headerlink" title="AAPT 查看 apk 信息"></a>AAPT 查看 apk 信息</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">列出压缩文件(zip,jar,apk)中的目录内容</span></span><br><span class="line"> aapt l[ist] [-v] [-a] xxx.&#123;zip,jar,apk&#125;</span><br><span class="line"><span class="meta prompt_"> #</span><span class="language-bash">转储apk文件信息</span></span><br><span class="line"> aapt dump badging xxx.apk</span><br></pre></td></tr></table></figure><h2 id="抓取数据库"><a href="#抓取数据库" class="headerlink" title="抓取数据库"></a>抓取数据库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">adb shell mkdir /sdcard/databases</span><br><span class="line">adb shell run-as 包名</span><br><span class="line">cp databases /sdcard/databases</span><br><span class="line">exit</span><br><span class="line">adb pull /sdcard/databases  ~/desktop</span><br></pre></td></tr></table></figure><h2 id="已连接设备"><a href="#已连接设备" class="headerlink" title="已连接设备"></a>已连接设备</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb devcies</span><br></pre></td></tr></table></figure><h2 id="重启手机"><a href="#重启手机" class="headerlink" title="重启手机"></a>重启手机</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb -s xxx（手机序列号） reboot</span><br></pre></td></tr></table></figure><h2 id="备份与还原"><a href="#备份与还原" class="headerlink" title="备份与还原"></a>备份与还原</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">adb backup -f xxx.ab -noapk xxxx包名</span><br><span class="line">adb restore xxx.ab</span><br><span class="line"></span><br><span class="line">备份文件解析工具：safemobile 手机芯片取证系统</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
       <categories>
-        <category>typora</category>
+          
+          <category> adb </category>
+          
       </categories>
-      <tags>
-        <tag>typora</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>虎妞</title>
-    <url>/2022/04/23/%E6%88%91%E7%9A%84%E8%99%8E%E5%A6%9E/</url>
-    <content><![CDATA[<p>小铃铛的妈妈，经常带小铃铛干坏事。当然也教会了小铃铛很多生存技能</p>
-<span id="more"></span>
-
-<p><strong>她在看我的手</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/barryxc/pictures@main/uPic/IMG_3141.jpg" alt="IMG_3141"></p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> adb android </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>android签名详解</title>
+      <link href="/2022/04/24/%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88/"/>
+      <url>/2022/04/24/%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88/</url>
+      
+        <content type="html"><![CDATA[<p><strong>Android 支持以下三种应用签名方案</strong></p><ul><li>v1 方案：基于 JAR 签名。</li><li>v2 方案：<a href="https://source.android.com/security/apksigning/v2?hl=zh-cn">APK 签名方案 v2</a>（在 Android 7.0 中引入），Android 11 强制要求开启 v2 签名。</li><li>v3 方案：<a href="https://source.android.com/security/apksigning/v3?hl=zh-cn">APK 签名方案 v3</a>（在 Android 9.0 中引入）。</li></ul><p><strong>APK 签名验证过程</strong></p><span id="more"></span><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637240247957-902343f6-793b-467d-88da-39cb6b79b65b.png" alt="img"></p><h2 id="v1-签名机制"><a href="#v1-签名机制" class="headerlink" title="v1 签名机制"></a>v1 签名机制</h2><p><strong>v1 签名过程</strong></p><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637241119998-710e5f21-ceb5-427d-9737-732fc517d842.png" alt="img"></p><p>android apk 本质上是一个 zip 文件，解压缩 apk 之后，在 META-INF 文件下下面有个 3 个文件。这 3 个文件在签名时创建，在验证时使用。</p><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637241932281-ff71b895-3437-4847-b94e-e1343a28a22b.png" alt="img"></p><ol><li>MANIFEST.MF 文件</li></ol><p>文件内容：前面几行记录的是基础信息，后面的 key-value 对，记录 apk 中每一个文件对应的摘要信息，防止某个文件被篡改。</p><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637241496036-ae9f77f3-de63-498b-84de-c73bd76dbbe5.png" alt="img"></p><ol><li>CERT.SF 文件</li></ol><p>文件的内容：<strong>SHA-256-Digest-Manifest</strong> 记录的是 <strong>MANIFEST.MF</strong> 的信息摘要，以及 <strong>MANIFEST.MF</strong> 中，每个数据块的摘要。防止 <strong>MANIFEST.MF</strong> 被篡改。</p><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637241675582-ba01a2ff-a958-4c1b-a1a8-8ffb83b7e12d.png" alt="img"></p><ol><li>CERT.RSA 文件</li></ol><p>文件内容：存储了签名和公钥证书以及 SF 文件的摘要信息。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl pkcs7 -inform DER -in CERT.RSA -noout -print_certs -text</span><br></pre></td></tr></table></figure><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637289563483-c9d98b18-0e99-4a10-94b8-67a7a89aca25.png" alt="img"></p><p><strong>v1 签名存在的问题</strong></p><ol><li><strong>校验速度慢：</strong>需要对 apk 中的每个文件都计算摘要并验证，如果文件很多，校验时间会很长。</li><li><strong>完整性不够：</strong>V1 签名只会校验 Zip 文件中的部分文件，例如 <strong>META-INFO</strong> 文件夹就不会参与校验。</li></ol><h2 id="V2-签名机制"><a href="#V2-签名机制" class="headerlink" title="V2 签名机制"></a>V2 签名机制</h2><p>了解 zip 压缩包格式和 APK 签名之后的数据格式</p><p>为了保护 APK 内容，APK 包含以下 4 个部分：</p><ul><li>ZIP 条目的内容（从偏移量 0 处开始一直到“APK 签名分块”的起始位置）</li><li>APK 签名分块</li><li>ZIP 中央目录</li><li>ZIP 中央目录结尾</li></ul><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637291796732-139b2e40-e3ee-4fcc-a390-1f522c09d08c.png" alt="img"></p><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637291614626-4631c226-7cf7-462c-83f2-231beb6cd268.png" alt="img"></p><p><strong>zip 压缩包的解析过程</strong></p><ol><li>先从文件尾部查找 0x06054b50，确定 End Of Central Directory Record 区域的起始位置；</li><li>解析 EoCDR 区域，并获得中央目录的起始位置；</li><li>根据起始位置，逐个解析文件。</li></ol><p><strong>V2 签名数据块的格式</strong></p><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637292066946-cb513fd0-a6d9-4877-97a4-a11f6cc69c5a.png" alt="img"></p><p>该分块包含多个“ID-值”对，所采用的封装方式有助于更轻松地在 APK 中找到该分块。APK 的 v2 签名会存储为一个“ID-值”对，其中 ID 为 0x7109871a 保存 apk 的签名信息。</p><p>签名块的末尾是一个魔数，也就是‘APK Sig Block 42’的 ASCII 码。</p><p><strong>签名信息的具体结构</strong></p><p>“APK 签名方案 v2 分块”存储在“APK 签名分块”内，ID 为 0x7109871a。</p><p>“APK 签名方案 v2 分块”的格式如下（所有数字值均采用小端字节序，所有带长度前缀的字段均使用 uint32 值表示长度）：</p><ul><li><p>带长度前缀的 signer（带长度前缀）序列：</p></li><li><ul><li>带长度前缀的 signed data：</li></ul></li><li><ul><li><ul><li>带长度前缀的 digests（带长度前缀）序列：</li></ul></li></ul></li><li><ul><li><ul><li><ul><li>signature algorithm ID (uint32)</li><li>（带长度前缀）digest - 请参阅<a href="https://source.android.google.cn/security/apksigning/v2?hl=zh-cn#integrity-protected-contents">受完整性保护的内容</a></li></ul></li></ul></li></ul></li><li><ul><li><ul><li>带长度前缀的 X.509 certificates 序列：</li></ul></li></ul></li><li><ul><li><ul><li><ul><li>带长度前缀的 X.509 certificate（ASN.1 DER 格式）</li></ul></li></ul></li></ul></li><li><ul><li><ul><li>带长度前缀的 additional attributes（带长度前缀）序列：</li></ul></li></ul></li><li><ul><li><ul><li><ul><li>ID (uint32)</li><li>value（可变长度：附加属性的长度 - 4 个字节）</li></ul></li></ul></li></ul></li><li><ul><li>带长度前缀的 signatures（带长度前缀）序列：</li></ul></li><li><ul><li><ul><li>signature algorithm ID (uint32)</li><li>signed data 上带长度前缀的 signature</li></ul></li></ul></li><li><ul><li>带长度前缀的 public key（SubjectPublicKeyInfo，ASN.1 DER 形式）</li></ul></li></ul><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637292251949-a290643a-011e-4cc8-a7d6-69b58760a5de.png" alt="img"></p><p><strong>V2 摘要计算方式</strong></p><p>第 1、3 和 4 部分的摘要采用以下计算方式，类似于两级 <a href="https://en.wikipedia.org/wiki/Merkle_tree">Merkle 树</a>。每个部分都会被拆分成多个大小为 1MB（220 个字节）的连续块。每个部分的最后一个块可能会短一些。每个块的摘要均通过字节 0xa5 的串联、块的长度（采用小端字节序的 uint32 值，以字节数计）和块的内容进行计算。顶级摘要通过字节 0x5a 的串联、块数（采用小端字节序的 uint32 值）以及块的摘要的连接（按照块在 APK 中显示的顺序）进行计算。摘要以分块方式计算，以便通过并行处理来加快计算速度。</p><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637303311648-f1c266b7-fba4-4349-b4d6-7c1c35111f21.png" alt="img"></p><p><strong>防回滚保护</strong></p><p>攻击者可能会试图在支持对带 v2 签名的 APK 进行验证的 Android 平台上将带 v2 签名的 APK 作为带 v1 签名的 APK 进行验证。为了防范此类攻击，带 v2 签名的 APK 如果还带 v1 签名，其 META-INF&#x2F;<em>.SF 文件的主要部分中必须包含 X-Android-APK-Signed 属性。该属性的值是一组以英文逗号分隔的 APK 签名方案 ID（v2 方案的 ID 为 2）。在验证 v1 签名时，对于此组中验证程序首选的 APK 签名方案（例如，v2 方案），如果 APK 没有相应的签名，APK 验证程序必须要拒绝这些 APK。此项保护依赖于内容 META-INF&#x2F;</em>.SF 文件受 v1 签名保护这一事实。请参阅 JAR 已签名的 APK 的验证部分。</p><p>攻击者可能会试图从“APK 签名方案 v2 分块”中删除安全系数较高的签名。为了防范此类攻击，对 APK 进行签名时使用的签名算法 ID 的列表会存储在通过各个签名保护的 signed data 分块中。</p><p><strong>签名验证</strong></p><p>对“APK 签名方案 v2 分块”中的每个 signer 执行以下操作：</p><ol><li>从 signatures 中选择安全系数最高的受支持 signature algorithm ID。安全系数排序取决于各个实现&#x2F;平台版本。</li><li>使用 public key 并对照 signed data 验证 signatures 中对应的 signature。（现在可以安全地解析 signed data 了。）</li><li>验证 digests 和 signatures 中的签名算法 ID 列表（有序列表）是否相同。（这是为了防止删除&#x2F;添加签名。）</li><li>使用签名算法所用的同一种摘要算法<a href="https://source.android.google.cn/security/apksigning/v2?hl=zh-cn#integrity-protected-contents">计算 APK 内容的摘要</a>。</li><li>验证计算出的摘要是否与 digests 中对应的 digest 一致。</li><li>验证 certificates 中第一个 certificate 的 SubjectPublicKeyInfo 是否与 public key 相同。</li></ol><h2 id="v3-签名机制"><a href="#v3-签名机制" class="headerlink" title="v3 签名机制"></a>v3 签名机制</h2><p>为了保持与 v1 APK 格式的向后兼容性，v2 和 v3 APK 签名存储在“APK 签名分块”内紧邻 ZIP Central Directory 前面。</p><p>v3 APK 签名分块的格式与 v2 相同。APK 的 v3 签名会存储为一个“ID-值”对，其中 ID 为 0xf05368c0。</p><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637311968516-9c9164d9-03ed-48bd-a28c-f88e4a421df0.png" alt="img"></p><p>v3 版本签名验证证书步骤：</p><ul><li>利用 PublicKey 解密 Signature，得到 SignerData 的 hash 明文</li><li>计算 SignerData 的 hash 值</li><li>两个值进行比较，如果相同则认为 APK 没有被修改过，解析出 SignerData 中的证书。否则安装失败</li><li>逐个解析出 level 块证书并验证，并保存为这个应用的历史证书</li><li>如果是第一次安装，直接将证书与历史证书一并保存在应用信息中</li><li>如果是更新安装，验证之前的证书与历史证书，是否与本次解析的证书或者历史证书中存在相同的证书，其中任意一个证书符合即可安装</li></ul><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637312149010-e182b936-62dd-468d-bc15-24cc1afd8fdf.png" alt="img"></p><p>每一个 level 块的结构</p><p>proof-of-rotation 存储在“APK 签名方案 v3 分块”内，ID 为 0x3ba06f8c。其格式为：</p><p>带长度前缀的 levels（带长度前缀）序列：</p><ul><li><p>带长度前缀的 signed data（由上一个证书签名 - 如果存在上一个证书）</p></li><li><ul><li>带长度前缀的 X.509 certificate（ASN.1 DER 形式）</li></ul></li><li><ul><li><ul><li>signature algorithm ID (uint32) - 上一级证书使用的算法</li><li>flags (uint32) - 这些标记用于指示此证书是否应该在 self-trusted-old-certs 结构中，以及针对哪些操作。</li></ul></li></ul></li><li><ul><li>signature algorithm ID (uint32) - 必须与下一级签名数据部分中的相应 ID 一致。</li><li>上述 signed data 上带长度前缀的 signature</li></ul></li></ul><p>新特性场景举例</p><p>其实就是当开发者需要更换证书时，即可直接用新证书新的私钥进行签名。不过为了让老应用相信新的证书，则需要用老证书来保证。举个例子，有两个 level 块：level 1 与 level 2：</p><ul><li>level 1 放置老证书的信息</li><li>level 2 中放置新证书的信息以及这段数据的签名</li><li>level 2 中的签名是由老私钥进行签名的，则需要用老证书的公钥来验证</li><li>校验原来的证书与 level 1 相同，则相信本次更新的 level 2 的证书，即签名 APK 的证书</li></ul><p>完成安装并记录新证书信息</p>]]></content>
+      
+      
       <categories>
-        <category>宠物</category>
+          
+          <category> android </category>
+          
       </categories>
-      <tags>
-        <tag>宠物</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>特殊字符实体</title>
-    <url>/2022/04/26/%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E5%AE%9E%E4%BD%93/</url>
-    <content><![CDATA[<p>常见的特殊字符实体</p>
-<span id="more"></span>
-
-<table>
-<thead>
-<tr>
-<th>显示结果</th>
-<th>描述</th>
-<th>实体名称</th>
-<th>实体编号</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td>空格</td>
-<td>&amp;nbsp;</td>
-<td>&amp;#160;</td>
-</tr>
-<tr>
-<td>&lt;</td>
-<td>小于号</td>
-<td>&lt;</td>
-<td>&amp;#60;</td>
-</tr>
-<tr>
-<td>&gt;</td>
-<td>大于号</td>
-<td>&gt;</td>
-<td>&amp;#62;</td>
-</tr>
-<tr>
-<td>&amp;</td>
-<td>和号</td>
-<td>&amp;</td>
-<td>&amp;#38;</td>
-</tr>
-<tr>
-<td>“</td>
-<td>引号</td>
-<td>&quot;</td>
-<td>&amp;#34;</td>
-</tr>
-<tr>
-<td>‘</td>
-<td>撇号</td>
-<td>&amp;apos; (IE不支持)</td>
-<td>&#39;</td>
-</tr>
-<tr>
-<td>￠</td>
-<td>分</td>
-<td>&amp;cent;</td>
-<td>&amp;#162;</td>
-</tr>
-<tr>
-<td>£</td>
-<td>镑</td>
-<td>&amp;pound;</td>
-<td>&amp;#163;</td>
-</tr>
-<tr>
-<td>¥</td>
-<td>人民币&#x2F;日元</td>
-<td>&amp;yen;</td>
-<td>&amp;#165;</td>
-</tr>
-<tr>
-<td>€</td>
-<td>欧元</td>
-<td>&amp;euro;</td>
-<td>&amp;#8364;</td>
-</tr>
-<tr>
-<td>§</td>
-<td>小节</td>
-<td>&amp;sect;</td>
-<td>&amp;#167;</td>
-</tr>
-<tr>
-<td>©</td>
-<td>版权</td>
-<td>&amp;copy;</td>
-<td>&amp;#169;</td>
-</tr>
-<tr>
-<td>®</td>
-<td>注册商标</td>
-<td>&amp;reg;</td>
-<td>&amp;#174;</td>
-</tr>
-<tr>
-<td>™</td>
-<td>商标</td>
-<td>&amp;trade;</td>
-<td>&amp;#8482;</td>
-</tr>
-<tr>
-<td>×</td>
-<td>乘号</td>
-<td>&amp;times;</td>
-<td>&amp;#215;</td>
-</tr>
-<tr>
-<td>÷</td>
-<td>除号</td>
-<td>&amp;divide;</td>
-<td>&amp;#247;</td>
-</tr>
-</tbody></table>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> android </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>虎妞</title>
+      <link href="/2022/04/23/%E6%88%91%E7%9A%84%E8%99%8E%E5%A6%9E/"/>
+      <url>/2022/04/23/%E6%88%91%E7%9A%84%E8%99%8E%E5%A6%9E/</url>
+      
+        <content type="html"><![CDATA[<p>小铃铛的妈妈，经常带小铃铛干坏事。当然也教会了小铃铛很多生存技能</p><span id="more"></span><p><strong>她在看我的手</strong></p><p><img src="https://cdn.jsdelivr.net/gh/barryxc/pictures@main/uPic/IMG_3141.jpg" alt="IMG_3141"></p>]]></content>
+      
+      
       <categories>
-        <category>笔记</category>
+          
+          <category> 宠物 </category>
+          
       </categories>
-      <tags>
-        <tag>字符</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>铃铛</title>
-    <url>/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/</url>
-    <content><![CDATA[<p>小铃铛每天出门都很怂，出门的时候就不敢下来。</p>
-<p>回到家的时候，就是它的主场，每天白天不起，晚上床头蹦迪。</p>
-<span id="more"></span>
-
-
-<p><img src="https://cdn.jsdelivr.net/gh/barryxc/pictures@main/uPic/IMG_3190.jpeg" alt="IMG_3190"></p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 宠物 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>铃铛</title>
+      <link href="/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/"/>
+      <url>/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/</url>
+      
+        <content type="html"><![CDATA[<p>小铃铛每天出门都很怂，出门的时候就不敢下来。</p><p>回到家的时候，就是它的主场，每天白天不起，晚上床头蹦迪。</p><span id="more"></span><p><img src="https://cdn.jsdelivr.net/gh/barryxc/pictures@main/uPic/IMG_3190.jpeg" alt="IMG_3190"></p>]]></content>
+      
+      
       <categories>
-        <category>宠物</category>
+          
+          <category> 宠物 </category>
+          
       </categories>
-      <tags>
-        <tag>宠物</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>android签名详解</title>
-    <url>/2022/04/24/%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88/</url>
-    <content><![CDATA[<p><strong>Android 支持以下三种应用签名方案</strong></p>
-<ul>
-<li>v1 方案：基于 JAR 签名。</li>
-<li>v2 方案：<a href="https://source.android.com/security/apksigning/v2?hl=zh-cn">APK 签名方案 v2</a>（在 Android 7.0 中引入），Android 11 强制要求开启 v2 签名。</li>
-<li>v3 方案：<a href="https://source.android.com/security/apksigning/v3?hl=zh-cn">APK 签名方案 v3</a>（在 Android 9.0 中引入）。</li>
-</ul>
-<p><strong>APK 签名验证过程</strong></p>
-<span id="more"></span>
-
-
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637240247957-902343f6-793b-467d-88da-39cb6b79b65b.png" alt="img"></p>
-<h2 id="v1-签名机制"><a href="#v1-签名机制" class="headerlink" title="v1 签名机制"></a>v1 签名机制</h2><p><strong>v1 签名过程</strong></p>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637241119998-710e5f21-ceb5-427d-9737-732fc517d842.png" alt="img"></p>
-<p>android apk 本质上是一个 zip 文件，解压缩 apk 之后，在 META-INF 文件下下面有个 3 个文件。这 3 个文件在签名时创建，在验证时使用。</p>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637241932281-ff71b895-3437-4847-b94e-e1343a28a22b.png" alt="img"></p>
-<ol>
-<li>MANIFEST.MF 文件</li>
-</ol>
-<p>文件内容：前面几行记录的是基础信息，后面的 key-value 对，记录 apk 中每一个文件对应的摘要信息，防止某个文件被篡改。</p>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637241496036-ae9f77f3-de63-498b-84de-c73bd76dbbe5.png" alt="img"></p>
-<ol>
-<li>CERT.SF 文件</li>
-</ol>
-<p>文件的内容：<strong>SHA-256-Digest-Manifest</strong> 记录的是 <strong>MANIFEST.MF</strong> 的信息摘要，以及 <strong>MANIFEST.MF</strong> 中，每个数据块的摘要。防止 <strong>MANIFEST.MF</strong> 被篡改。</p>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637241675582-ba01a2ff-a958-4c1b-a1a8-8ffb83b7e12d.png" alt="img"></p>
-<ol>
-<li>CERT.RSA 文件</li>
-</ol>
-<p>文件内容：存储了签名和公钥证书以及 SF 文件的摘要信息。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">openssl pkcs7 -inform DER -in CERT.RSA -noout -print_certs -text</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637289563483-c9d98b18-0e99-4a10-94b8-67a7a89aca25.png" alt="img"></p>
-<p><strong>v1 签名存在的问题</strong></p>
-<ol>
-<li><strong>校验速度慢：</strong>需要对 apk 中的每个文件都计算摘要并验证，如果文件很多，校验时间会很长。</li>
-<li><strong>完整性不够：</strong>V1 签名只会校验 Zip 文件中的部分文件，例如 <strong>META-INFO</strong> 文件夹就不会参与校验。</li>
-</ol>
-<h2 id="V2-签名机制"><a href="#V2-签名机制" class="headerlink" title="V2 签名机制"></a>V2 签名机制</h2><p>了解 zip 压缩包格式和 APK 签名之后的数据格式</p>
-<p>为了保护 APK 内容，APK 包含以下 4 个部分：</p>
-<ul>
-<li>ZIP 条目的内容（从偏移量 0 处开始一直到“APK 签名分块”的起始位置）</li>
-<li>APK 签名分块</li>
-<li>ZIP 中央目录</li>
-<li>ZIP 中央目录结尾</li>
-</ul>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637291796732-139b2e40-e3ee-4fcc-a390-1f522c09d08c.png" alt="img"></p>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637291614626-4631c226-7cf7-462c-83f2-231beb6cd268.png" alt="img"></p>
-<p><strong>zip 压缩包的解析过程</strong></p>
-<ol>
-<li>先从文件尾部查找 0x06054b50，确定 End Of Central Directory Record 区域的起始位置；</li>
-<li>解析 EoCDR 区域，并获得中央目录的起始位置；</li>
-<li>根据起始位置，逐个解析文件。</li>
-</ol>
-<p><strong>V2 签名数据块的格式</strong></p>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637292066946-cb513fd0-a6d9-4877-97a4-a11f6cc69c5a.png" alt="img"></p>
-<p>该分块包含多个“ID-值”对，所采用的封装方式有助于更轻松地在 APK 中找到该分块。APK 的 v2 签名会存储为一个“ID-值”对，其中 ID 为 0x7109871a 保存 apk 的签名信息。</p>
-<p>签名块的末尾是一个魔数，也就是‘APK Sig Block 42’的 ASCII 码。</p>
-<p><strong>签名信息的具体结构</strong></p>
-<p>“APK 签名方案 v2 分块”存储在“APK 签名分块”内，ID 为 0x7109871a。</p>
-<p>“APK 签名方案 v2 分块”的格式如下（所有数字值均采用小端字节序，所有带长度前缀的字段均使用 uint32 值表示长度）：</p>
-<ul>
-<li><p>带长度前缀的 signer（带长度前缀）序列：</p>
-</li>
-<li><ul>
-<li>带长度前缀的 signed data：</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li>带长度前缀的 digests（带长度前缀）序列：</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li><ul>
-<li>signature algorithm ID (uint32)</li>
-<li>（带长度前缀）digest - 请参阅<a href="https://source.android.google.cn/security/apksigning/v2?hl=zh-cn#integrity-protected-contents">受完整性保护的内容</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li>带长度前缀的 X.509 certificates 序列：</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li><ul>
-<li>带长度前缀的 X.509 certificate（ASN.1 DER 格式）</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li>带长度前缀的 additional attributes（带长度前缀）序列：</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li><ul>
-<li>ID (uint32)</li>
-<li>value（可变长度：附加属性的长度 - 4 个字节）</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li>带长度前缀的 signatures（带长度前缀）序列：</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li>signature algorithm ID (uint32)</li>
-<li>signed data 上带长度前缀的 signature</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li>带长度前缀的 public key（SubjectPublicKeyInfo，ASN.1 DER 形式）</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637292251949-a290643a-011e-4cc8-a7d6-69b58760a5de.png" alt="img"></p>
-<p><strong>V2 摘要计算方式</strong></p>
-<p>第 1、3 和 4 部分的摘要采用以下计算方式，类似于两级 <a href="https://en.wikipedia.org/wiki/Merkle_tree">Merkle 树</a>。每个部分都会被拆分成多个大小为 1MB（220 个字节）的连续块。每个部分的最后一个块可能会短一些。每个块的摘要均通过字节 0xa5 的串联、块的长度（采用小端字节序的 uint32 值，以字节数计）和块的内容进行计算。顶级摘要通过字节 0x5a 的串联、块数（采用小端字节序的 uint32 值）以及块的摘要的连接（按照块在 APK 中显示的顺序）进行计算。摘要以分块方式计算，以便通过并行处理来加快计算速度。</p>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637303311648-f1c266b7-fba4-4349-b4d6-7c1c35111f21.png" alt="img"></p>
-<p><strong>防回滚保护</strong></p>
-<p>攻击者可能会试图在支持对带 v2 签名的 APK 进行验证的 Android 平台上将带 v2 签名的 APK 作为带 v1 签名的 APK 进行验证。为了防范此类攻击，带 v2 签名的 APK 如果还带 v1 签名，其 META-INF&#x2F;<em>.SF 文件的主要部分中必须包含 X-Android-APK-Signed 属性。该属性的值是一组以英文逗号分隔的 APK 签名方案 ID（v2 方案的 ID 为 2）。在验证 v1 签名时，对于此组中验证程序首选的 APK 签名方案（例如，v2 方案），如果 APK 没有相应的签名，APK 验证程序必须要拒绝这些 APK。此项保护依赖于内容 META-INF&#x2F;</em>.SF 文件受 v1 签名保护这一事实。请参阅 JAR 已签名的 APK 的验证部分。</p>
-<p>攻击者可能会试图从“APK 签名方案 v2 分块”中删除安全系数较高的签名。为了防范此类攻击，对 APK 进行签名时使用的签名算法 ID 的列表会存储在通过各个签名保护的 signed data 分块中。</p>
-<p><strong>签名验证</strong></p>
-<p>对“APK 签名方案 v2 分块”中的每个 signer 执行以下操作：</p>
-<ol>
-<li>从 signatures 中选择安全系数最高的受支持 signature algorithm ID。安全系数排序取决于各个实现&#x2F;平台版本。</li>
-<li>使用 public key 并对照 signed data 验证 signatures 中对应的 signature。（现在可以安全地解析 signed data 了。）</li>
-<li>验证 digests 和 signatures 中的签名算法 ID 列表（有序列表）是否相同。（这是为了防止删除&#x2F;添加签名。）</li>
-<li>使用签名算法所用的同一种摘要算法<a href="https://source.android.google.cn/security/apksigning/v2?hl=zh-cn#integrity-protected-contents">计算 APK 内容的摘要</a>。</li>
-<li>验证计算出的摘要是否与 digests 中对应的 digest 一致。</li>
-<li>验证 certificates 中第一个 certificate 的 SubjectPublicKeyInfo 是否与 public key 相同。</li>
-</ol>
-<h2 id="v3-签名机制"><a href="#v3-签名机制" class="headerlink" title="v3 签名机制"></a>v3 签名机制</h2><p>为了保持与 v1 APK 格式的向后兼容性，v2 和 v3 APK 签名存储在“APK 签名分块”内紧邻 ZIP Central Directory 前面。</p>
-<p>v3 APK 签名分块的格式与 v2 相同。APK 的 v3 签名会存储为一个“ID-值”对，其中 ID 为 0xf05368c0。</p>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637311968516-9c9164d9-03ed-48bd-a28c-f88e4a421df0.png" alt="img"></p>
-<p>v3 版本签名验证证书步骤：</p>
-<ul>
-<li>利用 PublicKey 解密 Signature，得到 SignerData 的 hash 明文</li>
-<li>计算 SignerData 的 hash 值</li>
-<li>两个值进行比较，如果相同则认为 APK 没有被修改过，解析出 SignerData 中的证书。否则安装失败</li>
-<li>逐个解析出 level 块证书并验证，并保存为这个应用的历史证书</li>
-<li>如果是第一次安装，直接将证书与历史证书一并保存在应用信息中</li>
-<li>如果是更新安装，验证之前的证书与历史证书，是否与本次解析的证书或者历史证书中存在相同的证书，其中任意一个证书符合即可安装</li>
-</ul>
-<p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637312149010-e182b936-62dd-468d-bc15-24cc1afd8fdf.png" alt="img"></p>
-<p>每一个 level 块的结构</p>
-<p>proof-of-rotation 存储在“APK 签名方案 v3 分块”内，ID 为 0x3ba06f8c。其格式为：</p>
-<p>带长度前缀的 levels（带长度前缀）序列：</p>
-<ul>
-<li><p>带长度前缀的 signed data（由上一个证书签名 - 如果存在上一个证书）</p>
-</li>
-<li><ul>
-<li>带长度前缀的 X.509 certificate（ASN.1 DER 形式）</li>
-</ul>
-</li>
-<li><ul>
-<li><ul>
-<li>signature algorithm ID (uint32) - 上一级证书使用的算法</li>
-<li>flags (uint32) - 这些标记用于指示此证书是否应该在 self-trusted-old-certs 结构中，以及针对哪些操作。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><ul>
-<li>signature algorithm ID (uint32) - 必须与下一级签名数据部分中的相应 ID 一致。</li>
-<li>上述 signed data 上带长度前缀的 signature</li>
-</ul>
-</li>
-</ul>
-<p>新特性场景举例</p>
-<p>其实就是当开发者需要更换证书时，即可直接用新证书新的私钥进行签名。不过为了让老应用相信新的证书，则需要用老证书来保证。举个例子，有两个 level 块：level 1 与 level 2：</p>
-<ul>
-<li>level 1 放置老证书的信息</li>
-<li>level 2 中放置新证书的信息以及这段数据的签名</li>
-<li>level 2 中的签名是由老私钥进行签名的，则需要用老证书的公钥来验证</li>
-<li>校验原来的证书与 level 1 相同，则相信本次更新的 level 2 的证书，即签名 APK 的证书</li>
-</ul>
-<p>完成安装并记录新证书信息</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 宠物 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>hexo</title>
+      <link href="/2022/04/23/hexo/"/>
+      <url>/2022/04/23/hexo/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><span id="more"></span><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
       <categories>
-        <category>android</category>
+          
+          <category> hexo </category>
+          
       </categories>
-      <tags>
-        <tag>android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>android总结</title>
-    <url>/2020/04/24/android%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><ul>
-<li><p><code>activity</code>生命周期与启动模式</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">standard &amp; singletask &amp; singletop &amp; singleInstance</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>service</code>生命周期 startservice<code>&amp;</code>bindservice 区别和使用场景</p>
-</li>
-<li><p><code>contentprovider</code></p>
-</li>
-<li><p><a href="https://blog.csdn.net/w1070216393/article/details/84261996"><code>view</code>事件分发机制</a></p>
-</li>
-<li><p><code>activity</code>启动过程</p>
-</li>
-<li><p><code>view</code>绘制流程</p>
-<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="comment">//页面加载</span></span><br><span class="line">setContentView()</span><br><span class="line"><span class="comment">//重新布局</span></span><br><span class="line">requestLayout()</span><br><span class="line"><span class="comment">//重新绘制</span></span><br><span class="line">invalidate()</span><br><span class="line">postInvalidate()</span><br><span class="line"></span><br><span class="line"><span class="comment">//遍历过程</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">performTraversals</span><span class="params">()</span></span>&#123;</span><br><span class="line">  performMeasure()</span><br><span class="line">  performLayout()</span><br><span class="line">  performDraw()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-</li>
-<li><p><code>ANR</code>常见的发生原因&amp;解决方案</p>
-<p>产生原因：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.keyDispatchTimeout（5秒内，用户事件未响应）</span><br><span class="line">2.broadcastTimeout（10秒内onReceive()函数未处理完成）</span><br><span class="line">3.serviceTimeout(20秒内服务生命周期函数未处理完成)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>问题场景：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">应用程序UI线程存在io耗时操作、应用程序UI线程等待子线程释放某个锁、耗时的动画需要大量的计算，导致cpu负载过重，UI线程得不到cpu时间片</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>定位分析：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">通过logcat和/data/anr/traces.txt文件定位和分析</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>避免和检测：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">blockcanary性能监控。基本原理是利用主线程的消息队列处理机制，通过对比消息分发开始和结束的时间点来判断是否超过设定的时间。</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><code>handler</code>机制原理</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">- handler.post(Runnable r)</span><br><span class="line">- Looper.prepare()</span><br><span class="line">- Looper.myLooper()</span><br><span class="line">- Looper.loop()</span><br><span class="line">- messageQueue.addIdleHandler(IdleHandler handler)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><a href="https://www.jianshu.com/p/53ed7ba95722">动态换肤原理</a></p>
-</li>
-<li><p><code>ListView</code>&amp;<code>RecylerView</code>的区别</p>
-</li>
-<li><p><code>AMS</code></p>
-</li>
-<li><p><code>WMS</code></p>
-</li>
-<li><p><code>PMS</code></p>
-</li>
-</ul>
-<h2 id="kotlin"><a href="#kotlin" class="headerlink" title="kotlin"></a><a href="https://www.jianshu.com/p/06703abc56b1">kotlin</a></h2><ul>
-<li>协程原理</li>
-<li>Jetpack</li>
-</ul>
-<h2 id="Ipc-通信机制"><a href="#Ipc-通信机制" class="headerlink" title="Ipc 通信机制"></a>Ipc 通信机制</h2><ul>
-<li><p><strong>传统解决方案：socket &amp; 管道 &amp; 消息队列</strong></p>
-</li>
-<li><p>非实时方案：<strong>文件共享</strong></p>
-</li>
-<li><p><strong>android 解决方案 binder</strong></p>
-<ul>
-<li><p><strong>aidl</strong></p>
-</li>
-<li><p><strong>messenger</strong></p>
-</li>
-<li><p><strong>bundle</strong></p>
-</li>
-<li><p><strong>ContentProvider</strong></p>
-</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">binder优点：传统ipc方案，用户空间数据拷贝到内核空间，内核空间再次拷贝到另一个用户空间，2次拷贝。binder采用mmap内存映射机制（将用户空间地址拷贝到内核空间，没有直接拷贝数据，在调用时，通过mmu&amp;中断机制，将a用户空间数据拷贝到b用户空间），1次数据拷贝，更高效</span><br></pre></td></tr></table></figure>
-
-<h2 id="多线程-🤡"><a href="#多线程-🤡" class="headerlink" title="多线程 🤡"></a>多线程 🤡</h2><ul>
-<li><p><strong>线程池原理</strong></p>
-<p><img src="https://raw.githubusercontent.com/barryxc/pictures/main/img188580-202ba87b6a285694.png" alt="188580-202ba87b6a285694"></p>
-</li>
-<li><p><a href="https://zhuanlan.zhihu.com/p/75880892"><strong>synchronized 锁的底层实现</strong></a>&amp;<code>reentrantlock</code>区别</p>
-<ul>
-<li><p>java 对象内存区域划分</p>
-<ul>
-<li><p>对象头：HotSpot 虚拟机的对象头分为两部分信息：数组分为三部分</p>
-<ul>
-<li>Mark Word 存储对象的哈希码、GC 分代年龄、锁信息等</li>
-<li>32 位&#x2F;64 位 Class MetaData Address 指向对象类型数据的指针</li>
-<li>（数组） 32 位&#x2F;64 位 数组长度</li>
-</ul>
-</li>
-<li><p>实例数据</p>
-</li>
-<li><p>对齐部分</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><strong>锁膨胀</strong></p>
-<ul>
-<li>无锁状态</li>
-<li>偏向锁状态</li>
-<li>轻量级锁状态（当有第二个线程申请资源时，不一定存在竞争）</li>
-<li>自旋锁&amp;<strong>自适应自旋锁</strong>（自旋次数不固定）</li>
-<li>重量级锁（系统 mutex 调用）</li>
-</ul>
-</li>
-<li><p><strong>锁消除</strong></p>
-</li>
-<li><p><strong>锁粗化</strong></p>
-</li>
-<li><p><strong><a href="https://blog.csdn.net/caisongcheng_good/article/details/79916873">乐观锁和悲观锁</a></strong>&amp;CAS 原子操作</p>
-</li>
-<li><p><strong>volatile 关键字</strong></p>
-<p>可以保证内存可见性，防止寄存器缓存</p>
-<p>防止指令重排：指令重排不会影响单个程序的运行，但会影响线程并发执行的正确性</p>
-<p><u>无法保证原子性：</u></p>
-</li>
-</ul>
-<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><p>基本概念：</p>
-<ol>
-<li>存储过程</li>
-<li>索引实现原理<ul>
-<li>密集索引</li>
-<li>稀松索引</li>
-</ul>
-</li>
-<li>事务特性</li>
-</ol>
-<p>优化方案：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">一般来说，在系统设计阶段就应该根据业务耦合松紧来确定垂直分库，垂直分表方案，在数据量及访问压力不是特别大的情况，首先考虑缓存、读写分离、索引技术等方案。若数据量极大，且持续增长，再考虑水平分库水平分表方案。</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>索引的实现原理</li>
-<li>分库分表机制</li>
-<li>缓存机制</li>
-<li>读写分离机制</li>
-</ol>
-<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ul>
-<li><p><strong>冷启动优化：</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">冷启动流程：appliction:oncreate()-&gt;activity:oncreate()-&gt;activity-onresume() 在第一个页面加载完成之前，wms会预先启动个预览窗口。</span><br><span class="line">1.减少application:oncreate()耗时：懒加载，异步加载</span><br><span class="line">2.设置apptheme:windowbackground,使得预览窗口非白屏或者黑屏，提升视觉启动体验</span><br><span class="line">3.减少xml布局层级,优化启动页xml布局。</span><br><span class="line">4.Activity启动优化 onCreate，onStart，onResume中耗时较短但非必要的代码可以放到IdleHandler中执行，减少启动时间</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>布局优化 ：</strong></p>
-<ul>
-<li><p>include 标签共享布局</p>
-</li>
-<li><p>viewStub 标签延迟加载</p>
-</li>
-<li><p>merge 标签减少布局层次</p>
-</li>
-<li><p>尽量使用 compoundDrawable 代替 imageview 和 textview 组合</p>
-</li>
-<li><p>布局加载性能监控</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">LayoutInflaterCompat.setFactory(getLayoutInflater(), <span class="keyword">new</span> <span class="title class_">LayoutInflaterFactory</span>() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> View <span class="title function_">onCreateView</span><span class="params">(View parent, String name, Context context, AttributeSet attrs)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">long</span> <span class="variable">startTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">            <span class="type">View</span> <span class="variable">view</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                view = getLayoutInflater().createView(name, <span class="literal">null</span>, attrs);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">long</span> <span class="variable">cost</span> <span class="operator">=</span> System.currentTimeMillis() - startTime;</span><br><span class="line">            map.put(parent,<span class="keyword">new</span> <span class="title class_">Hodler</span>(parent,view,name,cost));</span><br><span class="line">            Log.d(<span class="string">&quot;=========&quot;</span>, <span class="string">&quot;加载布局：&quot;</span> + name + <span class="string">&quot;耗时：&quot;</span> + cost);</span><br><span class="line">            <span class="keyword">return</span> view;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">super</span>.onCreate(savedInstanceState);</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><strong>电量优化</strong></p>
-</li>
-<li><p><strong>数据库优化</strong></p>
-</li>
-<li><p><strong>内存优化：</strong></p>
-<ul>
-<li>集合容器对象使用 WeakReference 引用</li>
-<li>长生命周期对象如 application、单例对象不要存储大数据</li>
-<li>防止 activity 内部非静态内部类实例引用外部 this 指针导致内存泄漏</li>
-<li>频繁创建的短生命周期的小对象可以使用对象池复用技术</li>
-<li>限制网络，图片，数据库内存缓存大小</li>
-<li>消息队列使用有界队列，防止生产和消费不平衡导致背压</li>
-</ul>
-</li>
-<li><p><strong>弱网络优化：</strong></p>
-<ul>
-<li>避免 dns 解析和劫持</li>
-<li>业务层合并网络多个类似的请求</li>
-<li>预先加载数据</li>
-<li>避免轮询</li>
-<li>使用 http 缓存-http 协议（静态资源使用 http cache）</li>
-<li>压缩数据大小 (压缩 content)</li>
-<li>cdn 内容网络分发加速</li>
-</ul>
-</li>
-<li><p><strong>代码优化：</strong></p>
-<ul>
-<li>避免创建非必要对象</li>
-<li>频繁创建的短生命周期对象使用对象池</li>
-<li>常量使用 static final 修饰符</li>
-<li>避免内部使用 setters&#x2F;getters</li>
-<li>防止内存泄漏，使用 leakcanary 监控内存泄漏</li>
-<li>使用 blockcanary 监控主线程耗时</li>
-</ul>
-</li>
-<li><p><strong>图片优化:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">使用压缩工具对PNG资源图片进行压缩、尽量使用.9.png图片格式</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="gradle-构建流程"><a href="#gradle-构建流程" class="headerlink" title="gradle 构建流程"></a>gradle 构建流程</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">待补充</span><br></pre></td></tr></table></figure>
-
-<h2 id="apk-打包和签名-☺️"><a href="#apk-打包和签名-☺️" class="headerlink" title="apk 打包和签名 ☺️"></a>apk 打包和签名 ☺️</h2><ul>
-<li><p><strong>apk 打包流程</strong></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">合并资源文件</span></span><br><span class="line">gradle merge task</span><br><span class="line"></span><br><span class="line">appt</span><br><span class="line"></span><br><span class="line">aidl</span><br><span class="line"></span><br><span class="line">javac</span><br><span class="line"></span><br><span class="line">dx</span><br><span class="line"></span><br><span class="line">apkbuilder</span><br><span class="line"></span><br><span class="line">jarsigner</span><br><span class="line"></span><br><span class="line">zipalign</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/barryxc/pictures/main/imgv2-e15390bbaf18d21f98cd742e3dcec99b_r.jpg" alt="v2-e15390bbaf18d21f98cd742e3dcec99b_r"></p>
-</li>
-<li><p><strong>apk 签名流程</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">META-INF:MANIFEST.MF&amp;CERT.SF&amp;CERT.RSA</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="java-内存区域模型（JMM）"><a href="#java-内存区域模型（JMM）" class="headerlink" title="java 内存区域模型（JMM）"></a><a href="http://tutorials.jenkov.com/java-concurrency/java-memory-model.html">java 内存区域模型（JMM）</a></h2><ul>
-<li><p><strong>内存区域划分:</strong></p>
-<ul>
-<li>程序计数器&amp;java 虚拟机栈&amp;堆&amp;本地方法栈&amp;方法区</li>
-<li>运行时堆内存的划分：新生代和老年代。新生代的又划分为：eden&amp;from survior&amp;to survior</li>
-</ul>
-</li>
-<li><p><strong>jvm 垃圾回收机制：</strong></p>
-<ul>
-<li>如何确定对象是否可回收？ 引用计数法&amp;可达性分析算法</li>
-<li>如何回收垃圾对象？标记-清除算法&amp;复制算法&amp;标记-整理算法&amp;分代收集算法</li>
-</ul>
-</li>
-</ul>
-<h2 id="AOP-切面编程"><a href="#AOP-切面编程" class="headerlink" title="AOP 切面编程"></a>AOP 切面编程</h2><ul>
-<li><p><strong>APT&amp;注解技术</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">（运行时注解）javapoet(.java源码生成工具)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>javassist、asm</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">（字节码织入,编译时通过gradle&amp;运行时，类装载之前替换）</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>反射&amp;动态代理</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Proxy &amp; InvocationHandler</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="类加载机制和反射"><a href="#类加载机制和反射" class="headerlink" title="类加载机制和反射"></a>类加载机制和反射</h2><ul>
-<li><p>java 类加载机制</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">全盘负责、双亲委派（父类委托）、缓存机制</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>反射</p>
-</li>
-<li><p>插件化原理</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">宿主apk如何调启插件apk:</span><br><span class="line">- 字节码替换</span><br><span class="line">- 资源替换</span><br><span class="line">- so库替换</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>热修复原理</p>
-<ul>
-<li>Nuwa</li>
-<li>Andfix、Dexposed</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">两种方案原理：</span><br><span class="line">- 类加载时，动态修改字节码.class文件格式（需要重新启动）</span><br><span class="line">- 运行时，动态替换class类型对象的内存结构（不需要重新启动）</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">待补充</span><br></pre></td></tr></table></figure>
-
-<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><ul>
-<li><p>数组</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Array、ArrayList</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>链表（栈和队列）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">LinkedList、ArrayDeque、Stack</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>哈希表</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">HashMap、LinkedHashMap、LRU、ConcurrentHashMap</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>二叉树</p>
-<blockquote>
-<p>深度、广度、镜像</p>
-</blockquote>
-</li>
-<li><p>红黑树</p>
-<blockquote>
-<p>自平衡二叉搜索树</p>
-</blockquote>
-</li>
-<li><p>B 树（多路平衡搜索树）</p>
-</li>
-<li><p>B+树</p>
-</li>
-<li><p>B*树</p>
-</li>
-</ul>
-<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><ul>
-<li><p>十大内部排序</p>
-<ul>
-<li>直接选择排序</li>
-<li>插入排序</li>
-<li>折半插入排序</li>
-<li>希尔排序</li>
-<li>冒泡排序</li>
-<li>快速排序</li>
-<li>堆排序</li>
-<li>归并排序</li>
-<li>桶排序</li>
-<li>基数排序</li>
-</ul>
-</li>
-<li><p>动态规划</p>
-</li>
-<li><p>贪心算法</p>
-</li>
-<li><p>多指针</p>
-</li>
-</ul>
-<h2 id="Hybrid-技术原理"><a href="#Hybrid-技术原理" class="headerlink" title="Hybrid 技术原理"></a><a href="https://www.cnblogs.com/peakleo/p/10572749.html">Hybrid 技术原理</a></h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Hybrid App的本质，其实是在原生的 App 中，使用 WebView 作为容器直接承载 Web页面。因此，最核心的点就是 Native端 与 H5端 之间的双向通讯层，其实这里也可以理解为我们需要一套 跨语言通讯方案，来完成 Native(Java/Objective-c/...) 与 JavaScript 的通讯。实现的关键，便是作为容器的 WebView，一切的原理都是基于 WebView 的机制。</span><br></pre></td></tr></table></figure>
-
-<h4 id="native-调用-js"><a href="#native-调用-js" class="headerlink" title="native 调用 js"></a>native 调用 js</h4><ol>
-<li><p><code>loadUrl</code>无法直接获取返回值</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">mWebView.loadUrl(<span class="string">&quot;javascript: 方法名(&#x27;参数需要转为字符串&#x27;)&quot;</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>evaluateJavascript</code>4.4+版本</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">mWebView.evaluateJavascript(<span class="string">&quot;javascript: 方法名(&#x27;参数需要转为字符串&#x27;)&quot;</span>, <span class="keyword">new</span> <span class="title class_">ValueCallback</span>&lt;String&gt;() &#123;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onReceiveValue</span><span class="params">(String value)</span> &#123;</span><br><span class="line">      <span class="comment">// 这里的value即为对应JS方法的返回值</span></span><br><span class="line">		&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
-</ol>
-<h4 id="js-调用-native"><a href="#js-调用-native" class="headerlink" title="js 调用 native"></a>js 调用 native</h4><ol>
-<li><code>WebView URL Scheme</code> 跳转拦截</li>
-<li><code>WebView</code> 中的<code>prompt/console/alert</code>拦截：通常使用<code>prompt</code>，因为这个方法在前端中使用频率低，比较不会出现冲突</li>
-<li><code>WebView API</code>注入：原理其实就是 Native 获取 JavaScript 环境上下文，并直接在上面挂载对象或者方法，使 js 可以直接调用，Android 与 IOS 分别拥有对应的挂载方式</li>
-</ol>
-<h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><ul>
-<li><p><strong>java 层 crash 捕获机制</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//设置指定线程的异常捕获处理器</span></span><br><span class="line">Thread.currentThread().setUncaughtExceptionHandler();</span><br><span class="line"><span class="comment">//设置全局的异常捕获处理器</span></span><br><span class="line">Thread.setDefaultUncaughtExceptionHandler(<span class="keyword">new</span> <span class="title class_">Thread</span>.UncaughtExceptionHandler() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">uncaughtException</span><span class="params">(<span class="meta">@NonNull</span> Thread t, <span class="meta">@NonNull</span> Throwable e)</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>native 层 crash 捕获机制</strong></p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">c++层代码错误可以分为两种：</span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> std::exception 异常：</span><br><span class="line"><span class="number">2.</span> fatal signal异常：</span><br><span class="line"></span><br><span class="line">   常见的软中断信号：</span><br><span class="line">     -	SIGFPE 浮点异常</span><br><span class="line">     -	SIGSEGV 无效的内存引用 (segmentation violation)</span><br><span class="line">     -	SIGILL 非法指令</span><br><span class="line"></span><br><span class="line">  如何捕获？</span><br><span class="line">  	注册信号处理函数，然后向java层发送消息，通知抓取logcat日志信息。然后通过addr2line等工具对dump文件函数地址转换为对应的代码行数。</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h2><h3 id="对称秘钥密码体制"><a href="#对称秘钥密码体制" class="headerlink" title="对称秘钥密码体制"></a>对称秘钥密码体制</h3><ul>
-<li><p>DES（Data Encryption Standard）</p>
-</li>
-<li><p><a href="https://www.pianshen.com/article/92851078995/">AES</a>（Advanced Encryption Standard）</p>
-<ol>
-<li><p><a href="http://www.361way.com/aes/5830.html"><strong>电码本模式</strong>（Electronic Codebook Book (ECB)）</a></p>
-</li>
-<li><p><a href="https://www.cnblogs.com/eleven-elv/p/7289579.html"><strong>密码分组链接模式</strong>（Cipher Block Chaining (CBC)）</a></p>
-</li>
-<li><p>计算器模式（Counter (CTR)）</p>
-</li>
-<li><p>密码反馈模式（Cipher FeedBack (CFB)）</p>
-</li>
-<li><p>输出反馈模式（Output FeedBack (OFB)）</p>
-</li>
-</ol>
-</li>
-</ul>
-<h3 id="公钥密码体制"><a href="#公钥密码体制" class="headerlink" title="公钥密码体制"></a>公钥密码体制</h3><ul>
-<li><p>RSA</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">RSA公开密钥密码体制的原理是：根据数论，寻求两个大素数比较简单，而将它们的乘积进行因式分解却极其困难，因此可以将乘积公开作为加密密钥</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>ECC（椭圆曲线加密算法）</p>
-</li>
-<li><p>DH（秘钥交换算法）</p>
-</li>
-</ul>
-<h3 id="散列算法"><a href="#散列算法" class="headerlink" title="散列算法"></a>散列算法</h3><ul>
-<li>MD5 （消息摘要）</li>
-<li>SHA 安全散列算法（Secure Hash Algorithm）</li>
-</ul>
-<h3 id="签名算法"><a href="#签名算法" class="headerlink" title="签名算法"></a>签名算法</h3><ul>
-<li><a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1183198304823296">HMAC</a>（Hash-based Message Authentication Code）</li>
-<li>非对称加密（两组秘钥双向加密解密）</li>
-</ul>
-<h2 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">待补充</span><br></pre></td></tr></table></figure>
-
-<h2 id="TCP😁"><a href="#TCP😁" class="headerlink" title="TCP😁"></a>TCP😁</h2><ul>
-<li><p>报文格式</p>
-<p><img src="https://raw.githubusercontent.com/barryxc/pictures/main/img27194088468_4cb0141fc8_b.jpg" alt="27194088468_4cb0141fc8_b"></p>
-</li>
-<li><p>滑动窗口</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">滑动窗口大小：用来告知发送端接收端的缓存区大小，以此控制发送端发送数据的速率，从而达到流量控制。窗口大小时一个16bit字段，因而窗口大小最大为65535</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="HTTP-协议"><a href="#HTTP-协议" class="headerlink" title="HTTP 协议"></a><a href="https://www.cnblogs.com/heluan/p/8620312.html">HTTP 协议</a></h2><ul>
-<li><p><strong>tcp 三次握手 🤝+四次挥手 👋</strong></p>
-</li>
-<li><p><strong>tls 握手流程</strong></p>
-<ul>
-<li><strong>client_hello</strong></li>
-<li><strong>server_hello</strong></li>
-<li><strong>证书校验</strong></li>
-<li><strong>秘钥协商</strong>(DH 算法)</li>
-</ul>
-</li>
-<li><p><strong>http1.1 和 1.0 区别：</strong></p>
-<ul>
-<li><p>带宽优化及网络连接的使用:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">在HTTP1.0中主要使用header里的If-Modified-Since,Expires来做为缓存判断的标准，HTTP1.1则引入了更多的缓存控制策略例如Entity tag，If-Unmodified-Since, If-Match, If-None-Match等更多可供选择的缓存头来控制缓存策略。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>支持长连接:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">HTTP 1.1支持长连接（PersistentConnection）和请求的流水线（Pipelining）处理，在一个TCP连接上可以传送多个HTTP请求和响应，减少了建立和关闭连接的消耗和延迟，在HTTP1.1中默认开启Connection： keep-alive，一定程度上弥补了HTTP1.0每次请求都要创建连接的缺点</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>支持 host 域</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">在HTTP1.0中认为每台服务器都绑定一个唯一的IP地址，因此，请求消息中的URL并没有传递主机名（hostname）。但随着虚拟主机技术的发展，在一台物理服务器上可以存在多个虚拟主机（Multi-homed Web Servers），并且它们共享一个IP地址。HTTP1.1的请求消息和响应消息都应支持Host头域，且请求消息中如果没有Host头域会报告一个错误（400 Bad Request）。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>缓存处理增强</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">在HTTP1.0中主要使用header里的If-Modified-Since,Expires来做为缓存判断的标准，HTTP1.1则引入了更多的缓存控制策略例如Entity tag，If-Unmodified-Since, If-Match, If-None-Match等更多可供选择的缓存头来控制缓存策略。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>错误通知管理</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">在HTTP1.1中新增了24个错误状态响应码，如409（Conflict）表示请求的资源与资源的当前状态发生冲突；410（Gone）表示服务器上的某个资源被永久性的删除。</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><strong>http1.1 和 2.0 的区别</strong>：</p>
-<ul>
-<li><p><strong>新的二进制格式（Binary Format）</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">HTTP1.x的解析是基于文本。基于文本协议的格式解析存在天然缺陷，文本的表现形式有多样性，要做到健壮性考虑的场景必然很多，二进制则不同，只认0和1的组合。基于这种考虑HTTP2.0的协议解析决定采用二进制格式，实现方便且健壮。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>多路复用</strong>（MultiPlexing)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">即连接共享，即每一个request都是是用作连接共享机制的。一个request对应一个id，这样一个连接上可以有多个request，每个连接的request可以随机的混杂在一起，接收方可以根据request的 id将request再归属到各自不同的服务端请求里面</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>header 压缩</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">如上文中所言，对前面提到过HTTP1.x的header带有大量信息，而且每次都要重复发送，HTTP2.0使用encoder来减少需要传输的header大小，通讯双方各自cache一份header fields表，既避免了重复header的传输，又减小了需要传输的大小。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>服务端推送</strong>（server push）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">HTTP2.0也具有server push功能。</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><strong>http 状态码：</strong></p>
-<table>
-<thead>
-<tr>
-<th align="left"><strong>消息</strong></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">100 Continue</td>
-<td></td>
-</tr>
-<tr>
-<td align="left">101 Switching Protocols</td>
-<td></td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th align="left"><strong>成功</strong></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">200 OK</td>
-<td></td>
-</tr>
-<tr>
-<td align="left">204 No Content</td>
-<td></td>
-</tr>
-<tr>
-<td align="left">206 Partial Content</td>
-<td></td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>重定向</th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>300 Multiple Choices</td>
-<td></td>
-</tr>
-<tr>
-<td>301 Moved Permanently</td>
-<td></td>
-</tr>
-<tr>
-<td>302 Move Temporarily</td>
-<td></td>
-</tr>
-<tr>
-<td>304 Not Modified</td>
-<td></td>
-</tr>
-<tr>
-<td>305 Use Proxy</td>
-<td></td>
-</tr>
-<tr>
-<td>307 Temporary Redirect</td>
-<td></td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>请求错误</th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>400 Bad Request</td>
-<td></td>
-</tr>
-<tr>
-<td>401 Unauthorized</td>
-<td></td>
-</tr>
-<tr>
-<td>403 Forbidden</td>
-<td></td>
-</tr>
-<tr>
-<td>404 Not Found</td>
-<td></td>
-</tr>
-<tr>
-<td>405 Method Not Allowed</td>
-<td></td>
-</tr>
-<tr>
-<td>408 Request Timeout</td>
-<td></td>
-</tr>
-<tr>
-<td>409 Conflict</td>
-<td></td>
-</tr>
-<tr>
-<td>410 Gone</td>
-<td></td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>服务器错误</th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>500 Internal Server Error</td>
-<td></td>
-</tr>
-<tr>
-<td>501 Not Implemented</td>
-<td></td>
-</tr>
-<tr>
-<td>502 Bad Gateway</td>
-<td></td>
-</tr>
-<tr>
-<td>503 Service Unavailable</td>
-<td></td>
-</tr>
-<tr>
-<td>504 Gateway Timeout</td>
-<td></td>
-</tr>
-<tr>
-<td>505 HTTP Version Not Supported</td>
-<td></td>
-</tr>
-</tbody></table>
-</li>
-<li><p><strong>HTTP&#x2F;1.1 协议中共定义了八种方法（有时也叫“动作”），来表明 Request-URL 指定的资源不同的操作方式</strong></p>
-<table>
-<thead>
-<tr>
-<th>请求方法</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>GET</td>
-<td>请求指定页面信息，并返回实体主体；</td>
-</tr>
-<tr>
-<td>POST</td>
-<td>指定资源提交数据并进行处理请求，数据被包含在请求体中，POST 请求可能会导致新的资源的建立或已有资源的修改</td>
-</tr>
-<tr>
-<td>HEAD</td>
-<td>类似 GET 请求，只不过返回的响应中没有具体内容，用于获取报头</td>
-</tr>
-<tr>
-<td>OPTIONS</td>
-<td>返回服务器针对特定资源所支持的 HTML 请求方法 或 web 服务器发送*测试服务器功能（允许客户端查看服务器性能）</td>
-</tr>
-<tr>
-<td>PUT</td>
-<td>从客服端向服务器传送的数据取代指定的文档内容</td>
-</tr>
-<tr>
-<td>DELETE</td>
-<td>请求服务器删除指定的内容</td>
-</tr>
-<tr>
-<td>TRACE</td>
-<td>回显服务器收到的请求，用于测试和诊断</td>
-</tr>
-<tr>
-<td>CONNECT</td>
-<td>HTTP1.1 协议中预留给能够将连接改为管道方式的代理服务器</td>
-</tr>
-</tbody></table>
-</li>
-<li><p><strong>GET 和 POST 区别</strong></p>
-<ul>
-<li><p>关于编码</p>
-</li>
-<li><p>参数传递</p>
-</li>
-<li><p>长度限制</p>
-</li>
-<li><p>语义</p>
-</li>
-<li><p>安全性</p>
-</li>
-<li><p>GET 产生一个 TCP 数据包，POST 产生两个 TCP 数据包。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200（返回数据）；</span><br><span class="line">而对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<h2 id="常用技术栈"><a href="#常用技术栈" class="headerlink" title="常用技术栈"></a>常用技术栈</h2><ul>
-<li><code>HashMap</code> 哈希表原理</li>
-<li><code>LinkedHashMap</code></li>
-<li><strong><code>ConcurrentHashMap</code></strong> 线程安全哈希表</li>
-<li><code>LruCache</code> 最近最少使用缓存</li>
-<li><code>DiskLruCache</code></li>
-<li><strong><code>ReentrantLock</code></strong> 可重入锁</li>
-<li><code>SharedPreferences</code> key&amp;value 缓存存储框架（缺点）</li>
-<li><code>CopyOnWriteArrayList</code> 读写分离</li>
-<li><code>Fragment</code></li>
-<li><code>Lifecycle</code></li>
-<li><code>LiveData</code> 动态可观察数据</li>
-<li><code>ArrayBlockingQueue </code> 阻塞队列</li>
-<li><code>LinkedBlockingQueue</code></li>
-<li><code>Glide</code></li>
-<li>**<code>EventBus</code>**优缺点</li>
-<li><code>OkHttpClient</code></li>
-<li><code>Retrofit</code></li>
-<li><code>LeakCanary</code> 内存泄漏监控</li>
-<li><code>BlockCanary </code> 主线程耗时监控</li>
-<li><code>Startup</code> 启动库</li>
-<li><code>GreenDao</code></li>
-</ul>
-<h2 id="六大设计原则和-23-种设计模式"><a href="#六大设计原则和-23-种设计模式" class="headerlink" title="六大设计原则和 23 种设计模式"></a>六大设计原则和 23 种设计模式</h2><h3 id="六大设计原则（SOLID）"><a href="#六大设计原则（SOLID）" class="headerlink" title="六大设计原则（SOLID）"></a>六大设计原则（SOLID）</h3><ol>
-<li><strong>开闭原则</strong>：软件实体应当对扩展开放，对修改关闭(OCP)</li>
-<li><strong>里氏替换原则</strong>：继承必须确保超类所拥有的性质在子类中仍然成立(LSP)</li>
-<li><strong>依赖倒置原则</strong>：高层模块不应该依赖低层模块，两者都应该依赖其抽象；抽象不应该依赖细节，细节应该依赖抽象。其核心思想是：要面向接口编程，不要面向实现编程。(DIP)</li>
-<li><strong>单一职责原则</strong>：单一职责原则规定一个类应该有且仅有一个引起它变化的原因，否则类应该被拆分(SRP)</li>
-<li><strong>接口隔离原则</strong>：客户端不应该被迫依赖于它不使用的方法(ISP)</li>
-<li><strong>迪米特法则</strong>：只与你的直接朋友交谈，不跟“陌生人”说话（Talk only to your immediate friends and not to strangers）。(LOD)</li>
-</ol>
-<p>$$<br><strong>合成复用原则</strong>：它要求在软件复用时，要尽量先使用组合或者聚合等关联关系来实现，其次才考虑使用继承关系来实现</p>
-<h3 id="23种设计模式"><a href="#23种设计模式" class="headerlink" title="23种设计模式"></a><strong>23种设计模式</strong></h3><ul>
-<li><p><strong>创建型设计模式</strong></p>
-<ul>
-<li>原型</li>
-<li>单例</li>
-<li>构造者模式</li>
-<li>工厂方法</li>
-<li>抽象工厂</li>
-</ul>
-</li>
-<li><p><strong>结构型设计模式</strong></p>
-<ul>
-<li>代理</li>
-<li>适配器</li>
-<li>装饰</li>
-<li>组合</li>
-<li>桥接</li>
-<li>外观</li>
-<li>享元</li>
-</ul>
-</li>
-<li><p><strong>行为型设计模式</strong></p>
-<ul>
-<li>模板方法</li>
-<li>观察者</li>
-<li>策略</li>
-<li>职责链</li>
-<li>命令</li>
-<li>中介者</li>
-<li>迭代器</li>
-<li>备忘录</li>
-<li>访问者</li>
-<li>解释器</li>
-<li>状态</li>
-</ul>
-</li>
-</ul>
-<h2 id="遇到的问题和解决方案"><a href="#遇到的问题和解决方案" class="headerlink" title="遇到的问题和解决方案"></a>遇到的问题和解决方案</h2><p>$$</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>android总结</title>
+      <link href="/2020/04/24/android%E6%80%BB%E7%BB%93/"/>
+      <url>/2020/04/24/android%E6%80%BB%E7%BB%93/</url>
+      
+        <content type="html"><![CDATA[<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><ul><li><p><code>activity</code>生命周期与启动模式</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">standard &amp; singletask &amp; singletop &amp; singleInstance</span><br></pre></td></tr></table></figure></li><li><p><code>service</code>生命周期 startservice<code>&amp;</code>bindservice 区别和使用场景</p></li><li><p><code>contentprovider</code></p></li><li><p><a href="https://blog.csdn.net/w1070216393/article/details/84261996"><code>view</code>事件分发机制</a></p></li><li><p><code>activity</code>启动过程</p></li><li><p><code>view</code>绘制流程</p><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//页面加载</span></span><br><span class="line">setContentView()</span><br><span class="line"><span class="comment">//重新布局</span></span><br><span class="line">requestLayout()</span><br><span class="line"><span class="comment">//重新绘制</span></span><br><span class="line">invalidate()</span><br><span class="line">postInvalidate()</span><br><span class="line"></span><br><span class="line"><span class="comment">//遍历过程</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">performTraversals</span><span class="params">()</span></span>&#123;</span><br><span class="line">  performMeasure()</span><br><span class="line">  performLayout()</span><br><span class="line">  performDraw()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><span id="more"></span></li><li><p><code>ANR</code>常见的发生原因&amp;解决方案</p><p>产生原因：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.keyDispatchTimeout（5秒内，用户事件未响应）</span><br><span class="line">2.broadcastTimeout（10秒内onReceive()函数未处理完成）</span><br><span class="line">3.serviceTimeout(20秒内服务生命周期函数未处理完成)</span><br></pre></td></tr></table></figure><ul><li><p>问题场景：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">应用程序UI线程存在io耗时操作、应用程序UI线程等待子线程释放某个锁、耗时的动画需要大量的计算，导致cpu负载过重，UI线程得不到cpu时间片</span><br></pre></td></tr></table></figure></li><li><p>定位分析：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过logcat和/data/anr/traces.txt文件定位和分析</span><br></pre></td></tr></table></figure></li><li><p>避免和检测：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">blockcanary性能监控。基本原理是利用主线程的消息队列处理机制，通过对比消息分发开始和结束的时间点来判断是否超过设定的时间。</span><br></pre></td></tr></table></figure></li></ul></li><li><p><code>handler</code>机制原理</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- handler.post(Runnable r)</span><br><span class="line">- Looper.prepare()</span><br><span class="line">- Looper.myLooper()</span><br><span class="line">- Looper.loop()</span><br><span class="line">- messageQueue.addIdleHandler(IdleHandler handler)</span><br></pre></td></tr></table></figure></li><li><p><a href="https://www.jianshu.com/p/53ed7ba95722">动态换肤原理</a></p></li><li><p><code>ListView</code>&amp;<code>RecylerView</code>的区别</p></li><li><p><code>AMS</code></p></li><li><p><code>WMS</code></p></li><li><p><code>PMS</code></p></li></ul><h2 id="kotlin"><a href="#kotlin" class="headerlink" title="kotlin"></a><a href="https://www.jianshu.com/p/06703abc56b1">kotlin</a></h2><ul><li>协程原理</li><li>Jetpack</li></ul><h2 id="Ipc-通信机制"><a href="#Ipc-通信机制" class="headerlink" title="Ipc 通信机制"></a>Ipc 通信机制</h2><ul><li><p><strong>传统解决方案：socket &amp; 管道 &amp; 消息队列</strong></p></li><li><p>非实时方案：<strong>文件共享</strong></p></li><li><p><strong>android 解决方案 binder</strong></p><ul><li><p><strong>aidl</strong></p></li><li><p><strong>messenger</strong></p></li><li><p><strong>bundle</strong></p></li><li><p><strong>ContentProvider</strong></p></li></ul></li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">binder优点：传统ipc方案，用户空间数据拷贝到内核空间，内核空间再次拷贝到另一个用户空间，2次拷贝。binder采用mmap内存映射机制（将用户空间地址拷贝到内核空间，没有直接拷贝数据，在调用时，通过mmu&amp;中断机制，将a用户空间数据拷贝到b用户空间），1次数据拷贝，更高效</span><br></pre></td></tr></table></figure><h2 id="多线程-🤡"><a href="#多线程-🤡" class="headerlink" title="多线程 🤡"></a>多线程 🤡</h2><ul><li><p><strong>线程池原理</strong></p><p><img src="https://raw.githubusercontent.com/barryxc/pictures/main/img188580-202ba87b6a285694.png" alt="188580-202ba87b6a285694"></p></li><li><p><a href="https://zhuanlan.zhihu.com/p/75880892"><strong>synchronized 锁的底层实现</strong></a>&amp;<code>reentrantlock</code>区别</p><ul><li><p>java 对象内存区域划分</p><ul><li><p>对象头：HotSpot 虚拟机的对象头分为两部分信息：数组分为三部分</p><ul><li>Mark Word 存储对象的哈希码、GC 分代年龄、锁信息等</li><li>32 位&#x2F;64 位 Class MetaData Address 指向对象类型数据的指针</li><li>（数组） 32 位&#x2F;64 位 数组长度</li></ul></li><li><p>实例数据</p></li><li><p>对齐部分</p></li></ul></li></ul></li><li><p><strong>锁膨胀</strong></p><ul><li>无锁状态</li><li>偏向锁状态</li><li>轻量级锁状态（当有第二个线程申请资源时，不一定存在竞争）</li><li>自旋锁&amp;<strong>自适应自旋锁</strong>（自旋次数不固定）</li><li>重量级锁（系统 mutex 调用）</li></ul></li><li><p><strong>锁消除</strong></p></li><li><p><strong>锁粗化</strong></p></li><li><p><strong><a href="https://blog.csdn.net/caisongcheng_good/article/details/79916873">乐观锁和悲观锁</a></strong>&amp;CAS 原子操作</p></li><li><p><strong>volatile 关键字</strong></p><p>可以保证内存可见性，防止寄存器缓存</p><p>防止指令重排：指令重排不会影响单个程序的运行，但会影响线程并发执行的正确性</p><p><u>无法保证原子性：</u></p></li></ul><h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><p>基本概念：</p><ol><li>存储过程</li><li>索引实现原理<ul><li>密集索引</li><li>稀松索引</li></ul></li><li>事务特性</li></ol><p>优化方案：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一般来说，在系统设计阶段就应该根据业务耦合松紧来确定垂直分库，垂直分表方案，在数据量及访问压力不是特别大的情况，首先考虑缓存、读写分离、索引技术等方案。若数据量极大，且持续增长，再考虑水平分库水平分表方案。</span><br></pre></td></tr></table></figure><ol><li>索引的实现原理</li><li>分库分表机制</li><li>缓存机制</li><li>读写分离机制</li></ol><h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ul><li><p><strong>冷启动优化：</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">冷启动流程：appliction:oncreate()-&gt;activity:oncreate()-&gt;activity-onresume() 在第一个页面加载完成之前，wms会预先启动个预览窗口。</span><br><span class="line">1.减少application:oncreate()耗时：懒加载，异步加载</span><br><span class="line">2.设置apptheme:windowbackground,使得预览窗口非白屏或者黑屏，提升视觉启动体验</span><br><span class="line">3.减少xml布局层级,优化启动页xml布局。</span><br><span class="line">4.Activity启动优化 onCreate，onStart，onResume中耗时较短但非必要的代码可以放到IdleHandler中执行，减少启动时间</span><br></pre></td></tr></table></figure></li><li><p><strong>布局优化 ：</strong></p><ul><li><p>include 标签共享布局</p></li><li><p>viewStub 标签延迟加载</p></li><li><p>merge 标签减少布局层次</p></li><li><p>尽量使用 compoundDrawable 代替 imageview 和 textview 组合</p></li><li><p>布局加载性能监控</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">LayoutInflaterCompat.setFactory(getLayoutInflater(), <span class="keyword">new</span> <span class="title class_">LayoutInflaterFactory</span>() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> View <span class="title function_">onCreateView</span><span class="params">(View parent, String name, Context context, AttributeSet attrs)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="type">long</span> <span class="variable">startTime</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">            <span class="type">View</span> <span class="variable">view</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                view = getLayoutInflater().createView(name, <span class="literal">null</span>, attrs);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">long</span> <span class="variable">cost</span> <span class="operator">=</span> System.currentTimeMillis() - startTime;</span><br><span class="line">            map.put(parent,<span class="keyword">new</span> <span class="title class_">Hodler</span>(parent,view,name,cost));</span><br><span class="line">            Log.d(<span class="string">&quot;=========&quot;</span>, <span class="string">&quot;加载布局：&quot;</span> + name + <span class="string">&quot;耗时：&quot;</span> + cost);</span><br><span class="line">            <span class="keyword">return</span> view;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">super</span>.onCreate(savedInstanceState);</span><br></pre></td></tr></table></figure></li></ul></li><li><p><strong>电量优化</strong></p></li><li><p><strong>数据库优化</strong></p></li><li><p><strong>内存优化：</strong></p><ul><li>集合容器对象使用 WeakReference 引用</li><li>长生命周期对象如 application、单例对象不要存储大数据</li><li>防止 activity 内部非静态内部类实例引用外部 this 指针导致内存泄漏</li><li>频繁创建的短生命周期的小对象可以使用对象池复用技术</li><li>限制网络，图片，数据库内存缓存大小</li><li>消息队列使用有界队列，防止生产和消费不平衡导致背压</li></ul></li><li><p><strong>弱网络优化：</strong></p><ul><li>避免 dns 解析和劫持</li><li>业务层合并网络多个类似的请求</li><li>预先加载数据</li><li>避免轮询</li><li>使用 http 缓存-http 协议（静态资源使用 http cache）</li><li>压缩数据大小 (压缩 content)</li><li>cdn 内容网络分发加速</li></ul></li><li><p><strong>代码优化：</strong></p><ul><li>避免创建非必要对象</li><li>频繁创建的短生命周期对象使用对象池</li><li>常量使用 static final 修饰符</li><li>避免内部使用 setters&#x2F;getters</li><li>防止内存泄漏，使用 leakcanary 监控内存泄漏</li><li>使用 blockcanary 监控主线程耗时</li></ul></li><li><p><strong>图片优化:</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">使用压缩工具对PNG资源图片进行压缩、尽量使用.9.png图片格式</span><br></pre></td></tr></table></figure></li></ul><h2 id="gradle-构建流程"><a href="#gradle-构建流程" class="headerlink" title="gradle 构建流程"></a>gradle 构建流程</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">待补充</span><br></pre></td></tr></table></figure><h2 id="apk-打包和签名-☺️"><a href="#apk-打包和签名-☺️" class="headerlink" title="apk 打包和签名 ☺️"></a>apk 打包和签名 ☺️</h2><ul><li><p><strong>apk 打包流程</strong></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">合并资源文件</span></span><br><span class="line">gradle merge task</span><br><span class="line"></span><br><span class="line">appt</span><br><span class="line"></span><br><span class="line">aidl</span><br><span class="line"></span><br><span class="line">javac</span><br><span class="line"></span><br><span class="line">dx</span><br><span class="line"></span><br><span class="line">apkbuilder</span><br><span class="line"></span><br><span class="line">jarsigner</span><br><span class="line"></span><br><span class="line">zipalign</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/barryxc/pictures/main/imgv2-e15390bbaf18d21f98cd742e3dcec99b_r.jpg" alt="v2-e15390bbaf18d21f98cd742e3dcec99b_r"></p></li><li><p><strong>apk 签名流程</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">META-INF:MANIFEST.MF&amp;CERT.SF&amp;CERT.RSA</span><br></pre></td></tr></table></figure></li></ul><h2 id="java-内存区域模型（JMM）"><a href="#java-内存区域模型（JMM）" class="headerlink" title="java 内存区域模型（JMM）"></a><a href="http://tutorials.jenkov.com/java-concurrency/java-memory-model.html">java 内存区域模型（JMM）</a></h2><ul><li><p><strong>内存区域划分:</strong></p><ul><li>程序计数器&amp;java 虚拟机栈&amp;堆&amp;本地方法栈&amp;方法区</li><li>运行时堆内存的划分：新生代和老年代。新生代的又划分为：eden&amp;from survior&amp;to survior</li></ul></li><li><p><strong>jvm 垃圾回收机制：</strong></p><ul><li>如何确定对象是否可回收？ 引用计数法&amp;可达性分析算法</li><li>如何回收垃圾对象？标记-清除算法&amp;复制算法&amp;标记-整理算法&amp;分代收集算法</li></ul></li></ul><h2 id="AOP-切面编程"><a href="#AOP-切面编程" class="headerlink" title="AOP 切面编程"></a>AOP 切面编程</h2><ul><li><p><strong>APT&amp;注解技术</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">（运行时注解）javapoet(.java源码生成工具)</span><br></pre></td></tr></table></figure></li><li><p><strong>javassist、asm</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">（字节码织入,编译时通过gradle&amp;运行时，类装载之前替换）</span><br></pre></td></tr></table></figure></li><li><p><strong>反射&amp;动态代理</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Proxy &amp; InvocationHandler</span><br></pre></td></tr></table></figure></li></ul><h2 id="类加载机制和反射"><a href="#类加载机制和反射" class="headerlink" title="类加载机制和反射"></a>类加载机制和反射</h2><ul><li><p>java 类加载机制</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">全盘负责、双亲委派（父类委托）、缓存机制</span><br></pre></td></tr></table></figure></li><li><p>反射</p></li><li><p>插件化原理</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">宿主apk如何调启插件apk:</span><br><span class="line">- 字节码替换</span><br><span class="line">- 资源替换</span><br><span class="line">- so库替换</span><br></pre></td></tr></table></figure></li><li><p>热修复原理</p><ul><li>Nuwa</li><li>Andfix、Dexposed</li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">两种方案原理：</span><br><span class="line">- 类加载时，动态修改字节码.class文件格式（需要重新启动）</span><br><span class="line">- 运行时，动态替换class类型对象的内存结构（不需要重新启动）</span><br></pre></td></tr></table></figure></li></ul><h2 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">待补充</span><br></pre></td></tr></table></figure><h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><ul><li><p>数组</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Array、ArrayList</span><br></pre></td></tr></table></figure></li><li><p>链表（栈和队列）</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LinkedList、ArrayDeque、Stack</span><br></pre></td></tr></table></figure></li><li><p>哈希表</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HashMap、LinkedHashMap、LRU、ConcurrentHashMap</span><br></pre></td></tr></table></figure></li><li><p>二叉树</p><blockquote><p>深度、广度、镜像</p></blockquote></li><li><p>红黑树</p><blockquote><p>自平衡二叉搜索树</p></blockquote></li><li><p>B 树（多路平衡搜索树）</p></li><li><p>B+树</p></li><li><p>B*树</p></li></ul><h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><ul><li><p>十大内部排序</p><ul><li>直接选择排序</li><li>插入排序</li><li>折半插入排序</li><li>希尔排序</li><li>冒泡排序</li><li>快速排序</li><li>堆排序</li><li>归并排序</li><li>桶排序</li><li>基数排序</li></ul></li><li><p>动态规划</p></li><li><p>贪心算法</p></li><li><p>多指针</p></li></ul><h2 id="Hybrid-技术原理"><a href="#Hybrid-技术原理" class="headerlink" title="Hybrid 技术原理"></a><a href="https://www.cnblogs.com/peakleo/p/10572749.html">Hybrid 技术原理</a></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hybrid App的本质，其实是在原生的 App 中，使用 WebView 作为容器直接承载 Web页面。因此，最核心的点就是 Native端 与 H5端 之间的双向通讯层，其实这里也可以理解为我们需要一套 跨语言通讯方案，来完成 Native(Java/Objective-c/...) 与 JavaScript 的通讯。实现的关键，便是作为容器的 WebView，一切的原理都是基于 WebView 的机制。</span><br></pre></td></tr></table></figure><h4 id="native-调用-js"><a href="#native-调用-js" class="headerlink" title="native 调用 js"></a>native 调用 js</h4><ol><li><p><code>loadUrl</code>无法直接获取返回值</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mWebView.loadUrl(<span class="string">&quot;javascript: 方法名(&#x27;参数需要转为字符串&#x27;)&quot;</span>);</span><br></pre></td></tr></table></figure></li><li><p><code>evaluateJavascript</code>4.4+版本</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mWebView.evaluateJavascript(<span class="string">&quot;javascript: 方法名(&#x27;参数需要转为字符串&#x27;)&quot;</span>, <span class="keyword">new</span> <span class="title class_">ValueCallback</span>&lt;String&gt;() &#123;</span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onReceiveValue</span><span class="params">(String value)</span> &#123;</span><br><span class="line">      <span class="comment">// 这里的value即为对应JS方法的返回值</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li></ol><h4 id="js-调用-native"><a href="#js-调用-native" class="headerlink" title="js 调用 native"></a>js 调用 native</h4><ol><li><code>WebView URL Scheme</code> 跳转拦截</li><li><code>WebView</code> 中的<code>prompt/console/alert</code>拦截：通常使用<code>prompt</code>，因为这个方法在前端中使用频率低，比较不会出现冲突</li><li><code>WebView API</code>注入：原理其实就是 Native 获取 JavaScript 环境上下文，并直接在上面挂载对象或者方法，使 js 可以直接调用，Android 与 IOS 分别拥有对应的挂载方式</li></ol><h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><ul><li><p><strong>java 层 crash 捕获机制</strong></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置指定线程的异常捕获处理器</span></span><br><span class="line">Thread.currentThread().setUncaughtExceptionHandler();</span><br><span class="line"><span class="comment">//设置全局的异常捕获处理器</span></span><br><span class="line">Thread.setDefaultUncaughtExceptionHandler(<span class="keyword">new</span> <span class="title class_">Thread</span>.UncaughtExceptionHandler() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">uncaughtException</span><span class="params">(<span class="meta">@NonNull</span> Thread t, <span class="meta">@NonNull</span> Throwable e)</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li><li><p><strong>native 层 crash 捕获机制</strong></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">c++层代码错误可以分为两种：</span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> std::exception 异常：</span><br><span class="line"><span class="number">2.</span> fatal signal异常：</span><br><span class="line"></span><br><span class="line">   常见的软中断信号：</span><br><span class="line">     -SIGFPE 浮点异常</span><br><span class="line">     -SIGSEGV 无效的内存引用 (segmentation violation)</span><br><span class="line">     -SIGILL 非法指令</span><br><span class="line"></span><br><span class="line">  如何捕获？</span><br><span class="line">  注册信号处理函数，然后向java层发送消息，通知抓取logcat日志信息。然后通过addr2line等工具对dump文件函数地址转换为对应的代码行数。</span><br></pre></td></tr></table></figure></li></ul><h2 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h2><h3 id="对称秘钥密码体制"><a href="#对称秘钥密码体制" class="headerlink" title="对称秘钥密码体制"></a>对称秘钥密码体制</h3><ul><li><p>DES（Data Encryption Standard）</p></li><li><p><a href="https://www.pianshen.com/article/92851078995/">AES</a>（Advanced Encryption Standard）</p><ol><li><p><a href="http://www.361way.com/aes/5830.html"><strong>电码本模式</strong>（Electronic Codebook Book (ECB)）</a></p></li><li><p><a href="https://www.cnblogs.com/eleven-elv/p/7289579.html"><strong>密码分组链接模式</strong>（Cipher Block Chaining (CBC)）</a></p></li><li><p>计算器模式（Counter (CTR)）</p></li><li><p>密码反馈模式（Cipher FeedBack (CFB)）</p></li><li><p>输出反馈模式（Output FeedBack (OFB)）</p></li></ol></li></ul><h3 id="公钥密码体制"><a href="#公钥密码体制" class="headerlink" title="公钥密码体制"></a>公钥密码体制</h3><ul><li><p>RSA</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RSA公开密钥密码体制的原理是：根据数论，寻求两个大素数比较简单，而将它们的乘积进行因式分解却极其困难，因此可以将乘积公开作为加密密钥</span><br></pre></td></tr></table></figure></li><li><p>ECC（椭圆曲线加密算法）</p></li><li><p>DH（秘钥交换算法）</p></li></ul><h3 id="散列算法"><a href="#散列算法" class="headerlink" title="散列算法"></a>散列算法</h3><ul><li>MD5 （消息摘要）</li><li>SHA 安全散列算法（Secure Hash Algorithm）</li></ul><h3 id="签名算法"><a href="#签名算法" class="headerlink" title="签名算法"></a>签名算法</h3><ul><li><a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1183198304823296">HMAC</a>（Hash-based Message Authentication Code）</li><li>非对称加密（两组秘钥双向加密解密）</li></ul><h2 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">待补充</span><br></pre></td></tr></table></figure><h2 id="TCP😁"><a href="#TCP😁" class="headerlink" title="TCP😁"></a>TCP😁</h2><ul><li><p>报文格式</p><p><img src="https://raw.githubusercontent.com/barryxc/pictures/main/img27194088468_4cb0141fc8_b.jpg" alt="27194088468_4cb0141fc8_b"></p></li><li><p>滑动窗口</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">滑动窗口大小：用来告知发送端接收端的缓存区大小，以此控制发送端发送数据的速率，从而达到流量控制。窗口大小时一个16bit字段，因而窗口大小最大为65535</span><br></pre></td></tr></table></figure></li></ul><h2 id="HTTP-协议"><a href="#HTTP-协议" class="headerlink" title="HTTP 协议"></a><a href="https://www.cnblogs.com/heluan/p/8620312.html">HTTP 协议</a></h2><ul><li><p><strong>tcp 三次握手 🤝+四次挥手 👋</strong></p></li><li><p><strong>tls 握手流程</strong></p><ul><li><strong>client_hello</strong></li><li><strong>server_hello</strong></li><li><strong>证书校验</strong></li><li><strong>秘钥协商</strong>(DH 算法)</li></ul></li><li><p><strong>http1.1 和 1.0 区别：</strong></p><ul><li><p>带宽优化及网络连接的使用:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在HTTP1.0中主要使用header里的If-Modified-Since,Expires来做为缓存判断的标准，HTTP1.1则引入了更多的缓存控制策略例如Entity tag，If-Unmodified-Since, If-Match, If-None-Match等更多可供选择的缓存头来控制缓存策略。</span><br></pre></td></tr></table></figure></li><li><p>支持长连接:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HTTP 1.1支持长连接（PersistentConnection）和请求的流水线（Pipelining）处理，在一个TCP连接上可以传送多个HTTP请求和响应，减少了建立和关闭连接的消耗和延迟，在HTTP1.1中默认开启Connection： keep-alive，一定程度上弥补了HTTP1.0每次请求都要创建连接的缺点</span><br></pre></td></tr></table></figure></li><li><p>支持 host 域</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在HTTP1.0中认为每台服务器都绑定一个唯一的IP地址，因此，请求消息中的URL并没有传递主机名（hostname）。但随着虚拟主机技术的发展，在一台物理服务器上可以存在多个虚拟主机（Multi-homed Web Servers），并且它们共享一个IP地址。HTTP1.1的请求消息和响应消息都应支持Host头域，且请求消息中如果没有Host头域会报告一个错误（400 Bad Request）。</span><br></pre></td></tr></table></figure></li><li><p>缓存处理增强</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在HTTP1.0中主要使用header里的If-Modified-Since,Expires来做为缓存判断的标准，HTTP1.1则引入了更多的缓存控制策略例如Entity tag，If-Unmodified-Since, If-Match, If-None-Match等更多可供选择的缓存头来控制缓存策略。</span><br></pre></td></tr></table></figure></li><li><p>错误通知管理</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在HTTP1.1中新增了24个错误状态响应码，如409（Conflict）表示请求的资源与资源的当前状态发生冲突；410（Gone）表示服务器上的某个资源被永久性的删除。</span><br></pre></td></tr></table></figure></li></ul></li><li><p><strong>http1.1 和 2.0 的区别</strong>：</p><ul><li><p><strong>新的二进制格式（Binary Format）</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HTTP1.x的解析是基于文本。基于文本协议的格式解析存在天然缺陷，文本的表现形式有多样性，要做到健壮性考虑的场景必然很多，二进制则不同，只认0和1的组合。基于这种考虑HTTP2.0的协议解析决定采用二进制格式，实现方便且健壮。</span><br></pre></td></tr></table></figure></li><li><p><strong>多路复用</strong>（MultiPlexing)</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">即连接共享，即每一个request都是是用作连接共享机制的。一个request对应一个id，这样一个连接上可以有多个request，每个连接的request可以随机的混杂在一起，接收方可以根据request的 id将request再归属到各自不同的服务端请求里面</span><br></pre></td></tr></table></figure></li><li><p><strong>header 压缩</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如上文中所言，对前面提到过HTTP1.x的header带有大量信息，而且每次都要重复发送，HTTP2.0使用encoder来减少需要传输的header大小，通讯双方各自cache一份header fields表，既避免了重复header的传输，又减小了需要传输的大小。</span><br></pre></td></tr></table></figure></li><li><p><strong>服务端推送</strong>（server push）</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HTTP2.0也具有server push功能。</span><br></pre></td></tr></table></figure></li></ul></li><li><p><strong>http 状态码：</strong></p><table><thead><tr><th align="left"><strong>消息</strong></th><th></th></tr></thead><tbody><tr><td align="left">100 Continue</td><td></td></tr><tr><td align="left">101 Switching Protocols</td><td></td></tr></tbody></table><table><thead><tr><th align="left"><strong>成功</strong></th><th></th></tr></thead><tbody><tr><td align="left">200 OK</td><td></td></tr><tr><td align="left">204 No Content</td><td></td></tr><tr><td align="left">206 Partial Content</td><td></td></tr></tbody></table><table><thead><tr><th>重定向</th><th></th></tr></thead><tbody><tr><td>300 Multiple Choices</td><td></td></tr><tr><td>301 Moved Permanently</td><td></td></tr><tr><td>302 Move Temporarily</td><td></td></tr><tr><td>304 Not Modified</td><td></td></tr><tr><td>305 Use Proxy</td><td></td></tr><tr><td>307 Temporary Redirect</td><td></td></tr></tbody></table><table><thead><tr><th>请求错误</th><th></th></tr></thead><tbody><tr><td>400 Bad Request</td><td></td></tr><tr><td>401 Unauthorized</td><td></td></tr><tr><td>403 Forbidden</td><td></td></tr><tr><td>404 Not Found</td><td></td></tr><tr><td>405 Method Not Allowed</td><td></td></tr><tr><td>408 Request Timeout</td><td></td></tr><tr><td>409 Conflict</td><td></td></tr><tr><td>410 Gone</td><td></td></tr></tbody></table><table><thead><tr><th>服务器错误</th><th></th></tr></thead><tbody><tr><td>500 Internal Server Error</td><td></td></tr><tr><td>501 Not Implemented</td><td></td></tr><tr><td>502 Bad Gateway</td><td></td></tr><tr><td>503 Service Unavailable</td><td></td></tr><tr><td>504 Gateway Timeout</td><td></td></tr><tr><td>505 HTTP Version Not Supported</td><td></td></tr></tbody></table></li><li><p><strong>HTTP&#x2F;1.1 协议中共定义了八种方法（有时也叫“动作”），来表明 Request-URL 指定的资源不同的操作方式</strong></p><table><thead><tr><th>请求方法</th><th>描述</th></tr></thead><tbody><tr><td>GET</td><td>请求指定页面信息，并返回实体主体；</td></tr><tr><td>POST</td><td>指定资源提交数据并进行处理请求，数据被包含在请求体中，POST 请求可能会导致新的资源的建立或已有资源的修改</td></tr><tr><td>HEAD</td><td>类似 GET 请求，只不过返回的响应中没有具体内容，用于获取报头</td></tr><tr><td>OPTIONS</td><td>返回服务器针对特定资源所支持的 HTML 请求方法 或 web 服务器发送*测试服务器功能（允许客户端查看服务器性能）</td></tr><tr><td>PUT</td><td>从客服端向服务器传送的数据取代指定的文档内容</td></tr><tr><td>DELETE</td><td>请求服务器删除指定的内容</td></tr><tr><td>TRACE</td><td>回显服务器收到的请求，用于测试和诊断</td></tr><tr><td>CONNECT</td><td>HTTP1.1 协议中预留给能够将连接改为管道方式的代理服务器</td></tr></tbody></table></li><li><p><strong>GET 和 POST 区别</strong></p><ul><li><p>关于编码</p></li><li><p>参数传递</p></li><li><p>长度限制</p></li><li><p>语义</p></li><li><p>安全性</p></li><li><p>GET 产生一个 TCP 数据包，POST 产生两个 TCP 数据包。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">对于GET方式的请求，浏览器会把http header和data一并发送出去，服务器响应200（返回数据）；</span><br><span class="line">而对于POST，浏览器先发送header，服务器响应100 continue，浏览器再发送data，服务器响应200 ok（返回数据）。</span><br></pre></td></tr></table></figure></li></ul></li></ul><h2 id="常用技术栈"><a href="#常用技术栈" class="headerlink" title="常用技术栈"></a>常用技术栈</h2><ul><li><code>HashMap</code> 哈希表原理</li><li><code>LinkedHashMap</code></li><li><strong><code>ConcurrentHashMap</code></strong> 线程安全哈希表</li><li><code>LruCache</code> 最近最少使用缓存</li><li><code>DiskLruCache</code></li><li><strong><code>ReentrantLock</code></strong> 可重入锁</li><li><code>SharedPreferences</code> key&amp;value 缓存存储框架（缺点）</li><li><code>CopyOnWriteArrayList</code> 读写分离</li><li><code>Fragment</code></li><li><code>Lifecycle</code></li><li><code>LiveData</code> 动态可观察数据</li><li><code>ArrayBlockingQueue </code> 阻塞队列</li><li><code>LinkedBlockingQueue</code></li><li><code>Glide</code></li><li>**<code>EventBus</code>**优缺点</li><li><code>OkHttpClient</code></li><li><code>Retrofit</code></li><li><code>LeakCanary</code> 内存泄漏监控</li><li><code>BlockCanary </code> 主线程耗时监控</li><li><code>Startup</code> 启动库</li><li><code>GreenDao</code></li></ul><h2 id="六大设计原则和-23-种设计模式"><a href="#六大设计原则和-23-种设计模式" class="headerlink" title="六大设计原则和 23 种设计模式"></a>六大设计原则和 23 种设计模式</h2><h3 id="六大设计原则（SOLID）"><a href="#六大设计原则（SOLID）" class="headerlink" title="六大设计原则（SOLID）"></a>六大设计原则（SOLID）</h3><ol><li><strong>开闭原则</strong>：软件实体应当对扩展开放，对修改关闭(OCP)</li><li><strong>里氏替换原则</strong>：继承必须确保超类所拥有的性质在子类中仍然成立(LSP)</li><li><strong>依赖倒置原则</strong>：高层模块不应该依赖低层模块，两者都应该依赖其抽象；抽象不应该依赖细节，细节应该依赖抽象。其核心思想是：要面向接口编程，不要面向实现编程。(DIP)</li><li><strong>单一职责原则</strong>：单一职责原则规定一个类应该有且仅有一个引起它变化的原因，否则类应该被拆分(SRP)</li><li><strong>接口隔离原则</strong>：客户端不应该被迫依赖于它不使用的方法(ISP)</li><li><strong>迪米特法则</strong>：只与你的直接朋友交谈，不跟“陌生人”说话（Talk only to your immediate friends and not to strangers）。(LOD)</li></ol><p>$$<br><strong>合成复用原则</strong>：它要求在软件复用时，要尽量先使用组合或者聚合等关联关系来实现，其次才考虑使用继承关系来实现</p><h3 id="23种设计模式"><a href="#23种设计模式" class="headerlink" title="23种设计模式"></a><strong>23种设计模式</strong></h3><ul><li><p><strong>创建型设计模式</strong></p><ul><li>原型</li><li>单例</li><li>构造者模式</li><li>工厂方法</li><li>抽象工厂</li></ul></li><li><p><strong>结构型设计模式</strong></p><ul><li>代理</li><li>适配器</li><li>装饰</li><li>组合</li><li>桥接</li><li>外观</li><li>享元</li></ul></li><li><p><strong>行为型设计模式</strong></p><ul><li>模板方法</li><li>观察者</li><li>策略</li><li>职责链</li><li>命令</li><li>中介者</li><li>迭代器</li><li>备忘录</li><li>访问者</li><li>解释器</li><li>状态</li></ul></li></ul><h2 id="遇到的问题和解决方案"><a href="#遇到的问题和解决方案" class="headerlink" title="遇到的问题和解决方案"></a>遇到的问题和解决方案</h2><p>$$</p>]]></content>
+      
+      
       <categories>
-        <category>android</category>
+          
+          <category> android </category>
+          
       </categories>
-      <tags>
-        <tag>android</tag>
-      </tags>
-  </entry>
+      
+      
+        <tags>
+            
+            <tag> android </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
 </search>
