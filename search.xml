@@ -49,7 +49,8 @@
         <category>adb</category>
       </categories>
       <tags>
-        <tag>adb android</tag>
+        <tag>adb</tag>
+        <tag>android</tag>
       </tags>
   </entry>
   <entry>
@@ -180,8 +181,6 @@
 
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">有的手机 .pem 格式的证书没法直接点击安装，需要修改后缀为.crt 格式，才能点击安装</span><br></pre></td></tr></table></figure>
 
-
-
 <h3 id="开启代理"><a href="#开启代理" class="headerlink" title="开启代理"></a>开启代理</h3><p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1618564185975-da945211-f8fe-4f36-82e3-c4fe9e63239d.png" alt="img"></p>
 <h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="踩坑：chls-证书和电脑是绑定的关系"><a href="#踩坑：chls-证书和电脑是绑定的关系" class="headerlink" title="踩坑：chls 证书和电脑是绑定的关系"></a>踩坑：chls 证书和电脑是绑定的关系</h2><p>连接每台新电脑都需要安装新的 chls 证书</p>
 ]]></content>
@@ -189,7 +188,9 @@
         <category>android</category>
       </categories>
       <tags>
-        <tag>android Charles https</tag>
+        <tag>android</tag>
+        <tag>Charles</tag>
+        <tag>https</tag>
       </tags>
   </entry>
   <entry>
@@ -370,6 +371,23 @@
       </tags>
   </entry>
   <entry>
+    <title>铃铛</title>
+    <url>/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/</url>
+    <content><![CDATA[<p>小铃铛每天出门都很怂，出门的时候就不敢下来。</p>
+<p>回到家的时候，就是它的主场，每天白天不起，晚上床头蹦迪。</p>
+<span id="more"></span>
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/barryxc/pictures@main/uPic/IMG_3190.jpeg" alt="IMG_3190"></p>
+]]></content>
+      <categories>
+        <category>宠物</category>
+      </categories>
+      <tags>
+        <tag>宠物</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>特殊字符实体</title>
     <url>/2022/04/26/%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E5%AE%9E%E4%BD%93/</url>
     <content><![CDATA[<p>常见的特殊字符实体</p>
@@ -417,7 +435,7 @@
 <tr>
 <td>‘</td>
 <td>撇号</td>
-<td>&amp;apos; (IE不支持)</td>
+<td>&amp;apos; (IE 不支持)</td>
 <td>&#39;</td>
 </tr>
 <tr>
@@ -490,23 +508,6 @@
       </tags>
   </entry>
   <entry>
-    <title>铃铛</title>
-    <url>/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/</url>
-    <content><![CDATA[<p>小铃铛每天出门都很怂，出门的时候就不敢下来。</p>
-<p>回到家的时候，就是它的主场，每天白天不起，晚上床头蹦迪。</p>
-<span id="more"></span>
-
-
-<p><img src="https://cdn.jsdelivr.net/gh/barryxc/pictures@main/uPic/IMG_3190.jpeg" alt="IMG_3190"></p>
-]]></content>
-      <categories>
-        <category>宠物</category>
-      </categories>
-      <tags>
-        <tag>宠物</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>android签名详解</title>
     <url>/2022/04/24/%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88/</url>
     <content><![CDATA[<p><strong>Android 支持以下三种应用签名方案</strong></p>
@@ -517,7 +518,6 @@
 </ul>
 <p><strong>APK 签名验证过程</strong></p>
 <span id="more"></span>
-
 
 <p><img src="https://intranetproxy.alipay.com/skylark/lark/0/2021/png/3756563/1637240247957-902343f6-793b-467d-88da-39cb6b79b65b.png" alt="img"></p>
 <h2 id="v1-签名机制"><a href="#v1-签名机制" class="headerlink" title="v1 签名机制"></a>v1 签名机制</h2><p><strong>v1 签名过程</strong></p>
@@ -714,7 +714,7 @@
         <category>android</category>
       </categories>
       <tags>
-        <tag>android</tag>
+        <tag>签名</tag>
       </tags>
   </entry>
   <entry>

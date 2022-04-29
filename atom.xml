@@ -63,7 +63,7 @@
     <link href="https://xuechuang.cc/2022/04/26/%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E5%AE%9E%E4%BD%93/"/>
     <id>https://xuechuang.cc/2022/04/26/%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E5%AE%9E%E4%BD%93/</id>
     <published>2022-04-26T04:40:18.000Z</published>
-    <updated>2022-04-27T16:03:21.497Z</updated>
+    <updated>2022-04-29T05:31:19.036Z</updated>
     
     
     <summary type="html">&lt;p&gt;常见的特殊字符实体&lt;/p&gt;</summary>
@@ -82,7 +82,7 @@
     <link href="https://xuechuang.cc/2022/04/26/https%E6%8A%93%E5%8C%85/"/>
     <id>https://xuechuang.cc/2022/04/26/https%E6%8A%93%E5%8C%85/</id>
     <published>2022-04-26T03:30:54.000Z</published>
-    <updated>2022-04-26T04:08:16.884Z</updated>
+    <updated>2022-04-29T05:31:50.599Z</updated>
     
     
     <summary type="html">&lt;h3 id=&quot;网络安全配置&quot;&gt;&lt;a href=&quot;#网络安全配置&quot; class=&quot;headerlink&quot; title=&quot;网络安全配置&quot;&gt;&lt;/a&gt;网络安全配置&lt;/h3&gt;&lt;p&gt;android 系统高于 7.0 ,配置网络安全策略&lt;/p&gt;
@@ -95,7 +95,11 @@
     <category term="android" scheme="https://xuechuang.cc/categories/android/"/>
     
     
-    <category term="android Charles https" scheme="https://xuechuang.cc/tags/android-Charles-https/"/>
+    <category term="android" scheme="https://xuechuang.cc/tags/android/"/>
+    
+    <category term="Charles" scheme="https://xuechuang.cc/tags/Charles/"/>
+    
+    <category term="https" scheme="https://xuechuang.cc/tags/https/"/>
     
   </entry>
   
@@ -180,7 +184,7 @@
     <link href="https://xuechuang.cc/2022/04/24/adb/"/>
     <id>https://xuechuang.cc/2022/04/24/adb/</id>
     <published>2022-04-24T04:36:49.000Z</published>
-    <updated>2022-04-28T06:49:39.619Z</updated>
+    <updated>2022-04-29T05:31:31.708Z</updated>
     
     
     <summary type="html">&lt;h2 id=&quot;查看缓存文件&quot;&gt;&lt;a href=&quot;#查看缓存文件&quot; class=&quot;headerlink&quot; title=&quot;查看缓存文件&quot;&gt;&lt;/a&gt;查看缓存文件&lt;/h2&gt;&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;adb shell&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;run-as xxx包名&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cd shared_prefs&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cat xxx文件名&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -192,7 +196,9 @@
     <category term="adb" scheme="https://xuechuang.cc/categories/adb/"/>
     
     
-    <category term="adb android" scheme="https://xuechuang.cc/tags/adb-android/"/>
+    <category term="adb" scheme="https://xuechuang.cc/tags/adb/"/>
+    
+    <category term="android" scheme="https://xuechuang.cc/tags/android/"/>
     
   </entry>
   
@@ -201,7 +207,7 @@
     <link href="https://xuechuang.cc/2022/04/24/%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88/"/>
     <id>https://xuechuang.cc/2022/04/24/%E7%AD%BE%E5%90%8D%E6%96%B9%E6%A1%88/</id>
     <published>2022-04-24T04:36:49.000Z</published>
-    <updated>2022-04-27T16:03:59.571Z</updated>
+    <updated>2022-04-29T05:31:05.560Z</updated>
     
     
     <summary type="html">&lt;p&gt;&lt;strong&gt;Android 支持以下三种应用签名方案&lt;/strong&gt;&lt;/p&gt;
@@ -217,7 +223,7 @@
     <category term="android" scheme="https://xuechuang.cc/categories/android/"/>
     
     
-    <category term="android" scheme="https://xuechuang.cc/tags/android/"/>
+    <category term="签名" scheme="https://xuechuang.cc/tags/%E7%AD%BE%E5%90%8D/"/>
     
   </entry>
   
