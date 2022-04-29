@@ -55,17 +55,14 @@
   <entry>
     <title>git 笔记</title>
     <url>/2022/04/26/git-%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h4 id="Git"><a href="#Git" class="headerlink" title="Git"></a><a href="https://git-scm.com/">Git</a></h4><p>什么是 Git ？</p>
-<p>官方文档描述：开源，分布式，版本控制系统</p>
+    <content><![CDATA[<p>什么是 <a href="https://git-scm.com/">Git</a> ？</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.</span><br></pre></td></tr></table></figure>
-
-
 
 <h4 id="检查本地-git-环境"><a href="#检查本地-git-环境" class="headerlink" title="检查本地 git 环境"></a>检查本地 git 环境</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
 
+<h3 id="主要命令"><a href="#主要命令" class="headerlink" title="主要命令"></a>主要命令</h3><h4 id="Branch"><a href="#Branch" class="headerlink" title="Branch"></a>Branch</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
 
-
-<h3 id="主要命令"><a href="#主要命令" class="headerlink" title="主要命令"></a>主要命令</h3><h4 id="Branch"><a href="#Branch" class="headerlink" title="Branch"></a>Branch</h4><span id="more"></span>
+<span id="more"></span>
 ]]></content>
       <categories>
         <category>git</category>
@@ -373,23 +370,6 @@
       </tags>
   </entry>
   <entry>
-    <title>铃铛</title>
-    <url>/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/</url>
-    <content><![CDATA[<p>小铃铛每天出门都很怂，出门的时候就不敢下来。</p>
-<p>回到家的时候，就是它的主场，每天白天不起，晚上床头蹦迪。</p>
-<span id="more"></span>
-
-
-<p><img src="https://cdn.jsdelivr.net/gh/barryxc/pictures@main/uPic/IMG_3190.jpeg" alt="IMG_3190"></p>
-]]></content>
-      <categories>
-        <category>宠物</category>
-      </categories>
-      <tags>
-        <tag>宠物</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>特殊字符实体</title>
     <url>/2022/04/26/%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E5%AE%9E%E4%BD%93/</url>
     <content><![CDATA[<p>常见的特殊字符实体</p>
@@ -507,6 +487,23 @@
       </categories>
       <tags>
         <tag>字符</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>铃铛</title>
+    <url>/2022/04/23/%E6%88%91%E7%9A%84%E9%93%83%E9%93%9B/</url>
+    <content><![CDATA[<p>小铃铛每天出门都很怂，出门的时候就不敢下来。</p>
+<p>回到家的时候，就是它的主场，每天白天不起，晚上床头蹦迪。</p>
+<span id="more"></span>
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/barryxc/pictures@main/uPic/IMG_3190.jpeg" alt="IMG_3190"></p>
+]]></content>
+      <categories>
+        <category>宠物</category>
+      </categories>
+      <tags>
+        <tag>宠物</tag>
       </tags>
   </entry>
   <entry>
