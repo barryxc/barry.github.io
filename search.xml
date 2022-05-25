@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>git 笔记</title>
+    <url>/2022/04/26/git-%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<p>什么是 <a href="https://git-scm.com/">Git</a> ？</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.</span><br></pre></td></tr></table></figure>
+
+<h4 id="检查本地-git-环境"><a href="#检查本地-git-环境" class="headerlink" title="检查本地 git 环境"></a>检查本地 git 环境</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
+
+<h3 id="主要命令"><a href="#主要命令" class="headerlink" title="主要命令"></a>主要命令</h3><h4 id="Branch"><a href="#Branch" class="headerlink" title="Branch"></a>Branch</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>常用adb命令</title>
     <url>/2022/04/24/adb/</url>
     <content><![CDATA[<h2 id="查看缓存文件"><a href="#查看缓存文件" class="headerlink" title="查看缓存文件"></a>查看缓存文件</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">adb shell</span><br><span class="line">run-as xxx包名</span><br><span class="line">cd shared_prefs</span><br><span class="line">cat xxx文件名</span><br></pre></td></tr></table></figure>
@@ -51,25 +70,6 @@
       <tags>
         <tag>adb</tag>
         <tag>android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>git 笔记</title>
-    <url>/2022/04/26/git-%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<p>什么是 <a href="https://git-scm.com/">Git</a> ？</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.</span><br></pre></td></tr></table></figure>
-
-<h4 id="检查本地-git-环境"><a href="#检查本地-git-环境" class="headerlink" title="检查本地 git 环境"></a>检查本地 git 环境</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
-
-<h3 id="主要命令"><a href="#主要命令" class="headerlink" title="主要命令"></a>主要命令</h3><h4 id="Branch"><a href="#Branch" class="headerlink" title="Branch"></a>Branch</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-]]></content>
-      <categories>
-        <category>git</category>
-      </categories>
-      <tags>
-        <tag>git</tag>
       </tags>
   </entry>
   <entry>
@@ -142,32 +142,6 @@
       </tags>
   </entry>
   <entry>
-    <title>hexo</title>
-    <url>/2022/04/23/hexo/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><span id="more"></span>
-
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-      <categories>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>android https 抓包</title>
     <url>/2022/04/26/https%E6%8A%93%E5%8C%85/</url>
     <content><![CDATA[<h3 id="网络安全配置"><a href="#网络安全配置" class="headerlink" title="网络安全配置"></a>网络安全配置</h3><p>android 系统高于 7.0 ,配置网络安全策略</p>
@@ -208,6 +182,32 @@
       </categories>
       <tags>
         <tag>termianl</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo</title>
+    <url>/2022/04/23/hexo/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><span id="more"></span>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -352,6 +352,19 @@
       </categories>
       <tags>
         <tag>typora</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>怂货-铃铛</title>
+    <url>/2022/05/21/%E6%80%82%E8%B4%A7-%E9%93%83%E9%93%9B/</url>
+    <content><![CDATA[<p>趴在我的身上有安全感☺️</p>
+<p><video  src="https://github.com/barryxc/pictures/raw/main/sd1652882863_2%202.MP4"></video></p>
+]]></content>
+      <categories>
+        <category>宠物</category>
+      </categories>
+      <tags>
+        <tag>宠物</tag>
       </tags>
   </entry>
   <entry>
@@ -506,6 +519,12 @@
       <tags>
         <tag>字符</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>看啥看</title>
+    <url>/2022/05/25/%E7%9C%8B%E5%95%A5%E7%9C%8B/</url>
+    <content><![CDATA[<p>看啥看，上班不认真，说的就是你。🐶</p>
+]]></content>
   </entry>
   <entry>
     <title>android签名详解</title>
